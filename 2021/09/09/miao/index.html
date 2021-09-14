@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="贪心算法专题, 罗林的博客">
+    <meta name="keywords" content="妙, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>贪心算法专题 | 罗林的博客</title>
+    <title>妙 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">贪心算法专题</h1>
+                    <h1 class="description center-align post-title">妙</h1>
                 </div>
             </div>
         </div>
@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/acwing/">
+                                <span class="chip bg-color">acwing</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -444,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-08
+                    2021-09-09
                 </div>
                 
 
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    380
                 </div>
                 
 
@@ -475,7 +479,43 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="799-最长连续不重复子序列"><a href="#799-最长连续不重复子序列" class="headerlink" title="799.最长连续不重复子序列"></a>799.最长连续不重复子序列</h2><hr>
+<p>给定一个长度为 nn 的整数序列，请找出最长的不包含重复的数的连续区间，输出它的长度。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 nn。</p>
+<p>第二行包含 nn 个整数（均在 0∼1050∼105 范围内），表示整数序列。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示最长的不包含重复的数的连续区间的长度。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤105</p>
+<hr>
+<hr>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>5
+1 2 2 3 5
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3
+</code></pre>
+<hr>
+<p>核心思路：</p>
+<p>1.对于重复的理解</p>
+<p>不是单纯的判断==的关系，而是多申请了一个额外的数组，充当一个hash table，把原元素当成key值，记录元素的频率。当频率大于1的时候，就是重复了.</p>
+<p>2.对于间断的时机的理解</p>
+<p>由于推理逻辑是具有连续性的，所以，由于前一个i到j的区间是不重复的，但是之后出现了重复。只有一种可能，那就是最新的p[i]与之前区间里面的数据重复了。即只需要“恰头”，一个循环一直丢头，直到p[i]的频率为1为止。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+using namespace std ;
+#define read(x) scanf("%d",&x) ;
+const int N = 100010 ;
+int main()&#123;
+    int n ; int r = 0 ;  int p[N] ; int s[N] = &#123;0&#125; ;
+    read(n) ; 
+    for(int i = 0 ,j = 0 ; i< n ;++i)&#123;
+        read(p[i]) ;
+        s[p[i]] ++ ;
+        while(s[p[i]] > 1) --s[p[j++]] ;
+        r = max(r, i-j+1) ;
+    &#125;
+    cout<< r<< endl ;
+    return 0 ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
                 
             </div>
             <hr/>
@@ -501,7 +541,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/08/tan-xin-suan-fa-zhuan-ti/">https://luolin03.github.io/2021/09/08/tan-xin-suan-fa-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/09/09/miao/">https://luolin03.github.io/2021/09/09/miao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -538,7 +578,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/acwing/">
+                                    <span class="chip bg-color">acwing</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -586,13 +630,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/09/08/zi-fu-chuan-suan-fa-zhuan-ti/">
+                <a href="/2021/09/09/bei-bao-wen-ti-si-kao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="字符串算法专题">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="背包问题思考">
                         
-                        <span class="card-title">字符串算法专题</span>
+                        <span class="card-title">背包问题思考</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -603,7 +647,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-09
                         </span>
                         <span class="publish-author">
                             
@@ -616,8 +660,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetcode/">
-                        <span class="chip bg-color">leetcode</span>
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
                     </a>
                     
                 </div>
@@ -631,13 +675,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/05/luolin-first-blog/">
+                <a href="/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="luolin-first-blog">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="双指针算法专题">
                         
-                        <span class="card-title">luolin-first-blog</span>
+                        <span class="card-title">双指针算法专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -648,7 +692,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-09
                             </span>
                         <span class="publish-author">
                             

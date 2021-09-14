@@ -4,6 +4,95 @@
   
     
     <entry>
+      <title>STL的用法总结-摘自acwing</title>
+      <link href="/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/"/>
+      <url>/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/</url>
+      
+        <content type="html"><![CDATA[<p>vector（变长数组），倍增的思想，支持比较运算（按字典序）<br>    定义：：<br>        vector <int> a; 定义：一个vector数组a<br>        vector <int> a(10); 定义：一个长度为10的vector数组a<br>        vector <int> a(10,3); 定义：一个长度为10的vector数组a，并且所有元素都为3<br>    常用函数：：<br>        size(); 返回元素个数<br>        empty(); 返回是否是空<br>        clear(); 清空<br>        front(); 返回vector的第一个数<br>        back(); 返回vector的最后一个数<br>        push_back(); 向vector的最后插入一个数<br>        pop_back(); 把vector的最后一个数删掉<br>        begin(); vector的第0个数<br>        end(); vector的最后一个的数的后面一个数<br>    倍增的思想：<br>        系统为某一程序分配空间是，所需时间，与空间大小无关，与申请次数有关<br>    遍历方法<br>        假设有个vector <int> a;<br>        第一种：<br>            for(int i = 0;i &lt; a.size();i ++) cout&lt;&lt;a[i]&lt;&lt;” “;<br>        第二种：<br>            for(vector <int>::iterator i = a.begin();i != a.end();i ++) cout&lt;&lt;*i&lt;&lt;” “;  vector <int>::iterator可以写为auto<br>        第三种：<br>            for(auto  x : a) cout&lt;&lt;x&lt;&lt;” “;</p><p>pair，支持比较运算，以first为第一关键字，以second为第二关键字（按字典序）<br>    定义：：<br>        pair &lt;类型,类型&gt; 变量名;    两个类型可以不同<br>    初始化方式：<br>        假设有个pair &lt;int,string&gt; p;<br>        第一种：<br>            p = make_pair(10,”abc”);<br>        第二种：<br>            p = {10,”abc”);<br>    常用函数：：<br>        first(); 第一个元素<br>        second(); 第二个元素</p><p>string（字符串）<br>    常用函数：：<br>        substr(); 返回每一个子串<br>        c_str(); 返回这个string对应的字符数组的头指针<br>        size(); 返回字母个数<br>        length(); 返回字母个数<br>        empty(); 返回字符串是否为空<br>        clear(); 把字符串清空<br>queue（队列）<br>    定义：：<br>        queue &lt;类型&gt; 变量名;<br>    常用函数：：<br>        size(); 这个队列的长度<br>        empty(); 返回这个队列是否为空<br>        push(); 往队尾插入一个元素<br>        front(); 返回队头元素<br>        back(); 返回队尾元素<br>        pop(); 把队头弹出<br>        注意：队列没有clear函数！！！<br>    清空：<br>        变量名 = queue <int> ();<br>priority_queue（优先队列，堆）<br>    注意：默认是大根堆！！！<br>    定义：：<br>        大根堆：priority_queue &lt;类型&gt; 变量名;<br>        小根堆：priority_queue &lt;类型,vecotr &lt;类型&gt;,greater &lt;类型&gt;&gt; 变量名<br>    常用函数：<br>        size(); 这个堆的长度<br>        empty(); 返回这个堆是否为空<br>        push();往堆里插入一个元素<br>        top(); 返回堆顶元素<br>        pop(); 弹出堆顶元素<br>        注意：堆没有clear函数！！！</p><p>stack（栈）<br>    常用函数：<br>        size(); 这个栈的长度<br>        empty(); 返回这个栈是否为空<br>        push(); 向栈顶插入一个元素<br>        top(); 返回栈顶元素<br>        pop(); 弹出栈顶元素</p><p>deque（双端队列）<br>    常用函数：<br>        size(); 这个双端队列的长度<br>        empty(); 返回这个双端队列是否为空<br>        clear(); 清空这个双端队列<br>        front(); 返回第一个元素<br>        back(); 返回最后一个元素<br>        push_back(); 向最后插入一个元素<br>        pop_back(); 弹出最后一个元素<br>        push_front(); 向队首插入一个元素<br>        pop_front(); 弹出第一个元素<br>        begin(); 双端队列的第0个数<br>        end(); 双端队列的最后一个的数的后面一个数</p><p>set，map，multiset，multimap 基于平衡二叉树（红黑树），动态维护有序序列<br>    set/multiset<br>        注意：set不允许元素重复，如果有重复就会被忽略，但multiset允许！！！<br>        常用函数：<br>            size(); 返回元素个数<br>            empty(); 返回set是否是空的<br>            clear(); 清空<br>            begin(); 第0个数，支持++或–，返回前驱和后继<br>            end(); 最后一个的数的后面一个数，支持++或–，返回前驱和后继<br>            insert(); 插入一个数<br>            find(); 查找一个数<br>            count(); 返回某一个数的个数<br>            erase();<br>                （1）输入是一个数x，删除所有x    O(k + log n)<br>                （2）输入一个迭代器，删除这个迭代器<br>            lower_bound(x); 返回大于等于x的最小的数的迭代器<br>            upper_bound(x); 返回大于x的最小的数的迭代器<br>    map/multimap<br>        常用函数：<br>            insert(); 插入一个数，插入的数是一个pair<br>            erase();<br>                （1）输入是pair<br>                （2）输入一个迭代器，删除这个迭代器<br>            find(); 查找一个数<br>            lower_bound(x); 返回大于等于x的最小的数的迭代器<br>            upper_bound(x); 返回大于x的最小的数的迭代器</p><p>unordered_set，unordered_map，unordered_muliset,unordered_multimap 基于哈希表<br>    和上面类似，增删改查的时间复杂度是O(1)<br>    不支持lower_bound()和upper_bound()</p><p>bitset 压位<br>    定义：<br>        bitset &lt;个数&gt; 变量名;<br>    支持：<br>        <del>，&amp;，|，^<br>        &gt;&gt;，&lt;&lt;<br>        ==，!=<br>        []<br>    常用函数：<br>        count(); 返回某一个数的个数<br>        any(); 判断是否至少有一个1<br>        none(); 判断是否全为0<br>        set(); 把所有位置赋值为1<br>        set(k,v); 将第k位变成v<br>        reset(); 把所有位变成0<br>        flip(); 把所有位取反，等价于</del><br>        flip(k); 把第k位取反</p><p>作者：yxc<br>链接：<a href="https://www.acwing.com/video/20/">https://www.acwing.com/video/20/</a><br>来源：AcWing<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据范围的判断-摘自acwing</title>
+      <link href="/2021/09/12/shu-ju-fan-wei-de-pan-duan-zhai-zi-acwing/"/>
+      <url>/2021/09/12/shu-ju-fan-wei-de-pan-duan-zhai-zi-acwing/</url>
+      
+        <content type="html"><![CDATA[<p>一般ACM或者笔试题的时间限制是1秒或2秒。<br>在这种情况下，C++代码中的操作次数控制在 10的七次方到10的八次方为最佳。</p><p>下面给出在不同数据范围下，代码的时间复杂度和算法该如何选择：</p><p>n≤30, 指数级别, dfs+剪枝，状态压缩dp<br>n≤100 =&gt; O(n3)，floyd，dp，高斯消元<br>n≤1000=&gt; O(n2)，O(n2logn)，dp，二分，朴素版Dijkstra、朴素版Prim、Bellman-Ford<br>n≤10000 =&gt; O(n∗√n)，块状链表、分块、莫队<br>n≤100000=&gt; O(nlogn) =&gt; 各种sort，线段树、树状数组、set/map、heap、拓扑排序、dijkstra+heap、prim+heap、spfa、求凸包、求半平面交、二分、CDQ分治、整体二分<br>n≤1000000=&gt; O(n), 以及常数较小的 O(nlogn) 算法 =&gt; 单调队列、 hash、双指针扫描、并查集，kmp、AC自动机，常数比较小的 O(nlogn)的做法：sort、树状数组、heap、dijkstra、spfa<br>n≤10000000=&gt; O(n)，双指针扫描、kmp、AC自动机、线性筛素数<br>n≤10的9次方 =&gt; O(√n)，判断质数<br>n≤10的18次方 =&gt; O(logn)，最大公约数，快速幂<br>n≤10的1000次方=&gt; O((logn)2)，高精度加减乘除<br>n≤10的1000000次方 =&gt; O(logk×loglogk)，k表示位数，高精度加减、FFT/NTT</p><p>作者：yxc<br>链接：<a href="https://www.acwing.com/blog/content/32/">https://www.acwing.com/blog/content/32/</a><br>来源：AcWing<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>背包问题思考</title>
+      <link href="/2021/09/09/bei-bao-wen-ti-si-kao/"/>
+      <url>/2021/09/09/bei-bao-wen-ti-si-kao/</url>
+      
+        <content type="html"><![CDATA[<h2 id="背包问题分类："><a href="#背包问题分类：" class="headerlink" title="背包问题分类："></a>背包问题分类：</h2><h3 id="1-01背包问题"><a href="#1-01背包问题" class="headerlink" title="1.01背包问题"></a>1.01背包问题</h3><hr><p>有 NN 件物品和一个容量是 VV 的背包。每件物品只能使用一次。</p><p>第 ii 件物品的体积是 vivi，价值是 wiwi。</p><p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p><p>接下来有 NN 行，每行两个整数 vi,wivi,wi，用空格隔开，分别表示第 ii 件物品的体积和价值。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤10000&lt;N,V≤1000<br>0&lt;vi,wi≤10000&lt;vi,wi≤1000</p><h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 51 22 43 44 5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>8</code></pre><hr><pre class="line-numbers language-c++"><code class="language-c++">//朴素算法#include<bits/stdc++.h>using namespace std ;const int N = 1010 ;int dp[N][N] ;int v[N], w[N] ;int main()&#123;    int m, n ; cin>>m >> n ;    for(int i = 1 ; i<= m ;++i ) cin >> v[i]>>w[i] ;        for(int i = 1 ; i<= m ;++i) &#123;        for(int j = 0 ; j<= n ;++j)&#123;            dp[i][j] = dp[i-1][j] ;            if(j>= v[i]) dp[i][j] = max(dp[i-1][j-v[i]]+w[i]) ;        &#125;    &#125;    cout<< dp[m][n]<<endl ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-c++"><code class="language-c++">//进行优化#include<bits/stdc++.h>using namespace std ;const int N = 1010 ;int dp[N] ; int v[N] ; int w[N] ;int main()&#123;    int m ,n ;     cin>> m >> n ;    for(int i = 1 ;i<= m; ++i) cin>> v[i]>>w[i] ;    for(int i = 1; i<= m ;++i )        for(int j = n ; j>= v[i] ;--j )            dp[j] = max(dp[j], dp[j-v[i]]+w[i]) ;    cout<<dp[n] <<endl ;    return 0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="2-完全背包问题"><a href="#2-完全背包问题" class="headerlink" title="2.完全背包问题"></a>2.完全背包问题</h3><p>有 NN 种物品和一个容量是 VV 的背包，每种物品都有无限件可用。</p><p>第 ii 种物品的体积是 vivi，价值是 wiwi。</p><p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p><h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，VN，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有 NN 行，每行两个整数 vi,wivi,wi，用空格隔开，分别表示第 ii 种物品的体积和价值。</p><h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p><h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤10000&lt;N,V≤1000<br>0&lt;vi,wi≤10000&lt;vi,wi≤1000</p><h4 id="输入样例-1"><a href="#输入样例-1" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 51 22 43 44 5</code></pre><h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>10</code></pre><pre class="line-numbers language-c++"><code class="language-c++">#这种算法最直观，但是会超时间，此题的数据是在1000 ，这有一个三层循环应该是在10的九次方左右，会超时,所以就有了之后的优化算法#include<bits/stdc++.h>using namespace std ;const int N = 1010 ;int f[N][N] ; int v[N] ; int w[N] ;int main()&#123;    int m ,n  ;    cin>>m>>n ;    for(int i = 1 ; i<= m ;++i) cin>> v[i]>>w[i] ;    for(int i = 1 ; i<= m ;++i ) &#123;        for(int j = 0 ; j<= n ;++j)&#123;            f[i][j] = f[i-1][j] ;                        for(int k = 1 ; j-k*v[i] >= 0 ; k++)&#123;                f[i][j]  = max(f[i][j] , f[i-1][j-k*v[i]]+k*w[i]) ;            &#125;        &#125;    &#125;    cout<< f[m][n] <<endl ;    return 0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-c++"><code class="language-c++">//朴素算法#include<bits/stdc++.h>using namespace std ;const int N =  1010 ;int dp[N][N] ; int v[N]; int w[N] ;int main()&#123;    int m , n ;    cin>>m >>n ;    for(int i = 1 ;i<= m ;++i) cin>> v[i]>>w[i] ;    for(int i = 1; i<= m ; ++i)         for(int j = 0 ; j<= n ++j)&#123;            dp[i][j] = dp[i-1][j] ;            if(j >= v[i]) dp[i][j] = max(dp[i][j], dp[i][j-v[i]]+w[i]) ;        &#125;    cout<< dp[m][n] <<endl ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-c++"><code class="language-c++">//优化算法#include<bits/stdc++.h>using namespace std ;const int N = 1010; int dp[N] ; int v[N] ;int w[N] ; int main()&#123;    int m , n ;    cin>>m >> n ;     for(int i =1 ; i <= m ;++i) cin>>v[i]>>w[i] ;        for(int i = 1; i <= m ;++i)        for(int j = v ; j<= n ;++j)            dp[j] = max(dp[j], dp[j-v[i]]+w[i]) ;        cout>>dp[n] ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="3-多重背包问题"><a href="#3-多重背包问题" class="headerlink" title="3.多重背包问题"></a>3.多重背包问题</h2><p>有 NN 种物品和一个容量是 VV 的背包。</p><p>第 ii 种物品最多有 sisi 件，每件体积是 vivi，价值是 wiwi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p><h4 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，VN，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有 NN 行，每行三个整数 vi,wi,sivi,wi,si，用空格隔开，分别表示第 ii 种物品的体积、价值和数量。</p><h4 id="输出格式-2"><a href="#输出格式-2" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p><h4 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤1000&lt;N,V≤100<br>0&lt;vi,wi,si≤1000&lt;vi,wi,si≤100</p><h4 id="输入样例-2"><a href="#输入样例-2" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 51 2 32 4 13 4 34 5 2</code></pre><h4 id="输出样例：-2"><a href="#输出样例：-2" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>10</code></pre><pre class="line-numbers language-c++"><code class="language-c++">#这能ac是我妹想到的，总之这是一个最朴素的做法，我估计数据增强之后就不可以了#include<bits/stdc++.h>using namespace std ;const int N = 1010 ;int f[N][N] ;int v[N] ; int w[N] ;int s[N];int main()&#123;    int m ,n  ;    cin>>m >>n ;    for(int i = 1 ; i<= m ;++i) cin>>v[i]>>w[i]>>s[i] ;        for(int i = 1 ;i<= m ;++i)&#123;        for(int j = 0 ;j<=n ;++j)&#123;            f[i][j] = f[i-1][j] ;            for(int k = 1 ; k<= s[i]&& j-k*v[i]>= 0 ;++k)&#123;                f[i][j] = max(f[i][j], f[i-1][j-k*v[i]]+k*w[i]) ;            &#125;        &#125;    &#125;    cout<<f[m][n]<<endl ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>妙</title>
+      <link href="/2021/09/09/miao/"/>
+      <url>/2021/09/09/miao/</url>
+      
+        <content type="html"><![CDATA[<h2 id="799-最长连续不重复子序列"><a href="#799-最长连续不重复子序列" class="headerlink" title="799.最长连续不重复子序列"></a>799.最长连续不重复子序列</h2><hr><p>给定一个长度为 nn 的整数序列，请找出最长的不包含重复的数的连续区间，输出它的长度。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 nn。</p><p>第二行包含 nn 个整数（均在 0∼1050∼105 范围内），表示整数序列。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示最长的不包含重复的数的连续区间的长度。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤105</p><hr><hr><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>51 2 2 3 5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3</code></pre><hr><p>核心思路：</p><p>1.对于重复的理解</p><p>不是单纯的判断==的关系，而是多申请了一个额外的数组，充当一个hash table，把原元素当成key值，记录元素的频率。当频率大于1的时候，就是重复了.</p><p>2.对于间断的时机的理解</p><p>由于推理逻辑是具有连续性的，所以，由于前一个i到j的区间是不重复的，但是之后出现了重复。只有一种可能，那就是最新的p[i]与之前区间里面的数据重复了。即只需要“恰头”，一个循环一直丢头，直到p[i]的频率为1为止。</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;#define read(x) scanf("%d",&x) ;const int N = 100010 ;int main()&#123;    int n ; int r = 0 ;  int p[N] ; int s[N] = &#123;0&#125; ;    read(n) ;     for(int i = 0 ,j = 0 ; i< n ;++i)&#123;        read(p[i]) ;        s[p[i]] ++ ;        while(s[p[i]] > 1) --s[p[j++]] ;        r = max(r, i-j+1) ;    &#125;    cout<< r<< endl ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>双指针算法专题</title>
+      <link href="/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/"/>
+      <url>/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>字符串算法专题</title>
       <link href="/2021/09/08/zi-fu-chuan-suan-fa-zhuan-ti/"/>
       <url>/2021/09/08/zi-fu-chuan-suan-fa-zhuan-ti/</url>
@@ -26,19 +115,6 @@
       <title>贪心算法专题</title>
       <link href="/2021/09/08/tan-xin-suan-fa-zhuan-ti/"/>
       <url>/2021/09/08/tan-xin-suan-fa-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>前缀和算法专题</title>
-      <link href="/2021/09/08/qian-zhui-he-suan-fa-zhuan-ti/"/>
-      <url>/2021/09/08/qian-zhui-he-suan-fa-zhuan-ti/</url>
       
         <content type="html"><![CDATA[]]></content>
       

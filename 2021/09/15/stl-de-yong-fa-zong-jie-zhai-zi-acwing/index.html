@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="贪心算法专题, 罗林的博客">
+    <meta name="keywords" content="STL的用法总结-摘自acwing, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>贪心算法专题 | 罗林的博客</title>
+    <title>STL的用法总结-摘自acwing | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">贪心算法专题</h1>
+                    <h1 class="description center-align post-title">STL的用法总结-摘自acwing</h1>
                 </div>
             </div>
         </div>
@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/acwing/">
+                                <span class="chip bg-color">acwing</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -444,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-08
+                    2021-09-15
                 </div>
                 
 
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.2k
                 </div>
                 
 
@@ -475,7 +479,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>vector（变长数组），倍增的思想，支持比较运算（按字典序）<br>    定义：：<br>        vector <int> a; 定义：一个vector数组a<br>        vector <int> a(10); 定义：一个长度为10的vector数组a<br>        vector <int> a(10,3); 定义：一个长度为10的vector数组a，并且所有元素都为3<br>    常用函数：：<br>        size(); 返回元素个数<br>        empty(); 返回是否是空<br>        clear(); 清空<br>        front(); 返回vector的第一个数<br>        back(); 返回vector的最后一个数<br>        push_back(); 向vector的最后插入一个数<br>        pop_back(); 把vector的最后一个数删掉<br>        begin(); vector的第0个数<br>        end(); vector的最后一个的数的后面一个数<br>    倍增的思想：<br>        系统为某一程序分配空间是，所需时间，与空间大小无关，与申请次数有关<br>    遍历方法<br>        假设有个vector <int> a;<br>        第一种：<br>            for(int i = 0;i &lt; a.size();i ++) cout&lt;&lt;a[i]&lt;&lt;” “;<br>        第二种：<br>            for(vector <int>::iterator i = a.begin();i != a.end();i ++) cout&lt;&lt;*i&lt;&lt;” “;  vector <int>::iterator可以写为auto<br>        第三种：<br>            for(auto  x : a) cout&lt;&lt;x&lt;&lt;” “;</p>
+<p>pair，支持比较运算，以first为第一关键字，以second为第二关键字（按字典序）<br>    定义：：<br>        pair &lt;类型,类型&gt; 变量名;    两个类型可以不同<br>    初始化方式：<br>        假设有个pair &lt;int,string&gt; p;<br>        第一种：<br>            p = make_pair(10,”abc”);<br>        第二种：<br>            p = {10,”abc”);<br>    常用函数：：<br>        first(); 第一个元素<br>        second(); 第二个元素</p>
+<p>string（字符串）<br>    常用函数：：<br>        substr(); 返回每一个子串<br>        c_str(); 返回这个string对应的字符数组的头指针<br>        size(); 返回字母个数<br>        length(); 返回字母个数<br>        empty(); 返回字符串是否为空<br>        clear(); 把字符串清空<br>queue（队列）<br>    定义：：<br>        queue &lt;类型&gt; 变量名;<br>    常用函数：：<br>        size(); 这个队列的长度<br>        empty(); 返回这个队列是否为空<br>        push(); 往队尾插入一个元素<br>        front(); 返回队头元素<br>        back(); 返回队尾元素<br>        pop(); 把队头弹出<br>        注意：队列没有clear函数！！！<br>    清空：<br>        变量名 = queue <int> ();<br>priority_queue（优先队列，堆）<br>    注意：默认是大根堆！！！<br>    定义：：<br>        大根堆：priority_queue &lt;类型&gt; 变量名;<br>        小根堆：priority_queue &lt;类型,vecotr &lt;类型&gt;,greater &lt;类型&gt;&gt; 变量名<br>    常用函数：<br>        size(); 这个堆的长度<br>        empty(); 返回这个堆是否为空<br>        push();往堆里插入一个元素<br>        top(); 返回堆顶元素<br>        pop(); 弹出堆顶元素<br>        注意：堆没有clear函数！！！</p>
+<p>stack（栈）<br>    常用函数：<br>        size(); 这个栈的长度<br>        empty(); 返回这个栈是否为空<br>        push(); 向栈顶插入一个元素<br>        top(); 返回栈顶元素<br>        pop(); 弹出栈顶元素</p>
+<p>deque（双端队列）<br>    常用函数：<br>        size(); 这个双端队列的长度<br>        empty(); 返回这个双端队列是否为空<br>        clear(); 清空这个双端队列<br>        front(); 返回第一个元素<br>        back(); 返回最后一个元素<br>        push_back(); 向最后插入一个元素<br>        pop_back(); 弹出最后一个元素<br>        push_front(); 向队首插入一个元素<br>        pop_front(); 弹出第一个元素<br>        begin(); 双端队列的第0个数<br>        end(); 双端队列的最后一个的数的后面一个数</p>
+<p>set，map，multiset，multimap 基于平衡二叉树（红黑树），动态维护有序序列<br>    set/multiset<br>        注意：set不允许元素重复，如果有重复就会被忽略，但multiset允许！！！<br>        常用函数：<br>            size(); 返回元素个数<br>            empty(); 返回set是否是空的<br>            clear(); 清空<br>            begin(); 第0个数，支持++或–，返回前驱和后继<br>            end(); 最后一个的数的后面一个数，支持++或–，返回前驱和后继<br>            insert(); 插入一个数<br>            find(); 查找一个数<br>            count(); 返回某一个数的个数<br>            erase();<br>                （1）输入是一个数x，删除所有x    O(k + log n)<br>                （2）输入一个迭代器，删除这个迭代器<br>            lower_bound(x); 返回大于等于x的最小的数的迭代器<br>            upper_bound(x); 返回大于x的最小的数的迭代器<br>    map/multimap<br>        常用函数：<br>            insert(); 插入一个数，插入的数是一个pair<br>            erase();<br>                （1）输入是pair<br>                （2）输入一个迭代器，删除这个迭代器<br>            find(); 查找一个数<br>            lower_bound(x); 返回大于等于x的最小的数的迭代器<br>            upper_bound(x); 返回大于x的最小的数的迭代器</p>
+<p>unordered_set，unordered_map，unordered_muliset,unordered_multimap 基于哈希表<br>    和上面类似，增删改查的时间复杂度是O(1)<br>    不支持lower_bound()和upper_bound()</p>
+<p>bitset 压位<br>    定义：<br>        bitset &lt;个数&gt; 变量名;<br>    支持：<br>        <del>，&amp;，|，^<br>        &gt;&gt;，&lt;&lt;<br>        ==，!=<br>        []<br>    常用函数：<br>        count(); 返回某一个数的个数<br>        any(); 判断是否至少有一个1<br>        none(); 判断是否全为0<br>        set(); 把所有位置赋值为1<br>        set(k,v); 将第k位变成v<br>        reset(); 把所有位变成0<br>        flip(); 把所有位取反，等价于</del><br>        flip(k); 把第k位取反</p>
+<p>作者：yxc<br>链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/video/20/">https://www.acwing.com/video/20/</a><br>来源：AcWing<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
                 
             </div>
             <hr/>
@@ -501,7 +514,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/08/tan-xin-suan-fa-zhuan-ti/">https://luolin03.github.io/2021/09/08/tan-xin-suan-fa-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/">https://luolin03.github.io/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -538,7 +551,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/acwing/">
+                                    <span class="chip bg-color">acwing</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -582,17 +599,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/08/zi-fu-chuan-suan-fa-zhuan-ti/">
+                <a href="/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="字符串算法专题">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="STL的用法总结-摘自acwing">
                         
-                        <span class="card-title">字符串算法专题</span>
+                        <span class="card-title">STL的用法总结-摘自acwing</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -602,9 +620,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -613,11 +631,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetcode/">
-                        <span class="chip bg-color">leetcode</span>
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
                     </a>
                     
                 </div>
@@ -631,13 +650,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/05/luolin-first-blog/">
+                <a href="/2021/09/12/shu-ju-fan-wei-de-pan-duan-zhai-zi-acwing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="luolin-first-blog">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="数据范围的判断-摘自acwing">
                         
-                        <span class="card-title">luolin-first-blog</span>
+                        <span class="card-title">数据范围的判断-摘自acwing</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -648,7 +667,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-12
                             </span>
                         <span class="publish-author">
                             
@@ -657,6 +676,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
+                    </a>
+                    
                 </div>
                 
             </div>
