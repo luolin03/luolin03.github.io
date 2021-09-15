@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    277
                 </div>
                 
 
@@ -493,11 +493,90 @@
 <p>1 &lt;= s.length &lt;= 1000<br>s 仅由数字和英文字母（大写和/或小写）组成</p>
 <hr>
 <p>法一：中心扩散法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">maxlength</span><span class="params">(string s, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n  = s.<span class="built_in">size</span>() ;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(<span class="number">2</span>)</span> </span>;</span><br><span class="line">        <span class="keyword">while</span>(start&gt;= <span class="number">0</span> &amp;&amp; end&lt;n )&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[start]  == s[end])&#123;</span><br><span class="line">                start -- ; end++ ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">            start++ ; end-- ;</span><br><span class="line">            ans[<span class="number">0</span>] = start ; ans[<span class="number">1</span>] = end-start+<span class="number">1</span> ;</span><br><span class="line">            <span class="keyword">return</span> ans ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">string <span class="title">longestPalindrome</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ji</span><span class="params">(<span class="number">2</span>)</span> </span>; <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ou</span><span class="params">(<span class="number">2</span>)</span>  </span>; <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">result</span><span class="params">(<span class="number">2</span>)</span> </span>; </span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>() ;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> s ;</span><br><span class="line">        <span class="keyword">int</span> max =<span class="number">0</span>  ; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i&lt;n<span class="number">-1</span> ;++i)&#123;</span><br><span class="line">            ji = <span class="built_in">maxlength</span>(s,i,i) ;</span><br><span class="line">            ou = <span class="built_in">maxlength</span>(s,i,i+<span class="number">1</span>) ;</span><br><span class="line">            <span class="keyword">int</span> length = ji[<span class="number">1</span>]&gt;ou[<span class="number">1</span>] ? ji[<span class="number">1</span>]:ou[<span class="number">1</span>] ;</span><br><span class="line">            <span class="keyword">if</span>(length&gt;max)&#123;</span><br><span class="line">                max = length ;</span><br><span class="line">                result =  ji[<span class="number">1</span>]&gt;ou[<span class="number">1</span>] ? ji:ou ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">substr</span>(result[<span class="number">0</span>], result[<span class="number">1</span>]) ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    vector<int> maxlength(string s, int start, int end)&#123;
+        int n  = s.size() ;
+        vector<int> ans(2) ;
+        while(start>= 0 && end<n )&#123;
+            if(s[start]  == s[end])&#123;
+                start -- ; end++ ;
+            &#125;
+            else 
+            break;
+        &#125;
+            start++ ; end-- ;
+            ans[0] = start ; ans[1] = end-start+1 ;
+            return ans ;
+    &#125;
+    string longestPalindrome(string s) &#123;
+        vector<int> ji(2) ; vector<int> ou(2)  ; vector<int> result(2) ; 
+        int n = s.size() ;
+        if(n == 1) return s ;
+        int max =0  ; 
+        for(int i = 0 ;i<n-1 ;++i)&#123;
+            ji = maxlength(s,i,i) ;
+            ou = maxlength(s,i,i+1) ;
+            int length = ji[1]>ou[1] ? ji[1]:ou[1] ;
+            if(length>max)&#123;
+                max = length ;
+                result = ji[1]>ou[1] ? ji:ou ;
+            &#125;
+        &#125; 
+        return s.substr (result[0], result[1]) ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>法二：动态规划法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">longestPalindrome</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> begin = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// dp[i][j] 表示 s[i..j] 是否是回文串</span></span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n, vector&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="comment">// 初始化：所有长度为 1 的子串都是回文串</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            dp[i][i] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 递推开始</span></span><br><span class="line">        <span class="comment">// 先枚举子串长度</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> L = <span class="number">2</span>; L &lt;= n; L++) &#123;</span><br><span class="line">            <span class="comment">// 枚举左边界，左边界的上限设置可以宽松一些</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">                <span class="comment">// 由 L 和 i 可以确定右边界，即 j - i + 1 = L 得</span></span><br><span class="line">                <span class="keyword">int</span> j = L + i - <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 如果右边界越界，就可以退出当前循环</span></span><br><span class="line">                <span class="keyword">if</span> (j &gt;= n) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (s[i] != s[j]) &#123;</span><br><span class="line">                    dp[i][j] = <span class="literal">false</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (j - i &lt; <span class="number">3</span>) &#123;</span><br><span class="line">                        dp[i][j] = <span class="literal">true</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        dp[i][j] = dp[i + <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 只要 dp[i][L] == true 成立，就表示子串 s[i..L] 是回文，此时记录回文长度和起始位置</span></span><br><span class="line">                <span class="keyword">if</span> (dp[i][j] &amp;&amp; j - i + <span class="number">1</span> &gt; maxLen) &#123;</span><br><span class="line">                    maxLen = j - i + <span class="number">1</span>;</span><br><span class="line">                    begin = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">substr</span>(begin, maxLen);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    string longestPalindrome(string s) &#123;
+        int n = s.size();
+        if (n < 2) &#123;
+            return s;
+        &#125;
 
+        int maxLen = 1;
+        int begin = 0;
+        // dp[i][j] 表示 s[i..j] 是否是回文串
+        vector<vector<int>>  dp(n, vector<int>(n));
+        // 初始化：所有长度为 1 的子串都是回文串
+        for (int i = 0; i < n; i++) &#123;
+            dp[i][i] = true;
+        &#125;
+        // 递推开始
+        // 先枚举子串长度
+        for (int L = 2; L <= n; L++) &#123;
+            // 枚举左边界，左边界的上限设置可以宽松一些
+            for (int i = 0; i < n; i++) &#123;
+                // 由 L 和 i 可以确定右边界，即 j - i + 1 = L 得
+                int j = L + i - 1;
+                // 如果右边界越界，就可以退出当前循环
+                if (j >= n) &#123;
+                    break;
+                &#125;
+
+                if (s[i] != s[j]) &#123;
+                    dp[i][j] = false;
+                &#125; else &#123;
+                    if (j - i < 3) &#123;
+                        dp[i][j] = true;
+                    &#125; else &#123;
+                        dp[i][j] = dp[i + 1][j - 1];
+                    &#125;
+                &#125;
+
+                // 只要 dp[i][L] == true 成立，就表示子串 s[i..L] 是回文，此时记录回文长度和起始位置
+                if (dp[i][j] && j - i + 1 > maxLen) &#123;
+                    maxLen = j - i + 1;
+                    begin = i;
+                &#125;
+            &#125;
+        &#125;
+        return s.substr(begin, maxLen);
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="516-最长回文子序列"><a href="#516-最长回文子序列" class="headerlink" title="516.最长回文子序列"></a>516.最长回文子序列</h2><hr>
 <p>给你一个字符串 s ，找出其中最长的回文子序列，并返回该序列的长度。</p>
 <p>子序列定义为：不改变剩余字符顺序的情况下，删除某些字符或者不删除任何字符形成的一个序列。</p>
@@ -515,8 +594,26 @@
 </ul>
 <hr>
 <p>法一：动态规划法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestPalindromeSubseq</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>() ;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n,vector&lt;<span class="keyword">int</span>&gt;(n,<span class="number">0</span>)); <span class="comment">//初始化二维的容器</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;n;i++)&#123;    <span class="comment">//给每一个一个元素的附上初值</span></span><br><span class="line">            dp[i][i] = <span class="number">1</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = j<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i] == s[j])</span><br><span class="line">                dp[i][j] = dp[i+<span class="number">1</span>][j<span class="number">-1</span>] +<span class="number">2</span> ;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i+<span class="number">1</span>][j],dp[i][j<span class="number">-1</span>]) ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="keyword">return</span> dp[<span class="number">0</span>][n<span class="number">-1</span>] ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    int longestPalindromeSubseq(string s) &#123;
+        int n = s.size() ;
+        vector<vector<int>> dp(n,vector<int>(n,0)); //初始化二维的容器
+        for(int i = 0;i<n;i++)&#123;    //给每一个一个元素的附上初值
+            dp[i][i] = 1 ;
+        &#125;
+        for(int j = 0;j<n;j++)&#123;
+            for(int i = j-1;i>=0;i--)&#123;
+                if(s[i] == s[j])
+                dp[i][j] = dp[i+1][j-1] +2 ;
+                else
+                dp[i][j] = max(dp[i+1][j],dp[i][j-1]) ;
+            &#125;
+        &#125;
+       return dp[0][n-1] ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="541-反转字符串II"><a href="#541-反转字符串II" class="headerlink" title="541.反转字符串II"></a>541.反转字符串II</h2><hr>
 <p>给定一个字符串 s 和一个整数 k，从字符串开头算起，每 2k 个字符反转前 k 个字符。</p>
 <p>如果剩余字符少于 k 个，则将剩余字符全部反转。<br>如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。</p>
@@ -529,8 +626,17 @@
 <p>提示：</p>
 <p>1 &lt;= s.length &lt;= 104<br>s 仅由小写英文组成<br>1 &lt;= k &lt;= 104</p>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>() ;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;n;i+=<span class="number">2</span>*k)&#123;</span><br><span class="line">            <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>()+i,s.<span class="built_in">begin</span>()+<span class="built_in">min</span>(n,k+i)) ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    string reverseStr(string s, int k) &#123;
+        int n = s.size() ;
+        for(int i = 0;i<n;i+=2*k)&#123;
+            reverse(s.begin()+i,s.begin()+min(n,k+i)) ;
+        &#125;
+        return s ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="763-划分字母区间"><a href="#763-划分字母区间" class="headerlink" title="763.划分字母区间"></a>763.划分字母区间</h2><hr>
 <p>字符串 <code>S</code> 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。返回一个表示每个字符串片段的长度的列表。</p>
 <hr>
@@ -545,8 +651,27 @@
 <li><code>S</code>只包含小写字母 <code>&#39;a&#39;</code> 到 <code>&#39;z&#39;</code> 。</li>
 </ul>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">partitionLabels</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">       vector&lt;<span class="keyword">int</span>&gt;ans,<span class="built_in">ends</span>(<span class="number">26</span>,<span class="number">-1</span>) ;          <span class="comment">//这一步是申请两个vector，一个是用来return，一个是用来反映元素最后出现的位置信号</span></span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;s.<span class="built_in">length</span>();i++)&#123;</span><br><span class="line">           ends[s[i]-<span class="string">&#x27;a&#x27;</span>] = i ;                   </span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">int</span> i = <span class="number">0</span> ;</span><br><span class="line">       <span class="keyword">int</span> end = <span class="number">0</span> ;</span><br><span class="line">       <span class="keyword">while</span>(i&lt;s.<span class="built_in">length</span>())&#123;</span><br><span class="line">           end = ends[s[i]-<span class="string">&#x27;a&#x27;</span>] ;</span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> k = i+<span class="number">1</span>;k&lt;end;k++)&#123;</span><br><span class="line">               end = <span class="built_in">max</span>(end,ends[s[k]-<span class="string">&#x27;a&#x27;</span>]) ;</span><br><span class="line">           &#125;</span><br><span class="line">           ans.<span class="built_in">push_back</span>(end-i+<span class="number">1</span>) ;</span><br><span class="line">           i = end+<span class="number">1</span> ;</span><br><span class="line">       &#125;</span><br><span class="line">      <span class="keyword">return</span> ans ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    vector<int> partitionLabels(string s) &#123;
+       vector<int>ans,ends(26,-1) ;          //这一步是申请两个vector，一个是用来return，一个是用来反映元素最后出现的位置信号
+       for(int i = 0;i<s.length();i++)&#123;
+           ends[s[i]-'a'] = i ;                   
+       &#125;
+       int i = 0 ;
+       int end = 0 ;
+       while(i<s.length())&#123;
+           end = ends[s[i]-'a'] ;
+           for(int k = i+1;k<end;k++)&#123;
+               end = max(end,ends[s[k]-'a']) ;
+           &#125;
+           ans.push_back(end-i+1) ;
+           i = end+1 ;
+       &#125;
+      return ans ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="680-验证回文字符串II"><a href="#680-验证回文字符串II" class="headerlink" title="680.验证回文字符串II"></a>680.验证回文字符串II</h2><hr>
 <p>给定一个非空字符串 <code>s</code>，<strong>最多</strong>删除一个字符。判断是否能成为回文字符串。</p>
 <hr>
@@ -563,8 +688,41 @@
 <li><code>s</code> 由小写英文字母组成</li>
 </ul>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">validPalindrome</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.<span class="built_in">length</span>() &lt;= <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span> ;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">int</span> left = <span class="number">0</span> ;</span><br><span class="line">      <span class="keyword">int</span> right = s.<span class="built_in">length</span>()<span class="number">-1</span> ;</span><br><span class="line">      <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[left] != s[right])&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isornot</span>(s,left+<span class="number">1</span>,right) ||<span class="built_in">isornot</span>(s,left,right<span class="number">-1</span>))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span> ;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        left++ ;</span><br><span class="line">        right-- ;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isornot</span><span class="params">(string t,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">     <span class="keyword">if</span>(t[l] == t[r])&#123;</span><br><span class="line">     l++ ;</span><br><span class="line">     r-- ;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">     <span class="keyword">return</span> <span class="literal">false</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span> ;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    bool validPalindrome(string s) &#123;
+    if(s.length() <= 2)
+    return true ;
+    else&#123;
+      int left = 0 ;
+      int right = s.length()-1 ;
+      while(left<right)&#123;
+        if(s[left] != s[right])&#123;
+            if(isornot(s,left+1,right) ||isornot(s,left,right-1))
+            return true ;
+            else
+            return false ;
+        &#125;
+        left++ ;
+        right-- ;
+      &#125;
+    &#125;
+    return true ;
+    &#125;
+    public:
+bool isornot(string t,int l,int r)&#123;
+    while(l<r)&#123;
+     if(t[l] == t[r])&#123;
+     l++ ;
+     r-- ;
+     &#125;
+     else
+     return false ;
+    &#125;
+    return true ;
+&#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="49-字母异位词分组"><a href="#49-字母异位词分组" class="headerlink" title="49.字母异位词分组"></a>49.字母异位词分组</h2><hr>
 <p>给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。</p>
 <p>字母异位词 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母都恰好只用一次。</p>
@@ -583,8 +741,26 @@
 <li><code>strs[i]</code> 仅包含小写字母</li>
 </ul>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">groupAnagrams</span>(vector&lt;string&gt;&amp; strs) &#123;</span><br><span class="line">        <span class="keyword">int</span> num[<span class="number">26</span>] = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">23</span>,<span class="number">29</span>,<span class="number">31</span>,<span class="number">37</span>,<span class="number">41</span>,<span class="number">43</span>,<span class="number">47</span>,<span class="number">53</span>,<span class="number">59</span>,<span class="number">61</span>,<span class="number">67</span>,<span class="number">71</span>,<span class="number">73</span>,<span class="number">79</span>,<span class="number">83</span>,<span class="number">89</span>,<span class="number">97</span>,<span class="number">101</span>&#125; ;</span><br><span class="line">        unordered_map&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ,vector&lt;string&gt;&gt; mp ;</span><br><span class="line">        vector&lt;vector&lt;string&gt;&gt; result ;</span><br><span class="line">        <span class="keyword">for</span>(string s : strs)&#123;</span><br><span class="line">            <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> key = <span class="number">1</span> ;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">char</span> c: s)&#123;</span><br><span class="line">                key *= num[c-<span class="string">&#x27;a&#x27;</span>] ;</span><br><span class="line">            &#125;</span><br><span class="line">            mp[key].<span class="built_in">push_back</span>(s) ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p : mp)&#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(p.second) ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) &#123;
+        int num[26] = &#123;2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101&#125; ;
+        unordered_map<unsigned long long ,vector<string>> mp ;
+        vector<vector<string>> result ;
+        for(string s : strs)&#123;
+            unsigned long long key = 1 ;
+            for(char c: s)&#123;
+                key *= num[c-'a'] ;
+            &#125;
+            mp[key].push_back(s) ;
+        &#125;
+        for(auto p : mp)&#123;
+            result.push_back(p.second) ;
+        &#125;
+        return result ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="524-通过删除字母匹配到字典里最长单词"><a href="#524-通过删除字母匹配到字典里最长单词" class="headerlink" title="524.通过删除字母匹配到字典里最长单词"></a>524.通过删除字母匹配到字典里最长单词</h2><hr>
 <p>给你一个字符串 s 和一个字符串数组 dictionary 作为字典，找出并返回字典中最长的字符串，该字符串可以通过删除 s 中的某些字符得到。</p>
 <p>如果答案不止一个，返回长度最长且字典序最小的字符串。如果答案不存在，则返回空字符串。</p>
@@ -598,8 +774,27 @@
 <p>提示：</p>
 <p>1 &lt;= s.length &lt;= 1000<br>1 &lt;= dictionary.length &lt;= 1000<br>1 &lt;= dictionary[i].length &lt;= 1000<br>s 和 dictionary[i] 仅由小写英文字母组成</p>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">findLongestWord</span><span class="params">(string s, vector&lt;string&gt;&amp; dictionary)</span> </span>&#123;</span><br><span class="line">     <span class="built_in">sort</span>(dictionary.<span class="built_in">begin</span>(),dictionary.<span class="built_in">end</span>(),[](string a,string b)&#123;</span><br><span class="line">         <span class="keyword">if</span>(a.<span class="built_in">length</span>() == b.<span class="built_in">length</span>())</span><br><span class="line">         <span class="keyword">return</span> a&lt;b ;</span><br><span class="line">         <span class="keyword">return</span> a.<span class="built_in">length</span>()&gt;b.<span class="built_in">length</span>() ;</span><br><span class="line">     &#125;) ;</span><br><span class="line">     <span class="keyword">for</span>(string str:dictionary)&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c: s)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&lt;str.<span class="built_in">size</span>() &amp;&amp; c == str[i])</span><br><span class="line">            i++ ;</span><br><span class="line">           <span class="keyword">if</span>(i == str.<span class="built_in">size</span>())</span><br><span class="line">           <span class="keyword">return</span> str ;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> <span class="string">&quot;&quot;</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    string findLongestWord(string s, vector<string>& dictionary) &#123;
+     sort(dictionary.begin(),dictionary.end(),[](string a,string b)&#123;
+         if(a.length() == b.length())
+         return a<b ;
+         return a.length()>b.length() ;
+     &#125;) ;
+     for(string str:dictionary)&#123;
+        int i = 0 ;
+        for(char c: s)&#123;
+            if(i<str.size() && c == str[i])
+            i++ ;
+           if(i == str.size())
+           return str ;
+        &#125;
+     &#125;
+     return "" ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76.最小覆盖子串"></a>76.最小覆盖子串</h2><h2 id="443-压缩字符串"><a href="#443-压缩字符串" class="headerlink" title="443.压缩字符串"></a>443.压缩字符串</h2>
                 
             </div>
@@ -969,7 +1164,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.1k</span>
+                        class="white-color">3.4k</span>
             
             
             
