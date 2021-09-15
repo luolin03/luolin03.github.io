@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="双指针算法专题, 罗林的博客">
+    <meta name="keywords" content="字符串哈希的理解, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>双指针算法专题 | 罗林的博客</title>
+    <title>字符串哈希的理解 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">双指针算法专题</h1>
+                    <h1 class="description center-align post-title">字符串哈希的理解</h1>
                 </div>
             </div>
         </div>
@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/acwing/">
+                                <span class="chip bg-color">acwing</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -444,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-09
+                    2021-09-15
                 </div>
                 
 
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    386
                 </div>
                 
 
@@ -475,7 +479,68 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h2><hr>
+<p>给定一个长度为 nn 的字符串，再给定 mm 个询问，每个询问包含四个整数 l1,r1,l2,r2l1,r1,l2,r2，请你判断 [l1,r1][l1,r1] 和 [l2,r2][l2,r2] 这两个区间所包含的字符串子串是否完全相同。</p>
+<p>字符串中只包含大小写英文字母和数字。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 nn 和 mm，表示字符串长度和询问次数。</p>
+<p>第二行包含一个长度为 nn 的字符串，字符串中只包含大小写英文字母和数字。</p>
+<p>接下来 mm 行，每行包含四个整数 l1,r1,l2,r2l1,r1,l2,r2，表示一次询问所涉及的两个区间。</p>
+<p>注意，字符串的位置从 11 开始编号。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>对于每个询问输出一个结果，如果两个字符串子串完全相同则输出 <code>Yes</code>，否则输出 <code>No</code>。</p>
+<p>每个结果占一行。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤1051≤n,m≤105</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>8 3
+aabbaabb
+1 3 5 7
+1 3 6 8
+1 2 1 2
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>Yes
+No
+Yes
+</code></pre>
+<hr>
+<pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>
+
+using namespace std ;
+
+typedef unsigned long long ULL ;
+
+const int N  = 1e5+10 , P = 131; 
+
+ULL h[N] , p[N] ;
+
+ULL ToPnumber(int l , int r)&#123;
+    return h[r]-h[l-1]*p[r-l+1] ;
+&#125;
+
+int main()&#123;
+    int n , m ;
+    cin>>n>>m ;
+    string x ;
+    cin>>x ;
+    h[0] = 0 ; p[0] = 1 ;
+    
+    for(int i = 0 ;i < n ;++i)
+    &#123;
+        p[i+1] = p[i]*P  ;
+        h[i+1] = h[i]*P + x[i] ;
+    &#125;
+    
+    for(int i = 0 ; i < m ;++i)
+    &#123;
+        int l1 , l2 , l3 ,l4 ;
+        
+        cin>>l1>>l2>>l3>>l4 ;
+        if(ToPnumber(l1,l2) == ToPnumber(l3,l4))
+            cout<<"Yes"<<endl ;
+        else 
+            cout<<"No"<<endl ;
+    &#125;    
+    return  0 ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
                 
             </div>
             <hr/>
@@ -501,7 +566,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/">https://luolin03.github.io/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/09/15/zi-fu-chuan-ha-xi-de-li-jie/">https://luolin03.github.io/2021/09/15/zi-fu-chuan-ha-xi-de-li-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -538,7 +603,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/acwing/">
+                                    <span class="chip bg-color">acwing</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -582,17 +651,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/09/miao/">
+                <a href="/2021/09/15/zi-fu-chuan-ha-xi-de-li-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="妙">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="字符串哈希的理解">
                         
-                        <span class="card-title">妙</span>
+                        <span class="card-title">字符串哈希的理解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -602,9 +672,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -613,6 +683,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -631,13 +702,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/08/zi-fu-chuan-suan-fa-zhuan-ti/">
+                <a href="/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="字符串算法专题">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="STL的用法总结-摘自acwing">
                         
-                        <span class="card-title">字符串算法专题</span>
+                        <span class="card-title">STL的用法总结-摘自acwing</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -648,7 +719,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
                             </span>
                         <span class="publish-author">
                             
@@ -661,8 +732,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetcode/">
-                        <span class="chip bg-color">leetcode</span>
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
                     </a>
                     
                 </div>
