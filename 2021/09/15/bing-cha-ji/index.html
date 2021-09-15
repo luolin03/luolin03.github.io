@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    569
+                    612
                 </div>
                 
 
@@ -516,7 +516,7 @@ const int N = 100010 ;
 
 int p[N] ;
 
-int find(int num)&#123;
+int find(int num)&#123;   //这一步是比较妙的，既找到了num的祖宗节点，而且还实现了路径压缩，每一个节点的父节点都是根节点了
     if(p[num] != num)
     &#123;
         p[num] = find(p[num]) ;
