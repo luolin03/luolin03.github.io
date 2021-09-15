@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/leetcode/">
+                                <span class="chip bg-color">leetcode</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    375
                 </div>
                 
 
@@ -475,7 +479,91 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="贪心算法总结"><a href="#贪心算法总结" class="headerlink" title="贪心算法总结"></a>贪心算法总结</h1><h2 id="贪心算法简述"><a href="#贪心算法简述" class="headerlink" title="贪心算法简述"></a>贪心算法简述</h2><p>贪心算法是原理最简单的一种算法，甚至可以将其中一些部分理解为常识或者是常规思维。</p>
+<p>他采取贪心的策略，即保证每次操作都是最优的，先得到局部的最优解，从而使最终的结果是最优的。</p>
+<h2 id="leetcode刷题"><a href="#leetcode刷题" class="headerlink" title="leetcode刷题"></a>leetcode刷题</h2><h3 id="分配问题"><a href="#分配问题" class="headerlink" title="分配问题"></a>分配问题</h3><h3 id="455-Assign-Cookies-Easy"><a href="#455-Assign-Cookies-Easy" class="headerlink" title="455.Assign Cookies(Easy)"></a>455.Assign Cookies(Easy)</h3><h5 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h5><p>有一群孩子和一堆饼干，每个孩子都有一个饥饿度，每个饼干都有一个大小。每个孩子只能吃最多一个饼干，且只有饼干的大小大于孩子的饥饿度时，这个孩子才可以吃饱。求解最多有多少个孩子可以吃饱。</p>
+<h5 id="输入输出样例："><a href="#输入输出样例：" class="headerlink" title="输入输出样例："></a>输入输出样例：</h5><hr>
+<p>Input : [1,2],[1,2,3] </p>
+<p>Output : 2</p>
+<hr>
+<h5 id="一些想法："><a href="#一些想法：" class="headerlink" title="一些想法："></a>一些想法：</h5><p>这里的贪心策略就是尽可能的将剩余孩子中饥饿度最小的满足，每一次只考虑最小的饥饿度。</p>
+<p>所以算法实现就是先将所有孩子的饥饿度和饼干的大小从大到小进行排序，然后设置两个指针分别指向child和cookie，当遇到cookie的值大于等于孩子的饥饿度时，即满足条件，故将指针均后移即可。若不满足，cookie后移即可。当有一个到达尽头时，循环结束。返回已经满足的孩子数量。</p>
+<h5 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h5><pre class="line-numbers language-c++"><code class="language-c++">int findContentChildren(vector<int>& children,vector<int>& cookies) &#123;
+    int child = 0 ;
+    int cookie = 0 ;
+    while(child<children.size() && cookie<cookies.size())&#123;
+        if(children[child] <= cookies[cookie])&#123;
+            child++ ;
+            cookie++ ;
+        &#125;
+        else
+            cookie++ ;
+    &#125;
+    return child ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="135-Candy-Hard"><a href="#135-Candy-Hard" class="headerlink" title="135.Candy(Hard)"></a>135.Candy(Hard)</h3><h5 id="题目描述：-1"><a href="#题目描述：-1" class="headerlink" title="题目描述："></a>题目描述：</h5><p>老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。</p>
+<p>你需要按照以下要求，帮助老师给这些孩子分发糖果：</p>
+<p>每个孩子至少分配到 1 个糖果。</p>
+<p>评分更高的孩子必须比他两侧的邻位孩子获得更多的糖果。</p>
+<p>那么这样下来，老师至少需要准备多少颗糖果呢？</p>
+<h5 id="输入输出样例：-1"><a href="#输入输出样例：-1" class="headerlink" title="输入输出样例："></a>输入输出样例：</h5><hr>
+<p>Input : [1,0,2]</p>
+<p>Output : 5</p>
+<hr>
+<hr>
+<p>Input : [1,2,2]</p>
+<p>Output : 4</p>
+<hr>
+<h5 id="一些想法：-1"><a href="#一些想法：-1" class="headerlink" title="一些想法："></a>一些想法：</h5><p>一开始为了有一个基准值，方便比较，同时题目要求所有孩子都至少有一个糖果，所以先应该将所有孩子的糖果全部初始化为1.</p>
+<p>可以分成两边进行考虑，进行两轮的遍历。如果遇到自己比邻位大的话，就在邻位的基础上加一即可。</p>
+<p>最后将所有值相加并返回即可。</p>
+<h5 id="代码部分：-1"><a href="#代码部分：-1" class="headerlink" title="代码部分："></a>代码部分：</h5><pre class="line-numbers language-c++"><code class="language-c++">int candy(vector<int>& ratings)&#123;
+    int size = ratings.size() ;
+    if(size <= 1)
+    return size ;
+    vector<int> candies(,1) ;   //将所有的糖果数全部初始化为1
+    //第一轮，从左往右进行比对
+    for(int i = 1 ;i < size ; i++)&#123;
+        if(ratings[i] > ratings[i-1])&#123;
+            candies[i] = candies[i-1]+1 ;
+        &#125;
+    &#125;
+    //第二轮，从右向左进行比对
+    for(int i = size-1 ; i > 0; i--)&#123;
+        if(ratings[i-1] > ratings[i])&#123;
+            candies[i-1] = max(candies[i-1],ratings[i]+1) ;
+        &#125;
+    &#125;
+    //最终返回所有值的和
+    return accumulate(candies.begin(),candies.end(),0) ;
+&#125;
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h3><h3 id="435-Non-overlapping-Intervals-Medium"><a href="#435-Non-overlapping-Intervals-Medium" class="headerlink" title="435.Non-overlapping Intervals(Medium)"></a>435.Non-overlapping Intervals(Medium)</h3><h5 id="题目描述：-2"><a href="#题目描述：-2" class="headerlink" title="题目描述："></a>题目描述：</h5><p>给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。</p>
+<h5 id="输入输出样例：-2"><a href="#输入输出样例：-2" class="headerlink" title="输入输出样例："></a>输入输出样例：</h5><img src="C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210730165723809.png" alt="image-20210730165723809" style="zoom:100%;" />
+
+<h5 id="一些想法：-2"><a href="#一些想法：-2" class="headerlink" title="一些想法："></a>一些想法：</h5><p>选取的贪心策略是先对于所有区间的尾节点，进行升序排序，然后以保留尾节点最小而且与前一个结点无重叠区间为优先。</p>
+<p>排序的时候会用到c++的lamda表达式，可以利用其与sort结合进行自定义排序。</p>
+<h5 id="代码部分：-2"><a href="#代码部分：-2" class="headerlink" title="代码部分："></a>代码部分：</h5><pre class="line-numbers language-c++"><code class="language-c++">int eraseOverlapIntervals(vector<vector<int>>& intervals)&#123;
+    int sum = 0 ; //肯定要先设置一个计数器
+    //进行按照尾节点的升序排序
+    sort(intervals.begin(),intervals.end(),[](vector<int> a,vector<int> b)&#123;
+        return a[1]>b[1] ;
+    &#125;) ;
+    int pre = intervals[0][1] ;
+    for(int i = 1 ; i < intervals.size() ; i++)&#123;
+        if(intervals[i][0] < pre)&#123;
+            sum++ ;
+        &#125;
+        else&#123;
+            pre = intervals[i][1] ;
+        &#125;
+    &#125;
+    return sum ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
                 
             </div>
             <hr/>
@@ -538,7 +626,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/leetcode/">
+                                    <span class="chip bg-color">leetcode</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -848,7 +940,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">4k</span>
+                        class="white-color">4.6k</span>
             
             
             
