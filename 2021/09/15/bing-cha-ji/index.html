@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    612
+                    663
                 </div>
                 
 
@@ -487,7 +487,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样会导致时间复杂度较高。</p>
 <p>优化方式：路径压缩。即从一个节点查找根节点之后，将途中的所有的节点的p[x]都指向根节点。这样一旦在需要重复寻根的时候，可以大大节省时间。</p>
-<h2 id="3-模板题"><a href="#3-模板题" class="headerlink" title="3.模板题"></a>3.模板题</h2><p>一共有 n 个数，编号是 1∼n，最开始每个数各自在一个集合中。</p>
+<h2 id="3-模板题"><a href="#3-模板题" class="headerlink" title="3.模板题"></a>3.模板题</h2><h3 id="一、合并集合"><a href="#一、合并集合" class="headerlink" title="一、合并集合"></a>一、合并集合</h3><p>一共有 n 个数，编号是 1∼n，最开始每个数各自在一个集合中。</p>
 <p>现在要进行 m 个操作，操作共有两种：</p>
 <ol>
 <li><code>M a b</code>，将编号为 a和 b 的两个数所在的集合合并，如果两个数已经在同一个集合中，则忽略这个操作；</li>
@@ -551,6 +551,87 @@ int main()&#123;
 return  0 ;  
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="二、连通块中点的数量"><a href="#二、连通块中点的数量" class="headerlink" title="二、连通块中点的数量"></a>二、连通块中点的数量</h3><p>给定一个包含 n个点（编号为 1∼n1∼n）的无向图，初始时图中没有边。</p>
+<p>现在要进行 m 个操作，操作共有三种：</p>
+<ol>
+<li><code>C a b</code>，在点 a 和点b 之间连一条边，aa 和 bb 可能相等；</li>
+<li><code>Q1 a b</code>，询问点 a 和点b 是否在同一个连通块中，a 和 b 可能相等；</li>
+<li><code>Q2 a</code>，询问点 a 所在连通块中点的数量；</li>
+</ol>
+<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行输入整数 n 和 m。</p>
+<p>接下来 m 行，每行包含一个操作指令，指令为 <code>C a b</code>，<code>Q1 a b</code> 或 <code>Q2 a</code> 中的一种。</p>
+<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>对于每个询问指令 <code>Q1 a b</code>，如果 a 和 b 在同一个连通块中，则输出 <code>Yes</code>，否则输出 <code>No</code>。</p>
+<p>对于每个询问指令 <code>Q2 a</code>，输出一个整数表示点 aa 所在连通块中点的数量</p>
+<p>每个结果占一行。</p>
+<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤105</p>
+<h4 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>5 5
+C 1 2
+Q1 1 2
+Q2 1
+C 2 5
+Q2 5
+</code></pre>
+<h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>Yes
+2
+3
+</code></pre>
+<pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 100010 ;
+
+int n  , m ;
+int father[N] ;
+
+
+int find(int num)
+&#123;
+    if(father[num] != num) 
+        father[num] = find(father[num]) ;
+    return father[num] ;
+&#125;
+
+int main()
+&#123;
+    cin>>n>>m ;
+    int s
+    for(int i = 1 ; i <= n ;++i )
+    &#123;
+        father[i] = i ;    
+        size[i] = 1 ;
+    &#125;
+    
+    string op;
+    int a, b ;
+    for(int i = 0 ; i < m ; ++i )
+    &#123;
+        cin>>op ;
+        if(op == "C")
+        &#123;
+            cin>>a>>b ;
+            int x = find(a) ; int y = find(b) ;
+            if(x != y)
+            &#123;
+                father[x] = y ;
+                size[y] += size[x] ;
+            &#125;
+        &#125;
+        else if(op == "Q1")
+        &#123;
+            cin>>a>>b ;
+            (find(a) == find(b)) ? puts("Yes") : puts("No") ;
+        &#125;
+        else if(op == "Q2")
+        &#123;
+            cin>>a ;
+            cout<<size[find(a)]<<endl ;
+        &#125;  
+    &#125;
+    return 0 ; 
+&#125;
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -938,7 +1019,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">4.6k</span>
+                        class="white-color">4.7k</span>
             
             
             
