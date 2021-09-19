@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="背包问题思考, 罗林的博客">
+    <meta name="keywords" content="头痛的二分查找, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>背包问题思考 | 罗林的博客</title>
+    <title>头痛的二分查找 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">背包问题思考</h1>
+                    <h1 class="description center-align post-title">头痛的二分查找</h1>
                 </div>
             </div>
         </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-09
+                    2021-09-19
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    612
+                    108
                 </div>
                 
 
@@ -479,192 +479,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="背包问题分类："><a href="#背包问题分类：" class="headerlink" title="背包问题分类："></a>背包问题分类：</h2><h3 id="1-01背包问题"><a href="#1-01背包问题" class="headerlink" title="1.01背包问题"></a>1.01背包问题</h3><hr>
-<p>有 NN 件物品和一个容量是 VV 的背包。每件物品只能使用一次。</p>
-<p>第 ii 件物品的体积是 vivi，价值是 wiwi。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p>
-<p>接下来有 NN 行，每行两个整数 vi,wivi,wi，用空格隔开，分别表示第 ii 件物品的体积和价值。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤10000&lt;N,V≤1000<br>0&lt;vi,wi≤10000&lt;vi,wi≤1000</p>
-<h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 5
-1 2
-2 4
-3 4
-4 5
-</code></pre>
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>8
-</code></pre>
-<hr>
-<pre class="line-numbers language-c++"><code class="language-c++">//朴素算法
-#include<bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 1010 ;
-int dp[N][N] ;
-int v[N], w[N] ;
-
-int main()&#123;
-    int m, n ; cin>>m >> n ;
-    for(int i = 1 ; i<= m ;++i ) cin >> v[i]>>w[i] ;
-    
-    for(int i = 1 ; i<= m ;++i) &#123;
-        for(int j = 0 ; j<= n ;++j)&#123;
-            dp[i][j] = dp[i-1][j] ;
-            if(j>= v[i]) dp[i][j] = max(dp[i-1][j-v[i]]+w[i]) ;
-        &#125;
-    &#125;
-    cout<< dp[m][n]<<endl ;
-    return 0 ;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">//进行优化
-#include<bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 1010 ;
-
-int dp[N] ; int v[N] ; int w[N] ;
-
-int main()&#123;
-    int m ,n ; 
-    cin>> m >> n ;
-    for(int i = 1 ;i<= m; ++i) cin>> v[i]>>w[i] ;
-    for(int i = 1; i<= m ;++i )
-        for(int j = n ; j>= v[i] ;--j )
-            dp[j] = max(dp[j], dp[j-v[i]]+w[i]) ;
-    cout<<dp[n] <<endl ;
-    return 0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="2-完全背包问题"><a href="#2-完全背包问题" class="headerlink" title="2.完全背包问题"></a>2.完全背包问题</h3><p>有 NN 种物品和一个容量是 VV 的背包，每种物品都有无限件可用。</p>
-<p>第 ii 种物品的体积是 vivi，价值是 wiwi。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p>
-<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，VN，V，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 NN 行，每行两个整数 vi,wivi,wi，用空格隔开，分别表示第 ii 种物品的体积和价值。</p>
-<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p>
-<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤10000&lt;N,V≤1000<br>0&lt;vi,wi≤10000&lt;vi,wi≤1000</p>
-<h4 id="输入样例-1"><a href="#输入样例-1" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 5
-1 2
-2 4
-3 4
-4 5
-</code></pre>
-<h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>10
-</code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">#这种算法最直观，但是会超时间，此题的数据是在1000 ，这有一个三层循环应该是在10的九次方左右，会超时,所以就有了之后的优化算法
-#include<bits/stdc++.h>
-
-using namespace std ;
-const int N = 1010 ;
-int f[N][N] ; int v[N] ; int w[N] ;
-
-int main()&#123;
-    int m ,n  ;
-    cin>>m>>n ;
-    for(int i = 1 ; i<= m ;++i) cin>> v[i]>>w[i] ;
-    for(int i = 1 ; i<= m ;++i ) &#123;
-        for(int j = 0 ; j<= n ;++j)&#123;
-            f[i][j] = f[i-1][j] ;
-            
-            for(int k = 1 ; j-k*v[i] >= 0 ; k++)&#123;
-                f[i][j]  = max(f[i][j] , f[i-1][j-k*v[i]]+k*w[i]) ;
-            &#125;
-        &#125;
-    &#125;
-    cout<< f[m][n] <<endl ;
-    return 0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">//朴素算法
-
-#include<bits/stdc++.h>
-
-using namespace std ;
-
-const int N =  1010 ;
-
-int dp[N][N] ; int v[N]; int w[N] ;
-
-int main()&#123;
-    int m , n ;
-    cin>>m >>n ;
-    for(int i = 1 ;i<= m ;++i) cin>> v[i]>>w[i] ;
-    for(int i = 1; i<= m ; ++i) 
-        for(int j = 0 ; j<= n ++j)&#123;
-            dp[i][j] = dp[i-1][j] ;
-            if(j >= v[i]) dp[i][j] = max(dp[i][j], dp[i][j-v[i]]+w[i]) ;
-        &#125;
-    cout<< dp[m][n] <<endl ;
-    return 0 ;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">//优化算法
-
-#include<bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 1010; 
-
-int dp[N] ; int v[N] ;int w[N] ; 
-
-int main()&#123;
-    int m , n ;
-    cin>>m >> n ; 
-    for(int i =1 ; i <= m ;++i) cin>>v[i]>>w[i] ;
-    
-    for(int i = 1; i <= m ;++i)
-        for(int j = v ; j<= n ;++j)
-            dp[j] = max(dp[j], dp[j-v[i]]+w[i]) ;
-    
-    cout>>dp[n] ;
-    return 0 ;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-多重背包问题"><a href="#3-多重背包问题" class="headerlink" title="3.多重背包问题"></a>3.多重背包问题</h2><p>有 NN 种物品和一个容量是 VV 的背包。</p>
-<p>第 ii 种物品最多有 sisi 件，每件体积是 vivi，价值是 wiwi。</p>
-<p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p>
-<h4 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，VN，V，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 NN 行，每行三个整数 vi,wi,sivi,wi,si，用空格隔开，分别表示第 ii 种物品的体积、价值和数量。</p>
-<h4 id="输出格式-2"><a href="#输出格式-2" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p>
-<h4 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤1000&lt;N,V≤100<br>0&lt;vi,wi,si≤1000&lt;vi,wi,si≤100</p>
-<h4 id="输入样例-2"><a href="#输入样例-2" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 5
-1 2 3
-2 4 1
-3 4 3
-4 5 2
-</code></pre>
-<h4 id="输出样例：-2"><a href="#输出样例：-2" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>10
-</code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">#这能ac是我妹想到的，总之这是一个最朴素的做法，我估计数据增强之后就不可以了
-#include<bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 1010 ;
-int f[N][N] ;
-int v[N] ; int w[N] ;int s[N];
-
-int main()&#123;
-    int m ,n  ;
-    cin>>m >>n ;
-    for(int i = 1 ; i<= m ;++i) cin>>v[i]>>w[i]>>s[i] ;
-    
-    for(int i = 1 ;i<= m ;++i)&#123;
-        for(int j = 0 ;j<=n ;++j)&#123;
-            f[i][j] = f[i-1][j] ;
-            for(int k = 1 ; k<= s[i]&& j-k*v[i]>= 0 ;++k)&#123;
-                f[i][j] = max(f[i][j], f[i-1][j-k*v[i]]+k*w[i]) ;
-            &#125;
-        &#125;
-    &#125;
-    cout<<f[m][n]<<endl ;
-    return 0 ;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <p>本质上不在于数组是单调还是不单调，有序亦或是无序。而是在于边界。</p>
+<p>重点是将一块完整的数组，根据check的符合与否，分成两个区域，一块是符合的，另一块是不符合的。</p>
+<p>tips：</p>
+<p>1.cbrt是返回三次根的函数</p>
+<p>2.如果要保留小数，c++给了以下的输出规则</p>
+<p>例如：保留六位小数</p>
+<pre class="line-numbers language-c++"><code class="language-c++">cout << fixed <<setprecision(6) <<endl ;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
                 
             </div>
@@ -691,7 +513,7 @@ int main()&#123;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/09/bei-bao-wen-ti-si-kao/">https://luolin03.github.io/2021/09/09/bei-bao-wen-ti-si-kao/</a>
+                    <a href="https://luolin03.github.io/2021/09/19/tou-tong-de-er-fen-cha-zhao/">https://luolin03.github.io/2021/09/19/tou-tong-de-er-fen-cha-zhao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -776,17 +598,18 @@ int main()&#123;
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/12/shu-ju-fan-wei-de-pan-duan-zhai-zi-acwing/">
+                <a href="/2021/09/19/tou-tong-de-er-fen-cha-zhao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="数据范围的判断-摘自acwing">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="头痛的二分查找">
                         
-                        <span class="card-title">数据范围的判断-摘自acwing</span>
+                        <span class="card-title">头痛的二分查找</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -796,9 +619,9 @@ int main()&#123;
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -807,6 +630,7 @@ int main()&#123;
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -825,13 +649,13 @@ int main()&#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/09/miao/">
+                <a href="/2021/09/18/kmp-suan-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="妙">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="KMP算法">
                         
-                        <span class="card-title">妙</span>
+                        <span class="card-title">KMP算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -842,7 +666,7 @@ int main()&#123;
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
                             </span>
                         <span class="publish-author">
                             
@@ -851,14 +675,6 @@ int main()&#123;
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
-                    </a>
-                    
                 </div>
                 
             </div>

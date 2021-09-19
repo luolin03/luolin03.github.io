@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 
@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/acwing/">
+                                <span class="chip bg-color">acwing</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    497
                 </div>
                 
 
@@ -475,7 +479,87 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="一、不修改数组找出重复的数字"><a href="#一、不修改数组找出重复的数字" class="headerlink" title="一、不修改数组找出重复的数字"></a>一、不修改数组找出重复的数字</h1><p>给定一个长度为n+1 的数组<code>nums</code>，数组中所有的数均在 1∼n 的范围内，其中 n≥1。</p>
+<p>请找出数组中任意一个重复的数，但不能修改输入的数组。</p>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><pre><code>给定 nums = [2, 3, 5, 4, 3, 2, 6, 7]。
+
+返回 2 或 3。
+</code></pre>
+<p><strong>思考题</strong>：如果只能使用 O(1) 的额外空间，该怎么做呢？</p>
+<pre class="line-numbers language-c++"><code class="language-c++">//我的第一反应是一般看到重复什么的，我就会下意识的想到hash，于是我就写了一种数组hash的方法
+
+class Solution &#123;
+public:
+    int duplicateInArray(vector<int>& nums) &#123;
+        int vim[1000010] = &#123;0&#125; ;
+        int n = nums.size() ;
+        for(int i =  0 ; i < n ;++i)
+        &#123;
+            vim[nums[i]] ++ ;
+            if(vim[nums[i]] > 1 )
+                return nums[i] ;
+        &#125;
+        return 0 ;
+    &#125;
+&#125;;
+//这样时间复杂度是o(n) ,空间复杂度是o(n)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后我又看到了有大佬用模拟链表来做，觉得是很有意思的思路。于是学习了.</p>
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    int duplicateInArray(vector<int>& nums) &#123;
+        int slow = 0 , fast = 0 ;
+        
+        do
+        &#123;
+            fast = nums[nums[fast]] ;
+            slow = nums[slow] ;
+        &#125;while(slow != fast) ;
+    
+        fast = 0 ;
+        
+        do
+        &#123;
+            fast = nums[fast] ; 
+            slow = nums[slow] ;
+        &#125;while(fast != slow) ;
+   return slow ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>时间复杂度是o(n) ,空间复杂度是o(1) 。</p>
+<p>妙在用数组模拟链表的思路：</p>
+<p>基于是链表找环的问题，题目是这样的</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022. 链表中环的入口节点 - 力扣（LeetCode） (leetcode-cn.com)</a></p>
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        if(head == NULL || head->next == NULL) return NULL ;
+        ListNode* fast = head->next->next ;
+        ListNode* slow = head->next ;
+        while(fast && fast->next )
+        &#123;
+            fast = fast->next->next ;
+            slow = slow->next ;
+            if(slow == fast) 
+            break ;
+        &#125;
+        if(slow != fast) return NULL ;
+        else fast  = head ;
+
+        while(slow != fast)
+        &#123;
+            slow = slow->next ;
+            fast = fast->next ;
+        &#125;
+        return fast ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大佬采用的是用数组下标映射值的方法，因为本题正好下标的范围其实在0-n，值的范围在1-n，也就是说存在可以相互映射的可能。</p>
+<p>把数组全部转换成链表之后是</p>
+<p>2-&gt;5-&gt;2 然后就是死循环了。</p>
+
                 
             </div>
             <hr/>
@@ -538,7 +622,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/acwing/">
+                                    <span class="chip bg-color">acwing</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -856,7 +944,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">4.8k</span>
+                        class="white-color">5.4k</span>
             
             
             
