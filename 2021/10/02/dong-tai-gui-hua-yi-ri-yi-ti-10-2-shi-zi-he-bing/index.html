@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    358
+                    648
                 </div>
                 
 
@@ -488,15 +488,54 @@
 <h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个数 NN 表示石子的堆数 NN。</p>
 <p>第二行 NN 个数，表示每堆石子的质量(均不超过 10001000)。</p>
 <h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最小代价。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤3001≤N≤300</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤300</p>
 <h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4
 1 3 5 2
 </code></pre>
 <h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>22
 </code></pre>
-<h3 id="经典区间dp问题："><a href="#经典区间dp问题：" class="headerlink" title="经典区间dp问题："></a>经典区间dp问题：</h3><p>状态表示：</p>
-<p>base case:</p>
-<p>状态转移：</p>
+<h3 id="经典区间dp问题："><a href="#经典区间dp问题：" class="headerlink" title="经典区间dp问题："></a>经典区间dp问题：</h3><p>状态表示：采用二维数组，f[i] [j] 表示的是合并了从i到j的石子之后，所得到的最小代价.最后答案的表示即为f[1] [n] .</p>
+<p>状态属性： min</p>
+<p>base case: </p>
+<p>状态转移：因为我们选定的状态其实是一段区间的最小状态，所以我们先要选取区间用len来表示，然后对于每一个区间内部来说.</p>
+<p>我们考虑到每一个区间所谓的最小代价，最后必将是左边一个连续的集合与右边一个连续的集合进行相加，这两个集合同时也是可以用我们的f数组来表示，这也就是我们这一题可以用dp来做的原因。我们采用设置一个k，来作为起点和终点的一个中断点，通过对k在i到j(即每个区间)的放置位置，来选择局部最优的方式。最终，不断迭代，即可得到最终的答案。</p>
+<p>不说了，上代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 310  ; 
+
+int f[N][N] ;
+int w[N] ;
+int main()
+&#123;
+    int n ; 
+    cin >> n ; 
+    
+    for(int i = 1 ; i <= n ;++i)
+    &#123;
+        cin >> w[i] ;
+        w[i] += w[i-1] ;
+    &#125;
+    
+    
+    for(int len = 2 ; len <= n ; ++len)
+    &#123;
+        for(int i = 1 ; i <= n + 1 -len; i ++)
+        &#123;
+            int j = len + i - 1 ;
+            f[i][j] = 1e9  ;
+        for(int k = i ; k < j ;++k)
+        &#123;
+            f[i][j] = min(f[i][j] , f[i][k]+f[k+1][j]+ w[j] -w[i-1]) ;
+        &#125;   
+        &#125;
+    &#125;
+    cout << f[1][n] <<endl  ; 
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -882,7 +921,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.4k</span>
+                        class="white-color">9.7k</span>
             
             
             
