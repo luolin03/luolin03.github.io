@@ -4,6 +4,82 @@
   
     
     <entry>
+      <title>动态规划一日一题-10.2-石子合并</title>
+      <link href="/2021/10/02/dong-tai-gui-hua-yi-ri-yi-ti-10-2-shi-zi-he-bing/"/>
+      <url>/2021/10/02/dong-tai-gui-hua-yi-ri-yi-ti-10-2-shi-zi-he-bing/</url>
+      
+        <content type="html"><![CDATA[<h1 id="石子合并"><a href="#石子合并" class="headerlink" title="石子合并"></a>石子合并</h1><p>设有 NN 堆石子排成一排，其编号为 1，2，3，…，N1，2，3，…，N。</p><p>每堆石子有一定的质量，可以用一个整数来描述，现在要将这 NN 堆石子合并成为一堆。</p><p>每次只能合并相邻的两堆，合并的代价为这两堆石子的质量之和，合并后与这两堆石子相邻的石子将和新堆相邻，合并时由于选择的顺序不同，合并的总代价也不相同。</p><p>例如有 44 堆石子分别为 <code>1 3 5 2</code>， 我们可以先合并 1、21、2 堆，代价为 44，得到 <code>4 5 2</code>， 又合并 1，21，2 堆，代价为 99，得到 <code>9 2</code> ，再合并得到 1111，总代价为 4+9+11=244+9+11=24；</p><p>如果第二步是先合并 2，32，3 堆，则代价为 77，得到 <code>4 7</code>，最后一次合并代价为 1111，总代价为 4+7+11=224+7+11=22。</p><p>问题是：找出一种合理的方法，使总的代价最小，输出最小代价。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个数 NN 表示石子的堆数 NN。</p><p>第二行 NN 个数，表示每堆石子的质量(均不超过 10001000)。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最小代价。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤3001≤N≤300</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>41 3 5 2</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>22</code></pre><h3 id="经典区间dp问题："><a href="#经典区间dp问题：" class="headerlink" title="经典区间dp问题："></a>经典区间dp问题：</h3><p>状态表示：</p><p>base case:</p><p>状态转移：</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>动态规划一日一题</title>
+      <link href="/2021/10/01/dong-tai-gui-hua-yi-ri-yi-ti-10.1-bian-ji-ju-chi/"/>
+      <url>/2021/10/01/dong-tai-gui-hua-yi-ri-yi-ti-10.1-bian-ji-ju-chi/</url>
+      
+        <content type="html"><![CDATA[<h1 id="最小编辑距离"><a href="#最小编辑距离" class="headerlink" title="最小编辑距离"></a>最小编辑距离</h1><hr><p>给定两个字符串 A 和 B，现在要将 A 经过若干操作变为 B，可进行的操作有：</p><ol><li>删除–将字符串 A 中的某个字符删除。</li><li>插入–在字符串 A 的某个位置插入某个字符。</li><li>替换–将字符串 A 中的某个字符替换为另一个字符。</li></ol><p>现在请你求出，将 A 变为 B 至少需要进行多少次操作。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n，表示字符串 A 的长度。</p><p>第二行包含一个长度为 n 的字符串 A。</p><p>第三行包含整数 m，表示字符串 B 的长度。</p><p>第四行包含一个长度为 m 的字符串 B。</p><p>字符串中均只包含大写字母。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最少操作次数。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤1000</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>10 AGTCTGACGC11 AGTAAGTAGGC</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>4</code></pre><hr><p>由dp的思想，显然需要创建一个二维的数组。</p><h3 id="定义明确"><a href="#定义明确" class="headerlink" title="定义明确"></a>定义明确</h3><p>首先明确dp数组的定义，dp[i] [j] 表示的是第一个数组的1-i转变成1-j需要的最小的操作次数(即最小的编辑距离)。</p><h3 id="base-case"><a href="#base-case" class="headerlink" title="base case"></a>base case</h3><p>该题的启动点是0-i和0-j对于第一个数组转换成第二个数组的次数是明确的。</p><h3 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h3><p>1.注意是从已有值转移过来的，所以设计状态方程时候需要考虑base case。</p><p>2.一般涉及字符串转换的题都有一个思路是根据双指针指到的字符相等与否来进行状态转移考虑，再结合dp数组的含义即可。</p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 10010 ;int f[N][N] ;char p[N] ,q[N] ;int main()&#123;        int n , m  ;     scanf("%d%s",&n , p+1) ;    //这有一个小技巧，当涉及字符串的读入的时候，尽量使用%s，防止空格的读入    scanf("%d%s",&m , q+1) ;        //base case        for(int i = 1 ; i <= n ;++i)    &#123;        f[i][0] = i ;     &#125;    for(int j = 1 ; j <= m ;++j)    &#123;        f[0][j] = j ;    &#125;        //状态转移        for(int i = 1 ; i <= n ;++i)    &#123;        for(int j = 1 ; j <= m ;++j)        &#123;            f[i][j] = min(f[i-1][j] , f[i][j-1]) ; //之前我一直在想这一步的必要性，后来其实是如果不写的话，后面的转移就直接没有值            if(p[i] == q[j])            &#123;                f[i][j] = min(f[i][j] , f[i-1][j-1]) ;            &#125;            else            &#123;                f[i][j] = min(f[i][j] , f[i-1][j-1] + 1) ;            &#125;        &#125;    &#125;        cout << f[n][m] <<endl ;       return 0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>位运算</title>
+      <link href="/2021/09/27/wei-yun-suan/"/>
+      <url>/2021/09/27/wei-yun-suan/</url>
+      
+        <content type="html"><![CDATA[<h1 id="85-不用加减乘除做加法"><a href="#85-不用加减乘除做加法" class="headerlink" title="85.不用加减乘除做加法"></a>85.不用加减乘除做加法</h1><hr><p>写一个函数，求两个整数之和，要求在函数体内不得使用 ＋、－、×、÷＋、－、×、÷ 四则运算符号。</p><h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><pre><code>输入：num1 = 1 , num2 = 2输出：3</code></pre><hr><p>对于对二进制数进行位运算来说，将其异或就是进行无进位的运算，得出的用于进位的数字可以用两数进行相与操作得到，乘以进制即可。</p><p>代码如下：</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    int add(int num1, int num2)&#123;        while(num2)        &#123;          int m = num1^num2 ;         unsigned int n = ((unsigned int)num1&num2 ) << 1;         num1 = m ;         num2 = n ;     &#125;      return num1 ;     &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>内存限制比较严格的一题(怪)</title>
+      <link href="/2021/09/23/nei-cun-xian-zhi-bi-jiao-yan-ge-de-yi-ti-guai/"/>
+      <url>/2021/09/23/nei-cun-xian-zhi-bi-jiao-yan-ge-de-yi-ti-guai/</url>
+      
+        <content type="html"><![CDATA[<hr><p>地图上有 N 个目标，用整数 Xi,Yi 表示目标在地图上的位置，每个目标都有一个价值 Wi。</p><p><strong>注意</strong>：不同目标可能在同一位置。</p><p>现在有一种新型的激光炸弹，可以摧毁一个包含 R×R 个位置的正方形内的所有目标。</p><p>激光炸弹的投放是通过卫星定位的，但其有一个缺点，就是其爆炸范围，即那个正方形的边必须和 x，y 轴平行。</p><p>求一颗炸弹最多能炸掉地图上总价值为多少的目标。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行输入正整数 N 和 R，分别代表地图上的目标数目和正方形的边长，数据用空格隔开。</p><p>接下来 N 行，每行输入一组数据，每组数据包括三个整数 Xi,Yi,Wi，分别代表目标的 x 坐标，y 坐标和价值，数据用空格隔开。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个正整数，代表一颗炸弹最多能炸掉地图上目标的总价值数目。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0≤R≤109<br>0&lt;N≤10000<br>0≤Xi,Yi≤5000<br>0≤Wi≤1000</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>2 10 0 11 1 1</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>1</code></pre><hr><p>这就比较显然是一道二维前缀和的题目，具体思路还是比较简单的.</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 5050 ;int s[N][N] ;int main()&#123;    int n , R ;    cin >> n >> R ;    R = min(R , 5010) ;     int x = R, y = R ;        for(int i = 0 ; i < n ;++i)    &#123;        int a, b ,w ;        cin >>a >>b >>w ;                s[a+1][b+1] += w ;                x = max(x , a+1) ; y = max(y , b+1) ;     &#125;        for(int i = 1 ; i <= x; ++i)    &#123;        for(int j = 1 ; j <= y ;++j)        &#123;            s[i][j] = s[i][j] + s[i-1][j] + s[i][j-1] -s[i-1][j-1] ;        &#125;    &#125;        int res= 0 ;     for(int i = R ; i <= x ; ++i)        for(int j = R ; j <= y ;++j)        &#123;            res = max(res , (s[i][j] + s[i-R][j-R] - s[i-R][j] - s[i][j-R])) ;        &#125;        cout << res <<endl  ;    return 0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>(奇怪哦~~~，同样的代码今天交就AC了，昨天明明就不可以的…….)</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>头痛的二分查找</title>
       <link href="/2021/09/19/tou-tong-de-er-fen-cha-zhao/"/>
       <url>/2021/09/19/tou-tong-de-er-fen-cha-zhao/</url>
@@ -23,52 +99,19 @@
     
     
     <entry>
-      <title>KMP算法</title>
-      <link href="/2021/09/18/kmp-suan-fa/"/>
-      <url>/2021/09/18/kmp-suan-fa/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>线性DP专题</title>
       <link href="/2021/09/18/xian-xing-dp-zhuan-ti/"/>
       <url>/2021/09/18/xian-xing-dp-zhuan-ti/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="1-最长公共子序列"><a href="#1-最长公共子序列" class="headerlink" title="1.最长公共子序列"></a>1.最长公共子序列</h1><hr><p>给定两个长度分别为 N和M 的字符串 A 和 B，求既是 A 的子序列又是 B 的子序列的字符串长度最长是多少。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 N 和 M。</p><p>第二行包含一个长度为 N 的字符串，表示字符串 A。</p><p>第三行包含一个长度为 M 的字符串，表示字符串 B。</p><p>字符串均由小写字母构成。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大长度。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N,M≤1000</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4 5acbdabedc</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3</code></pre><hr><p>一、可以用二维dp，dp[i] [j] 表示在第一个序列的第i位到第二个序列的j位的最长公共子串的长度。</p><p>二、二维数组要想给每一个赋值，即需要从底往上遍历。</p><p>三、讲遇到的情况分成两大类，一类是相等，一类是不等。</p><p>即状态转移方程我为</p><pre><code>if(a[i] == b[j])dp[i][j] = dp[i-1][j-1] + 1 ;else if(a[i] != b[j])dp[i][j] = max(dp[i-1][j] , dp[i][j-1]) ;</code></pre><p>具体代码如下:</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 1010 ;int f[N][N] ;char a[N], b[N] ;int main()&#123;    int n , m ;     cin >>n >> m  ;    for(int i = 1 ; i <= n ;++i)        cin >> a[i] ;     for(int j = 1 ; j <= m ;++j)        cin >> b[j] ;            for(int i = 1 ; i <= n ; ++i)    &#123;        for(int j = 1 ; j <= m ; ++j)        &#123;            if(a[i] == b[j])            &#123;                f[i][j] = f[i-1][j-1] +1 ;            &#125;            else            &#123;                f[i][j] = max(f[i-1][j] , f[i][j-1]) ;            &#125;        &#125;            &#125;            cout << f[n][m] <<endl ;            return  0  ;  &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="二、最长上升子序列"><a href="#二、最长上升子序列" class="headerlink" title="二、最长上升子序列"></a>二、最长上升子序列</h1><p>给定一个长度为 N 的数列，求数值严格单调递增的子序列的长度最长是多少。</p><h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 N。</p><p>第二行包含 N 个整数，表示完整序列。</p><h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大长度。</p><h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤1000<br>−109≤数列中的数≤109</p><h4 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>73 1 2 1 8 5 6</code></pre><h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>4</code></pre><p>数据范围给的比较大，所以直接暴力dp就可以了。</p><p>一、创建一个一维的dp数组，dp[i]表示的是从1到i的字串中， 以q[i]所结尾的子序列的最长子序列的长度.</p><p>二、dp思路，搜索数组中目标值前面的值，找到严格比target小的index， 将本target接在后面即可。然后一直比较，将最大的值赋给dp即可。</p><p>三、最终的结果不一定是最后的dp结果，而是过程中出现最大的值，因此需要在每一个小循环结束的时候，设置一个res，专门用来记录出现的最大的dp值。</p><p>代码如下：</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 1010 ;int w[N] ;int f[N] ; int main()&#123;    int n ;     cin >>n ;            int res =0  ;    for(int i = 1 ; i <= n ;++i)    &#123;        cin >> w[i] ;    &#125;    for(int i = 1 ; i <= n ;++i)    &#123;        f[i] = 1 ;        for(int j = 1 ; j <= i ;++j)        &#123;            if(w[i] > w[j]) f[i] = max(f[i] , f[j] +1) ;        &#125;        res = max(res , f[i]) ;    &#125;        cout << res <<endl ;    return  0  ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="三、最长上升子序列II"><a href="#三、最长上升子序列II" class="headerlink" title="三、最长上升子序列II"></a>三、最长上升子序列II</h1><p>题目同二，但是数据范围从1000改到了1e5。</p><p>所以，直接把暴力给毙了.</p><p>我们想到最多可以用nlogn来优化，于是可以用二分来优化.</p><p>dp是用不了了，可以用贪心加二分。</p><p>具体思路：</p><p>一、对于原数组中的值，依次在二分数组中找到小于他的最大值，二分数组的作用是一边存储，一边用于搜索。</p><p>二、最后返回q数组的长度即可。</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 100010 ;int w[N] ;int q[N] ;int main()&#123;    int n ;     cin >> n ;    q[0] = -2e9 ;         for(int i = 1 ; i <=  n ;++i)    &#123;        cin >> w[i] ;    &#125;        int len = 0  ;    for(int i = 1 ; i <= n ;++i)    &#123;        int left = 0 ; int right = len ;        while(left < right)        &#123;            int mid = (left + right +1) >> 1 ;            if(q[mid] < w[i])            &#123;                left = mid  ;             &#125;            else             &#123;                right = mid - 1  ;             &#125;        &#125;        q[right+1] = w[i] ;        len = max(len , right+1) ;    &#125;    cout << len <<endl ;    return  0  ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       
-    </entry>
-    
-    
-    
-    <entry>
-      <title>BFS专题</title>
-      <link href="/2021/09/18/bfs-zhuan-ti/"/>
-      <url>/2021/09/18/bfs-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>DFS专题</title>
-      <link href="/2021/09/18/dfs-zhuan-ti/"/>
-      <url>/2021/09/18/dfs-zhuan-ti/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
+        <tags>
+            
+            <tag> acwing </tag>
+            
+        </tags>
       
     </entry>
     
@@ -174,7 +217,7 @@
       <link href="/2021/09/09/miao/"/>
       <url>/2021/09/09/miao/</url>
       
-        <content type="html"><![CDATA[<h2 id="799-最长连续不重复子序列"><a href="#799-最长连续不重复子序列" class="headerlink" title="799.最长连续不重复子序列"></a>799.最长连续不重复子序列</h2><hr><p>给定一个长度为 nn 的整数序列，请找出最长的不包含重复的数的连续区间，输出它的长度。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 nn。</p><p>第二行包含 nn 个整数（均在 0∼1050∼105 范围内），表示整数序列。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示最长的不包含重复的数的连续区间的长度。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤105</p><hr><hr><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>51 2 2 3 5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3</code></pre><hr><p>核心思路：</p><p>1.对于重复的理解</p><p>不是单纯的判断==的关系，而是多申请了一个额外的数组，充当一个hash table，把原元素当成key值，记录元素的频率。当频率大于1的时候，就是重复了.</p><p>2.对于间断的时机的理解</p><p>由于推理逻辑是具有连续性的，所以，由于前一个i到j的区间是不重复的，但是之后出现了重复。只有一种可能，那就是最新的p[i]与之前区间里面的数据重复了。即只需要“恰头”，一个循环一直丢头，直到p[i]的频率为1为止。</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;#define read(x) scanf("%d",&x) ;const int N = 100010 ;int main()&#123;    int n ; int r = 0 ;  int p[N] ; int s[N] = &#123;0&#125; ;    read(n) ;     for(int i = 0 ,j = 0 ; i< n ;++i)&#123;        read(p[i]) ;        s[p[i]] ++ ;        while(s[p[i]] > 1) --s[p[j++]] ;        r = max(r, i-j+1) ;    &#125;    cout<< r<< endl ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<h2 id="799-最长连续不重复子序列"><a href="#799-最长连续不重复子序列" class="headerlink" title="799.最长连续不重复子序列"></a>799.最长连续不重复子序列</h2><hr><p>给定一个长度为 nn 的整数序列，请找出最长的不包含重复的数的连续区间，输出它的长度。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 nn。</p><p>第二行包含 nn 个整数（均在 0∼1050∼105 范围内），表示整数序列。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示最长的不包含重复的数的连续区间的长度。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤105</p><hr><hr><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>51 2 2 3 5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3</code></pre><hr><p>核心思路：</p><p>1.对于重复的理解</p><p>不是单纯的判断==的关系，而是多申请了一个额外的数组，充当一个hash table，把原元素当成key值，记录元素的频率。当频率大于1的时候，就是重复了.</p><p>2.对于间断的时机的理解</p><p>由于推理逻辑是具有连续性的，所以，由于前一个i到j的区间是不重复的，但是之后出现了重复。只有一种可能，那就是最新的p[i]与之前区间里面的数据重复了。即只需要“恰头”，一个循环一直丢头，直到p[i]的频率为1为止。</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;#define read(x) scanf("%d",&x) ;const int N = 100010 ;int main()&#123;    int n ; int r = 0 ;  int p[N] ; int s[N] = &#123;0&#125; ;    read(n) ;     for(int i = 0 ,j = 0 ; i< n ;++i)&#123;        read(p[i]) ;        s[p[i]] ++ ;        while(s[p[i]] > 1) --s[p[j++]] ;        r = max(r, i-j+1) ;    &#125;    cout<< r<< endl ;    return 0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="2007-从双倍数组中还原原数组"><a href="#2007-从双倍数组中还原原数组" class="headerlink" title="2007.从双倍数组中还原原数组"></a>2007.从双倍数组中还原原数组</h2><hr><p>一个整数数组 original 可以转变成一个 双倍 数组 changed ，转变方式为将 original 中每个元素 值乘以 2 加入数组中，然后将所有元素 随机打乱 。</p><p>给你一个数组 changed ，如果 change 是 双倍 数组，那么请你返回 original数组，否则请返回空数组。original 的元素可以以 任意 顺序返回。</p><p>示例 1：</p><p>输入：changed = [1,3,4,2,6,8]<br>输出：[1,3,4]<br>解释：一个可能的 original 数组为 [1,3,4] :</p><ul><li>将 1 乘以 2 ，得到 1 * 2 = 2 。</li><li>将 3 乘以 2 ，得到 3 * 2 = 6 。</li><li>将 4 乘以 2 ，得到 4 * 2 = 8 。<br>其他可能的原数组方案为 [4,3,1] 或者 [3,1,4] 。<br>示例 2：</li></ul><p>输入：changed = [6,3,0,1]<br>输出：[]<br>解释：changed 不是一个双倍数组。<br>示例 3：</p><p>输入：changed = [1]<br>输出：[]<br>解释：changed 不是一个双倍数组。</p><p>提示：</p><p>1 &lt;= changed.length &lt;= 105<br>0 &lt;= changed[i] &lt;= 105</p><hr><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    vector<int> findOriginalArray(vector<int>& a) &#123;        sort(a.begin(), a.end());        int res = 0;        unordered_map<int, int> mp;        vector<int> b;        for(auto &v: a)&#123;            if(mp[v]==0)&#123;                mp[2*v]++;        //只标记双倍的                b.push_back(v);            &#125;else&#123;                mp[v]--;         //如果双倍的值也在changed数组里面，那么双倍标记就会清除掉            &#125;        &#125;        for(auto &[k, v]: mp)&#123;            if(v) res++;            //如果有value值不是零的，说明是因为前面有值的二倍而在后面找不到，所以就冗余下来了        &#125;        if(res) return &#123;&#125;;        return b;    &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       

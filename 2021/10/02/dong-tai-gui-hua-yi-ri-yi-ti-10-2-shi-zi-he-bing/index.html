@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="DFS专题, 罗林的博客">
+    <meta name="keywords" content="动态规划一日一题-10.2-石子合并, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>DFS专题 | 罗林的博客</title>
+    <title>动态规划一日一题-10.2-石子合并 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">DFS专题</h1>
+                    <h1 class="description center-align post-title">动态规划一日一题-10.2-石子合并</h1>
                 </div>
             </div>
         </div>
@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                                <span class="chip bg-color">一日一题</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -444,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-18
+                    2021-10-02
                 </div>
                 
 
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    358
                 </div>
                 
 
@@ -475,7 +479,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="石子合并"><a href="#石子合并" class="headerlink" title="石子合并"></a>石子合并</h1><p>设有 NN 堆石子排成一排，其编号为 1，2，3，…，N1，2，3，…，N。</p>
+<p>每堆石子有一定的质量，可以用一个整数来描述，现在要将这 NN 堆石子合并成为一堆。</p>
+<p>每次只能合并相邻的两堆，合并的代价为这两堆石子的质量之和，合并后与这两堆石子相邻的石子将和新堆相邻，合并时由于选择的顺序不同，合并的总代价也不相同。</p>
+<p>例如有 44 堆石子分别为 <code>1 3 5 2</code>， 我们可以先合并 1、21、2 堆，代价为 44，得到 <code>4 5 2</code>， 又合并 1，21，2 堆，代价为 99，得到 <code>9 2</code> ，再合并得到 1111，总代价为 4+9+11=244+9+11=24；</p>
+<p>如果第二步是先合并 2，32，3 堆，则代价为 77，得到 <code>4 7</code>，最后一次合并代价为 1111，总代价为 4+7+11=224+7+11=22。</p>
+<p>问题是：找出一种合理的方法，使总的代价最小，输出最小代价。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个数 NN 表示石子的堆数 NN。</p>
+<p>第二行 NN 个数，表示每堆石子的质量(均不超过 10001000)。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最小代价。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤3001≤N≤300</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4
+1 3 5 2
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>22
+</code></pre>
+<h3 id="经典区间dp问题："><a href="#经典区间dp问题：" class="headerlink" title="经典区间dp问题："></a>经典区间dp问题：</h3><p>状态表示：</p>
+<p>base case:</p>
+<p>状态转移：</p>
+
                 
             </div>
             <hr/>
@@ -501,7 +523,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/18/dfs-zhuan-ti/">https://luolin03.github.io/2021/09/18/dfs-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/10/02/dong-tai-gui-hua-yi-ri-yi-ti-10-2-shi-zi-he-bing/">https://luolin03.github.io/2021/10/02/dong-tai-gui-hua-yi-ri-yi-ti-10-2-shi-zi-he-bing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -538,7 +560,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                                    <span class="chip bg-color">一日一题</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -582,17 +608,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/18/bfs-zhuan-ti/">
+                <a href="/2021/10/02/dong-tai-gui-hua-yi-ri-yi-ti-10-2-shi-zi-he-bing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="BFS专题">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="动态规划一日一题-10.2-石子合并">
                         
-                        <span class="card-title">BFS专题</span>
+                        <span class="card-title">动态规划一日一题-10.2-石子合并</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -602,9 +629,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -612,6 +639,15 @@
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                        <span class="chip bg-color">一日一题</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -623,13 +659,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/15/bing-cha-ji/">
+                <a href="/2021/10/01/dong-tai-gui-hua-yi-ri-yi-ti-10.1-bian-ji-ju-chi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="并查集">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="动态规划一日一题">
                         
-                        <span class="card-title">并查集</span>
+                        <span class="card-title">动态规划一日一题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -640,7 +676,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-01
                             </span>
                         <span class="publish-author">
                             
@@ -653,8 +689,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                        <span class="chip bg-color">一日一题</span>
                     </a>
                     
                 </div>
@@ -848,7 +884,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.4k</span>
+                        class="white-color">7.1k</span>
             
             
             

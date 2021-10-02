@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="BFS专题, 罗林的博客">
+    <meta name="keywords" content="内存限制比较严格的一题(怪), 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BFS专题 | 罗林的博客</title>
+    <title>内存限制比较严格的一题(怪) | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BFS专题</h1>
+                    <h1 class="description center-align post-title">内存限制比较严格的一题(怪)</h1>
                 </div>
             </div>
         </div>
@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/acwing/">
+                                <span class="chip bg-color">acwing</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -444,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-18
+                    2021-09-23
                 </div>
                 
 
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    401
                 </div>
                 
 
@@ -475,7 +479,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <hr>
+<p>地图上有 N 个目标，用整数 Xi,Yi 表示目标在地图上的位置，每个目标都有一个价值 Wi。</p>
+<p><strong>注意</strong>：不同目标可能在同一位置。</p>
+<p>现在有一种新型的激光炸弹，可以摧毁一个包含 R×R 个位置的正方形内的所有目标。</p>
+<p>激光炸弹的投放是通过卫星定位的，但其有一个缺点，就是其爆炸范围，即那个正方形的边必须和 x，y 轴平行。</p>
+<p>求一颗炸弹最多能炸掉地图上总价值为多少的目标。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行输入正整数 N 和 R，分别代表地图上的目标数目和正方形的边长，数据用空格隔开。</p>
+<p>接下来 N 行，每行输入一组数据，每组数据包括三个整数 Xi,Yi,Wi，分别代表目标的 x 坐标，y 坐标和价值，数据用空格隔开。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个正整数，代表一颗炸弹最多能炸掉地图上目标的总价值数目。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0≤R≤109<br>0&lt;N≤10000<br>0≤Xi,Yi≤5000<br>0≤Wi≤1000</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>2 1
+0 0 1
+1 1 1
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>1
+</code></pre>
+<hr>
+<p>这就比较显然是一道二维前缀和的题目，具体思路还是比较简单的.</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 5050 ;
+
+int s[N][N] ;
+
+int main()
+&#123;
+    int n , R ;
+    cin >> n >> R ;
+    R = min(R , 5010) ; 
+    int x = R, y = R ;
+    
+    for(int i = 0 ; i < n ;++i)
+    &#123;
+        int a, b ,w ;
+        cin >>a >>b >>w ;
+        
+        s[a+1][b+1] += w ;
+        
+        x = max(x , a+1) ; y = max(y , b+1) ; 
+    &#125;
+    
+    for(int i = 1 ; i <= x; ++i)
+    &#123;
+        for(int j = 1 ; j <= y ;++j)
+        &#123;
+            s[i][j] = s[i][j] + s[i-1][j] + s[i][j-1] -s[i-1][j-1] ;
+        &#125;
+    &#125;
+    
+    int res= 0 ; 
+    for(int i = R ; i <= x ; ++i)
+        for(int j = R ; j <= y ;++j)
+        &#123;
+            res = max(res , (s[i][j] + s[i-R][j-R] - s[i-R][j] - s[i][j-R])) ;
+        &#125;
+    
+    cout << res <<endl  ;
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>(奇怪哦~~~，同样的代码今天交就AC了，昨天明明就不可以的…….)</p>
+
                 
             </div>
             <hr/>
@@ -501,7 +568,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/18/bfs-zhuan-ti/">https://luolin03.github.io/2021/09/18/bfs-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/09/23/nei-cun-xian-zhi-bi-jiao-yan-ge-de-yi-ti-guai/">https://luolin03.github.io/2021/09/23/nei-cun-xian-zhi-bi-jiao-yan-ge-de-yi-ti-guai/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -538,7 +605,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/acwing/">
+                                    <span class="chip bg-color">acwing</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -586,13 +657,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/09/18/xian-xing-dp-zhuan-ti/">
+                <a href="/2021/09/27/wei-yun-suan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="线性DP专题">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="位运算">
                         
-                        <span class="card-title">线性DP专题</span>
+                        <span class="card-title">位运算</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -603,7 +674,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-27
                         </span>
                         <span class="publish-author">
                             
@@ -612,6 +683,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -623,13 +702,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/18/dfs-zhuan-ti/">
+                <a href="/2021/09/19/tou-tong-de-er-fen-cha-zhao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="DFS专题">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="头痛的二分查找">
                         
-                        <span class="card-title">DFS专题</span>
+                        <span class="card-title">头痛的二分查找</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -640,7 +719,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-19
                             </span>
                         <span class="publish-author">
                             
@@ -649,6 +728,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -840,7 +927,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.4k</span>
+                        class="white-color">7.1k</span>
             
             
             
