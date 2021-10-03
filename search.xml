@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>动态规划一日一题-10.3-整数划分</title>
+      <link href="/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/"/>
+      <url>/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/</url>
+      
+        <content type="html"><![CDATA[<h1 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h1><hr><p>一个正整数 n 可以表示成若干个正整数之和，形如：n=n1+n2+…+nk，其中 n1≥n2≥…≥nk,k≥1。</p><p>我们将这样的一种表示称为正整数 n 的一种划分。</p><p>现在给定一个正整数 n，请你求出 n 共有多少种不同的划分方法。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含一个整数 n。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示总划分数量。</p><p>由于答案可能很大，输出结果请对 109+7取模。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤1000</p><h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例:"></a>输入样例:</h4><pre><code>5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>7</code></pre><hr><p>该题是典型的整数划分类问题，也可以将其理解成完全背包问题。所以该题就可以转换为现在有n种物品，第i种背包的容量是i，数量为无穷，请问能装满体积为n的背包的方案数是多少？</p><p>同完全背包问题，我们先想朴素算法。用f[i] [j] 表示用前i个物品来装满体积为j的背包的方案数。</p><p>状态表示：f[i] [j] 表示用前i个物品装满j的背包的方案数，最终的结果就可以标示为f[n] [ n] ; </p><p>状态属性：无</p><p>状态转移：f[i] [j] = f[i-1] [ j] +f[i-1] [j-i] +f[i-1] [j-2*i] + …+ </p><p>​                    f[i] [j-i] =                f[i-1] [j-i] + f[i-1] [j- 2*i] + … + </p><p>故有数学推导可得：</p><p>f[i] [j] = f[i-1] [j] + f[i] [j-i] </p><p>base case ：比较玄学，基于现在的水平，我觉得就是把二维数组涉及下标为0的可以提前知道的给初始化一下，比如这一题：</p><p>f[i] [0] 是可以提前知道的，同时也是转移的起始点。</p><pre class="line-numbers language-c++"><code class="language-c++">//朴素做法#include <bits/stdc++.h>using namespace std ;const int N = 1010  , mod = 1e9+7;int f[N][N] ;int main()&#123;    int n ;     cin >> n  ;        //base case        for(int i = 1 ; i <= n ;++i)    &#123;        f[i][0] = 1 ;    &#125;        for(int i = 1 ; i <= n ;++i)    &#123;        for(int j = 1 ; j <= n ;++j)        &#123;            f[i][j] = f[i-1][j] % mod ;            if(j >= i)                 f[i][j] = (f[i-1][j] + f[i][j-i]) % mod ;         &#125;    &#125;    cout << f[n][n] <<endl ;    return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-c++"><code class="language-c++">//做了一点优化#include <bits/stdc++.h>using namespace std ;const int  N = 1010 , mod = 1e9+7;int f[N] ; int main()&#123;    int n ;     cin >> n ;      for(int i = 1 ; i <= n ;++i)        f[0] = 1 ;          for(int i = 1 ; i <= n ;++i)    &#123;        for(int j = 1 ; j <= n ; ++j)        &#123;            if(j >= i)                f[j] = (f[j] +f[j-i]) % mod ;        &#125;    &#125;    cout << f[n] <<endl ;    return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>没有问题的答案</title>
       <link href="/2021/10/02/mei-you-wen-ti-de-da-an/"/>
       <url>/2021/10/02/mei-you-wen-ti-de-da-an/</url>
@@ -315,6 +334,12 @@
         <content type="html"><![CDATA[<p>这是我的第一篇博客，等熟悉了流程之后会频繁的更新博客，因为这也算是自己学习的过程的记录。</p><p>我是罗林 来自南京农业大学 专业是数据科学与大数据技术 </p><p>这个博客是为了记录我的学习生活，以及生活中的一些有趣的事情。</p><p>应该会先分为两个板块：机器学习，数据结构与算法。</p><p>之后有新的认知或者是对新的领域有兴趣可能会在追加几个板块。</p><p>我的座右铭是 一直学习，做一个有趣的人！希望有同样热爱计算机的geek们与我交流！！</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> selfintroduction </tag>
+            
+        </tags>
       
     </entry>
     

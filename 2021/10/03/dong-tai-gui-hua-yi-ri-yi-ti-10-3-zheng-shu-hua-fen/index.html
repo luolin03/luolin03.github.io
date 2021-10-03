@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="STL的用法总结-摘自acwing, 罗林的博客">
+    <meta name="keywords" content="动态规划一日一题-10.3-整数划分, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>STL的用法总结-摘自acwing | 罗林的博客</title>
+    <title>动态规划一日一题-10.3-整数划分 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">STL的用法总结-摘自acwing</h1>
+                    <h1 class="description center-align post-title">动态规划一日一题-10.3-整数划分</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/acwing/">
-                                <span class="chip bg-color">acwing</span>
+                            <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                                <span class="chip bg-color">一日一题</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-15
+                    2021-10-03
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    471
                 </div>
                 
 
@@ -479,15 +479,93 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>vector（变长数组），倍增的思想，支持比较运算（按字典序）<br>    定义：：<br>        vector <int> a; 定义：一个vector数组a<br>        vector <int> a(10); 定义：一个长度为10的vector数组a<br>        vector <int> a(10,3); 定义：一个长度为10的vector数组a，并且所有元素都为3<br>    常用函数：：<br>        size(); 返回元素个数<br>        empty(); 返回是否是空<br>        clear(); 清空<br>        front(); 返回vector的第一个数<br>        back(); 返回vector的最后一个数<br>        push_back(); 向vector的最后插入一个数<br>        pop_back(); 把vector的最后一个数删掉<br>        begin(); vector的第0个数<br>        end(); vector的最后一个的数的后面一个数<br>    倍增的思想：<br>        系统为某一程序分配空间是，所需时间，与空间大小无关，与申请次数有关<br>    遍历方法<br>        假设有个vector <int> a;<br>        第一种：<br>            for(int i = 0;i &lt; a.size();i ++) cout&lt;&lt;a[i]&lt;&lt;” “;<br>        第二种：<br>            for(vector <int>::iterator i = a.begin();i != a.end();i ++) cout&lt;&lt;*i&lt;&lt;” “;  vector <int>::iterator可以写为auto<br>        第三种：<br>            for(auto  x : a) cout&lt;&lt;x&lt;&lt;” “;</p>
-<p>pair，支持比较运算，以first为第一关键字，以second为第二关键字（按字典序）<br>    定义：：<br>        pair &lt;类型,类型&gt; 变量名;    两个类型可以不同<br>    初始化方式：<br>        假设有个pair &lt;int,string&gt; p;<br>        第一种：<br>            p = make_pair(10,”abc”);<br>        第二种：<br>            p = {10,”abc”);<br>    常用函数：：<br>        first(); 第一个元素<br>        second(); 第二个元素</p>
-<p>string（字符串）<br>    常用函数：：<br>        substr(); 返回每一个子串<br>        c_str(); 返回这个string对应的字符数组的头指针<br>        size(); 返回字母个数<br>        length(); 返回字母个数<br>        empty(); 返回字符串是否为空<br>        clear(); 把字符串清空<br>queue（队列）<br>    定义：：<br>        queue &lt;类型&gt; 变量名;<br>    常用函数：：<br>        size(); 这个队列的长度<br>        empty(); 返回这个队列是否为空<br>        push(); 往队尾插入一个元素<br>        front(); 返回队头元素<br>        back(); 返回队尾元素<br>        pop(); 把队头弹出<br>        注意：队列没有clear函数！！！<br>    清空：<br>        变量名 = queue <int> ();<br>priority_queue（优先队列，堆）<br>    注意：默认是大根堆！！！<br>    定义：：<br>        大根堆：priority_queue &lt;类型&gt; 变量名;<br>        小根堆：priority_queue &lt;类型,vecotr &lt;类型&gt;,greater &lt;类型&gt;&gt; 变量名<br>    常用函数：<br>        size(); 这个堆的长度<br>        empty(); 返回这个堆是否为空<br>        push();往堆里插入一个元素<br>        top(); 返回堆顶元素<br>        pop(); 弹出堆顶元素<br>        注意：堆没有clear函数！！！</p>
-<p>stack（栈）<br>    常用函数：<br>        size(); 这个栈的长度<br>        empty(); 返回这个栈是否为空<br>        push(); 向栈顶插入一个元素<br>        top(); 返回栈顶元素<br>        pop(); 弹出栈顶元素</p>
-<p>deque（双端队列）<br>    常用函数：<br>        size(); 这个双端队列的长度<br>        empty(); 返回这个双端队列是否为空<br>        clear(); 清空这个双端队列<br>        front(); 返回第一个元素<br>        back(); 返回最后一个元素<br>        push_back(); 向最后插入一个元素<br>        pop_back(); 弹出最后一个元素<br>        push_front(); 向队首插入一个元素<br>        pop_front(); 弹出第一个元素<br>        begin(); 双端队列的第0个数<br>        end(); 双端队列的最后一个的数的后面一个数</p>
-<p>set，map，multiset，multimap 基于平衡二叉树（红黑树），动态维护有序序列<br>    set/multiset<br>        注意：set不允许元素重复，如果有重复就会被忽略，但multiset允许！！！<br>        常用函数：<br>            size(); 返回元素个数<br>            empty(); 返回set是否是空的<br>            clear(); 清空<br>            begin(); 第0个数，支持++或–，返回前驱和后继<br>            end(); 最后一个的数的后面一个数，支持++或–，返回前驱和后继<br>            insert(); 插入一个数<br>            find(); 查找一个数<br>            count(); 返回某一个数的个数<br>            erase();<br>                （1）输入是一个数x，删除所有x    O(k + log n)<br>                （2）输入一个迭代器，删除这个迭代器<br>            lower_bound(x); 返回大于等于x的最小的数的迭代器<br>            upper_bound(x); 返回大于x的最小的数的迭代器<br>    map/multimap<br>        常用函数：<br>            insert(); 插入一个数，插入的数是一个pair<br>            erase();<br>                （1）输入是pair<br>                （2）输入一个迭代器，删除这个迭代器<br>            find(); 查找一个数<br>            lower_bound(x); 返回大于等于x的最小的数的迭代器<br>            upper_bound(x); 返回大于x的最小的数的迭代器</p>
-<p>unordered_set，unordered_map，unordered_muliset,unordered_multimap 基于哈希表<br>    和上面类似，增删改查的时间复杂度是O(1)<br>    不支持lower_bound()和upper_bound()</p>
-<p>bitset 压位<br>    定义：<br>        bitset &lt;个数&gt; 变量名;<br>    支持：<br>        <del>，&amp;，|，^<br>        &gt;&gt;，&lt;&lt;<br>        ==，!=<br>        []<br>    常用函数：<br>        count(); 返回某一个数的个数<br>        any(); 判断是否至少有一个1<br>        none(); 判断是否全为0<br>        set(); 把所有位置赋值为1<br>        set(k,v); 将第k位变成v<br>        reset(); 把所有位变成0<br>        flip(); 把所有位取反，等价于</del><br>        flip(k); 把第k位取反</p>
-<p>作者：yxc<br>链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/video/20/">https://www.acwing.com/video/20/</a><br>来源：AcWing<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+                <h1 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h1><hr>
+<p>一个正整数 n 可以表示成若干个正整数之和，形如：n=n1+n2+…+nk，其中 n1≥n2≥…≥nk,k≥1。</p>
+<p>我们将这样的一种表示称为正整数 n 的一种划分。</p>
+<p>现在给定一个正整数 n，请你求出 n 共有多少种不同的划分方法。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含一个整数 n。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示总划分数量。</p>
+<p>由于答案可能很大，输出结果请对 109+7取模。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤1000</p>
+<h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例:"></a>输入样例:</h4><pre><code>5
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>7
+</code></pre>
+<hr>
+<p>该题是典型的整数划分类问题，也可以将其理解成完全背包问题。所以该题就可以转换为现在有n种物品，第i种背包的容量是i，数量为无穷，请问能装满体积为n的背包的方案数是多少？</p>
+<p>同完全背包问题，我们先想朴素算法。用f[i] [j] 表示用前i个物品来装满体积为j的背包的方案数。</p>
+<p>状态表示：f[i] [j] 表示用前i个物品装满j的背包的方案数，最终的结果就可以标示为f[n] [ n] ; </p>
+<p>状态属性：无</p>
+<p>状态转移：f[i] [j] = f[i-1] [ j] +f[i-1] [j-i] +f[i-1] [j-2*i] + …+ </p>
+<p>​                    f[i] [j-i] =                f[i-1] [j-i] + f[i-1] [j- 2*i] + … + </p>
+<p>故有数学推导可得：</p>
+<p>f[i] [j] = f[i-1] [j] + f[i] [j-i] </p>
+<p>base case ：比较玄学，基于现在的水平，我觉得就是把二维数组涉及下标为0的可以提前知道的给初始化一下，比如这一题：</p>
+<p>f[i] [0] 是可以提前知道的，同时也是转移的起始点。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">//朴素做法
+
+#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 1010  , mod = 1e9+7;
+
+int f[N][N] ;
+int main()
+&#123;
+    int n ; 
+    cin >> n  ;
+    
+    //base case
+    
+    for(int i = 1 ; i <= n ;++i)
+    &#123;
+        f[i][0] = 1 ;
+    &#125;
+    
+    for(int i = 1 ; i <= n ;++i)
+    &#123;
+        for(int j = 1 ; j <= n ;++j)
+        &#123;
+            f[i][j] = f[i-1][j] % mod ;
+            if(j >= i) 
+                f[i][j] = (f[i-1][j] + f[i][j-i]) % mod ; 
+        &#125;
+    &#125;
+    cout << f[n][n] <<endl ;
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c++"><code class="language-c++">//做了一点优化
+
+#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int  N = 1010 , mod = 1e9+7;
+
+int f[N] ; 
+
+int main()
+&#123;
+    int n ; 
+    cin >> n ; 
+ 
+    for(int i = 1 ; i <= n ;++i)
+        f[0] = 1 ;  
+    
+    for(int i = 1 ; i <= n ;++i)
+    &#123;
+        for(int j = 1 ; j <= n ; ++j)
+        &#123;
+            if(j >= i)
+                f[j] = (f[j] +f[j-i]) % mod ;
+        &#125;
+    &#125;
+    cout << f[n] <<endl ;
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -514,7 +592,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/">https://luolin03.github.io/2021/09/15/stl-de-yong-fa-zong-jie-zhai-zi-acwing/</a>
+                    <a href="https://luolin03.github.io/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/">https://luolin03.github.io/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -552,8 +630,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/acwing/">
-                                    <span class="chip bg-color">acwing</span>
+                                <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                                    <span class="chip bg-color">一日一题</span>
                                 </a>
                             
                         </div>
@@ -599,17 +677,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/15/zi-fu-chuan-ha-xi-de-li-jie/">
+                <a href="/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="字符串哈希的理解">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="动态规划一日一题-10.3-整数划分">
                         
-                        <span class="card-title">字符串哈希的理解</span>
+                        <span class="card-title">动态规划一日一题-10.3-整数划分</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -619,9 +698,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -630,11 +709,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98/">
+                        <span class="chip bg-color">一日一题</span>
                     </a>
                     
                 </div>
@@ -648,13 +728,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/12/shu-ju-fan-wei-de-pan-duan-zhai-zi-acwing/">
+                <a href="/2021/10/02/mei-you-wen-ti-de-da-an/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="数据范围的判断-摘自acwing">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="没有问题的答案">
                         
-                        <span class="card-title">数据范围的判断-摘自acwing</span>
+                        <span class="card-title">没有问题的答案</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -665,7 +745,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-02
                             </span>
                         <span class="publish-author">
                             
@@ -678,8 +758,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/">
+                        <span class="chip bg-color">生活感悟</span>
                     </a>
                     
                 </div>
