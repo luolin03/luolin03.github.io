@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>动态规划一日一题-10.5-01背包问题</title>
+      <link href="/2021/10/05/dong-tai-gui-hua-yi-ri-yi-ti-10-5-01-bei-bao-wen-ti/"/>
+      <url>/2021/10/05/dong-tai-gui-hua-yi-ri-yi-ti-10-5-01-bei-bao-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<hr><h1 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h1><p>有 N 件物品和一个容量是 V的背包。每件物品只能使用一次。</p><p>第 i件物品的体积是 vi，价值是 wi。</p><p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p><p>接下来有 N 行，每行两个整数 vi,wi，用空格隔开，分别表示第 i 件物品的体积和价值。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤1000<br>0&lt;vi,wi≤1000</p><h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 51 22 43 44 5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>8</code></pre><hr><p>还是用之前的分析方法来分析：</p><p>状态表示：f[i] [j] 表示使用前i个物品，且总体积不大于j的时候，所实现的最大价值</p><p>状态属性：max</p><p>base case：f[i] [0] = 0 ; f[0]  [i] = 0 (因为此题的base case来说，我们申请dp数组的时候就是申请的全局变量，默认值直接是0，所以这一题的base case没有显性的展现出来)。</p><p>状态转移：分成两块，任何状态都可以分成两个状态，一是不使用第i个物品，二是使用第i件物品。分隔条件是v[i] 与j的大小关系。</p><p>代码如下：</p><pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>using namespace std ;const int N = 1010 ; int f[N][N] ;int w[N] , v[N] ;int main()&#123;    int n , m ;         cin >> n >> m ;         for(int i = 1 ; i <= n ; ++i)    &#123;        cin >> v[i] >> w[i] ;    &#125;            for(int i = 1 ; i <= n ; ++i)    &#123;        for(int j = 1 ; j <= m ;++j)        &#123;            f[i][j] = f[i-1][j] ;            if(v[i] <= j)            &#123;                f[i][j] = max(f[i][j] , f[i-1][j-v[i]]  + w[i]) ;            &#125;        &#125;    &#125;    cout << f[n][m] << endl ;    return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>仔细阅读上述代码之后，我们发现可以采用一维数组进行优化。因为i在这题来说，可以根据循环的由小到大的次序进行省略。</p><p>其中有一个比较难理解的点就是，对于二层循环的j来说，不应该是有小到大进行穷举，而是应该是由大到小进行穷举，因为对于二维代码来说，有一个i用来指向此时的j是上一次的循环的还是下一次循环的，状态转移是由上一次循环转移来的，所以不管j是大还是小，都是上一次循环来赋值的。但是对于一维的dp数组来说，没有i作为指向，必须通过j的列举顺序来体现是上一轮循环的状态转移。</p><p>当然，最简单的理解就是一维的dp方法必须要满足二维的dp方法的逻辑思路。所以对于j的列举顺序必须满足，f[j]的状态必须是上次循环中j的值比现在小的dp值转移过来的。</p><p>所以，根据这一条原则，j如果不变化，仍然是由小到大进行列举的话，虽然是由比自己小的j的dp值转移过来的，但是这些值都是由本轮循环进行迭代之后得到的值，并不是上一轮循环所遗留下来的，这就导致了逻辑出现了错误。</p><p>优化空间后的代码如下：</p><pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>using namespace std ;const int N = 1010 ; int f[N] ;int w[N] , v[N] ;int main()&#123;    int n , m ;         cin >> n >> m ;         for(int i = 1 ; i <= n ; ++i)    &#123;        cin >> v[i] >> w[i] ;    &#125;            for(int i = 1 ; i <= n ; ++i)    &#123;        for(int j = m ; j >= 0 ; --j)        &#123;            if(v[i] <= j)            &#123;                f[j] = max(f[j] , f[j-v[i]]  + w[i]) ;            &#125;        &#125;    &#125;        cout << f[m] << endl ;        return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 背包问题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>迭代器删除的大坑</title>
+      <link href="/2021/10/04/die-dai-qi-shan-chu-de-da-keng/"/>
+      <url>/2021/10/04/die-dai-qi-shan-chu-de-da-keng/</url>
+      
+        <content type="html"><![CDATA[<h1 id="迭代器删除的坑"><a href="#迭代器删除的坑" class="headerlink" title="迭代器删除的坑"></a>迭代器删除的坑</h1><p>今天在字符串定点删除固定元素的时候，出现了大问题，百思不得其解。</p><p>题目简单描述是这样的：</p><hr><p>给定一个字符串str,targe元素是‘a’，通过erase方法进行删除</p><p>代码是这样的:</p><pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>using namespace std ;int main()&#123;    string a = ""        &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 坑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>动态规划一日一题-10.4-编辑距离</title>
       <link href="/2021/10/04/dong-tai-gui-hua-yi-ri-yi-ti-10-4-bian-ji-ju-chi/"/>
       <url>/2021/10/04/dong-tai-gui-hua-yi-ri-yi-ti-10-4-bian-ji-ju-chi/</url>
