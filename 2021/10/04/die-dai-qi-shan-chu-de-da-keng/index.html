@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    84
+                    109
                 </div>
                 
 
@@ -490,11 +490,102 @@ using namespace std ;
 
 int main()
 &#123;
-    string a = ""    
+    string str = "ahsdjkafbnaasdfjkanasjkdfbhjasddkaldfasa" ; 
     
+    for(auto it = str.begin() ;  it != str.end() ;  ++ it)
+    &#123;
+        if(*it == 'a')
+        &#123;
+            str.erase(it) ;
+        &#125;
+    &#125;
+    cout << str << endl ;
+    return 0 ; 
 &#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
+<p>但是出现了大问题，呜呜呜呜……</p>
+<p>在leetcode的ide里面，我是发现了根本删不干净，于是我调试了好久，并且上网查找资料，终于找到了问题所在。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+int main()
+&#123;
+    string str = "ahsdjkafbnaasdfjkanasjkdfbhjasddkaldfasa" ; 
+    
+    auto it = str.begin() ; 
+    
+    while( it != str.end())
+    &#123;
+        if(*it == 'a')
+        &#123;
+            str.erase(it) ;
+        &#125;
+        else
+        &#123;
+            it ++ ;
+        &#125;
+    &#125;
+    
+    cout << str << endl ;
+    
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="对于关联容器"><a href="#对于关联容器" class="headerlink" title="对于关联容器"></a>对于关联容器</h2><p>如map,set,unordered_map容器来说，例如map的底层是由红黑树实现的，当删除一个或者多个节点的时候，并不会导致其他节点的波动。</p>
+<h2 id="对于非关联式的容器-序列容器"><a href="#对于非关联式的容器-序列容器" class="headerlink" title="对于非关联式的容器(序列容器)"></a>对于非关联式的容器(序列容器)</h2><p>例如vector，string，list，queue等容器，这些是有连续分配内存的，所以当删除了当前迭代器的指针，会使后来的元素都往前移动一位，所以会使后续的所有元素的指针都失效。</p>
+<p>目前有两种可以用的方法：</p>
+<p>第一种是采用while循环：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+int main()
+&#123;
+    string str = "asfhjkasnaaseelfha" ;
+    
+    auto it = str.begin() ; 
+    
+    while(it != str.end())
+    &#123;
+        if(* it == 'a')
+        &#123;
+            str.erase(it) ;
+        &#125;
+        else
+        &#123;
+            it ++ ;
+        &#125;
+    &#125;
+    cout << str << endl ;
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二种采用的是用erase方法得到下一个有效的迭代器指针：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+int main()
+&#123;
+    string str = "asfhjkasnaaseelfha" ;
+    
+    for(auto it = str.begin() ; it != str.end() ; )
+    &#123;
+        if(*it == 'a')
+        &#123;
+            it = it.erase(it) ; 
+        &#125;
+        else
+        &#123;
+            it ++ ;
+        &#125;
+    &#125;
+    cout << str << endl ;
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
