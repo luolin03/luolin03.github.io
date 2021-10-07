@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    413
+                    307
                 </div>
                 
 
@@ -496,6 +496,44 @@
 <h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>10
 </code></pre>
 <hr>
+<p>我们会根据01背包自然而然的想到会用三次循环，但是这里的数据是1000，三次循环很显然会TLE。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 1010 ; 
+
+int f[N][N] ;
+
+int w[N] , v[N]  ;
+
+int main()
+&#123;
+    int n , m ; 
+    
+    cin >> n >> m ; 
+    
+    for(int i = 1 ; i <= n ; i++)
+    &#123;
+        cin >> v[i] >> w[i] ; 
+    &#125;
+    
+    for(int i = 1 ; i <= n  ; ++i)
+    &#123;
+        for(int j = 1 ; j <= m ; ++j)
+        &#123;
+            f[i][j] = f[i-1][j] ; 
+            for(int 1 = 0 ; j - v[i] * k >= 0 ; k++)
+            &#123;
+                f[i][j] = max(f[i][j] , f[i-1][j-k*v[i]] + k*w[i]) ;
+            &#125;
+        &#125;
+    &#125;
+    cout << f[i][j] << endl ;
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所以我们后面开始考虑用二轮循环进行优化 。 </p>
 <p>状态表示：同01背包问题，dp[i] [j] 表示的是，使用前i个物品并且体积不超过j的所能够实现的最大价值。</p>
 <p>状态属性：max</p>
 <p>base case：同01背包问题</p>
@@ -730,18 +768,17 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/10/06/dong-tai-gui-hua-yi-ri-yi-ti-10-6-wan-quan-bei-bao-wen-ti/">
+                <a href="/2021/10/07/dong-tai-gui-hua-yi-ri-yi-ti-10-7-duo-chong-bei-bao-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="动态规划一日一题-10.6-完全背包问题">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="动态规划一日一题-10.7-多重背包问题">
                         
-                        <span class="card-title">动态规划一日一题-10.6-完全背包问题</span>
+                        <span class="card-title">动态规划一日一题-10.7-多重背包问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -751,9 +788,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-06
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -762,7 +799,6 @@ int main()
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1006,7 +1042,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">16.4k</span>
+                        class="white-color">16.8k</span>
             
             
             
