@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="并查集, 罗林的博客">
+    <meta name="keywords" content="动态规划一日一题-10-8-混合背包问题, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>并查集 | 罗林的博客</title>
+    <title>动态规划一日一题-10-8-混合背包问题 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">并查集</h1>
+                    <h1 class="description center-align post-title">动态规划一日一题-10-8-混合背包问题</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/acwing/">
-                                <span class="chip bg-color">acwing</span>
+                            <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
+                                <span class="chip bg-color">一日一题 背包dp</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-15
+                    2021-10-08
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    754
+                    736
                 </div>
                 
 
@@ -479,266 +479,118 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h1><h2 id="1-目的"><a href="#1-目的" class="headerlink" title="1.目的"></a>1.目的</h2><h3 id="一、合并两个集合"><a href="#一、合并两个集合" class="headerlink" title="一、合并两个集合"></a>一、合并两个集合</h3><p>即将其中的一个集合作为另外一个集合的son。</p>
-<h3 id="二、判断两个元素是否在同一个集合里面"><a href="#二、判断两个元素是否在同一个集合里面" class="headerlink" title="二、判断两个元素是否在同一个集合里面"></a>二、判断两个元素是否在同一个集合里面</h3><p>集合的表示方式是用树来表示(不一定是二叉树)， 每个节点存储的是当前的节点的父亲节点，根节点存储的是该集合的编号。即只需要两个元素(树的节点)一直溯源，查找到根节点对应的编号。若编号相同，则在同一个集合里面。</p>
-<h2 id="2-优化"><a href="#2-优化" class="headerlink" title="2.优化"></a>2.优化</h2><p>优化的环节主要在于查找根节点的步骤。</p>
-<p>朴素的做法是，假设p[x]是x节点的上一个节点.</p>
-<pre class="line-numbers language-c++"><code class="language-c++">while(p[x] == x) x = p[x] ; 
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这样会导致时间复杂度较高。</p>
-<p>优化方式：路径压缩。即从一个节点查找根节点之后，将途中的所有的节点的p[x]都指向根节点。这样一旦在需要重复寻根的时候，可以大大节省时间。</p>
-<h2 id="3-模板题"><a href="#3-模板题" class="headerlink" title="3.模板题"></a>3.模板题</h2><h3 id="一、合并集合"><a href="#一、合并集合" class="headerlink" title="一、合并集合"></a>一、合并集合</h3><p>一共有 n 个数，编号是 1∼n，最开始每个数各自在一个集合中。</p>
-<p>现在要进行 m 个操作，操作共有两种：</p>
-<ol>
-<li><code>M a b</code>，将编号为 a和 b 的两个数所在的集合合并，如果两个数已经在同一个集合中，则忽略这个操作；</li>
-<li><code>Q a b</code>，询问编号为 a和b 的两个数是否在同一个集合中；</li>
-</ol>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行输入整数 n 和 m。</p>
-<p>接下来 m 行，每行包含一个操作指令，指令为 <code>M a b</code> 或 <code>Q a b</code> 中的一种。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>对于每个询问指令 <code>Q a b</code>，都要输出一个结果，如果 a和 b 在同一集合内，则输出 <code>Yes</code>，否则输出 <code>No</code>。</p>
-<p>每个结果占一行。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤105</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4 5
-M 1 2
-M 3 4
-Q 1 2
-Q 1 3
-Q 3 4
+                <h1 id="混合背包问题"><a href="#混合背包问题" class="headerlink" title="混合背包问题"></a>混合背包问题</h1><hr>
+<p>有 N种物品和一个容量是 V 的背包。</p>
+<p>物品一共有三类：</p>
+<ul>
+<li>第一类物品只能用1次（01背包）；</li>
+<li>第二类物品可以用无限次（完全背包）；</li>
+<li>第三类物品最多只能用 si次（多重背包）；</li>
+</ul>
+<p>每种体积是 vi，价值是 wi。</p>
+<p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p>
+<p>接下来有 N行，每行三个整数 vi,wi,si，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p>
+<ul>
+<li>si=−1 表示第 i种物品只能用1次；</li>
+<li>si=0 表示第 ii 种物品可以用无限次；</li>
+<li>si&gt;0表示第 i 种物品可以使用 si 次；</li>
+</ul>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤1000<br>0&lt;vi,wi≤1000<br>−1≤si≤1000</p>
+<h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 5
+1 2 -1
+2 4 1
+3 4 0
+4 5 2
 </code></pre>
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>Yes
-No
-Yes
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>8
 </code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>
-
-using namespace std ;
-const int N = 100010 ;
-
-int p[N] ;
-
-int find(int num)&#123;   //这一步是比较妙的，既找到了num的祖宗节点，而且还实现了路径压缩，每一个节点的父节点都是根节点了
-    if(p[num] != num)
-    &#123;
-        p[num] = find(p[num]) ;
-    &#125;
-    return p[num] ;
-&#125;
-
-int main()&#123;
-    int n ,m ;
-    cin>>n>>m ;
-    for(int i = 1 ;i <= n ;++i)
-        p[i] = i ;  //相当于初始化，将每一个元素存放到对应的集合中
-    
-    for(int i = 0 ; i < m ;++i)&#123;
-        char op ;
-        cin>> op ;
-        int a , b ;
-        cin>> a >> b ;
-        if(op == 'M')
-        &#123;
-            p[find(a)] = find(b) ;
-        &#125;
-        else
-        &#123;
-            if(find(a) == find(b))
-                cout<<"Yes"<<endl ;
-            else
-                cout<<"No"<<endl ;
-        &#125;
-        
-    &#125;
-return  0 ;  
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="二、连通块中点的数量"><a href="#二、连通块中点的数量" class="headerlink" title="二、连通块中点的数量"></a>二、连通块中点的数量</h3><p>给定一个包含 n个点（编号为 1∼n1∼n）的无向图，初始时图中没有边。</p>
-<p>现在要进行 m 个操作，操作共有三种：</p>
-<ol>
-<li><code>C a b</code>，在点 a 和点b 之间连一条边，aa 和 bb 可能相等；</li>
-<li><code>Q1 a b</code>，询问点 a 和点b 是否在同一个连通块中，a 和 b 可能相等；</li>
-<li><code>Q2 a</code>，询问点 a 所在连通块中点的数量；</li>
-</ol>
-<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行输入整数 n 和 m。</p>
-<p>接下来 m 行，每行包含一个操作指令，指令为 <code>C a b</code>，<code>Q1 a b</code> 或 <code>Q2 a</code> 中的一种。</p>
-<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>对于每个询问指令 <code>Q1 a b</code>，如果 a 和 b 在同一个连通块中，则输出 <code>Yes</code>，否则输出 <code>No</code>。</p>
-<p>对于每个询问指令 <code>Q2 a</code>，输出一个整数表示点 a 所在连通块中点的数量</p>
-<p>每个结果占一行。</p>
-<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤105</p>
-<h4 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>5 5
-C 1 2
-Q1 1 2
-Q2 1
-C 2 5
-Q2 5
-</code></pre>
-<h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>Yes
-2
-3
-</code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 100010 ;
-
-int n  , m ;
-int father[N] ;
-
-
-int find(int num)
-&#123;
-    if(father[num] != num) 
-        father[num] = find(father[num]) ;
-    return father[num] ;
-&#125;
-
-int main()
-&#123;
-    cin>>n>>m ;
-    int size[N]  ;
-    for(int i = 1 ; i <= n ;++i )
-    &#123;
-        father[i] = i ;    
-        size[i] = 1 ;
-    &#125;
-    
-    string op;
-    int a, b ;
-    for(int i = 0 ; i < m ; ++i )
-    &#123;
-        cin>>op ;
-        if(op == "C")
-        &#123;
-            cin>>a>>b ;
-            int x = find(a) ; int y = find(b) ;
-            if(x != y)
-            &#123;
-                father[x] = y ;
-                size[y] += size[x] ;
-            &#125;
-        &#125;
-        else if(op == "Q1")
-        &#123;
-            cin>>a>>b ;
-            (find(a) == find(b)) ? puts("Yes") : puts("No") ;
-        &#125;
-        else if(op == "Q2")
-        &#123;
-            cin>>a ;
-            cout<<size[find(a)]<<endl ;
-        &#125;  
-    &#125;
-    return 0 ; 
-&#125;
-
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="三、食物链"><a href="#三、食物链" class="headerlink" title="三、食物链"></a>三、食物链</h3><p>动物王国中有三类动物 A,B,CA,B,C，这三类动物的食物链构成了有趣的环形。</p>
-<p>A 吃 B，B 吃 C，C 吃A。</p>
-<p>现有 N 个动物，以 1∼N 编号。</p>
-<p>每个动物都是 A,B,C 中的一种，但是我们并不知道它到底是哪一种。</p>
-<p>有人用两种说法对这 N 个动物所构成的食物链关系进行描述：</p>
-<p>第一种说法是 <code>1 X Y</code>，表示 X 和 Y 是同类。</p>
-<p>第二种说法是 <code>2 X Y</code>，表示 X 吃 Y。</p>
-<p>此人对 N 个动物，用上述两种说法，一句接一句地说出 K 句话，这 K 句话有的是真的，有的是假的。</p>
-<p>当一句话满足下列三条之一时，这句话就是假话，否则就是真话。</p>
-<ol>
-<li>当前的话与前面的某些真的话冲突，就是假话；</li>
-<li>当前的话中 X 或 Y 比 N 大，就是假话；</li>
-<li>当前的话表示 X吃 X，就是假话。</li>
-</ol>
-<p>你的任务是根据给定的 N 和 K 句话，输出假话的总数。</p>
-<h4 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行是两个整数 NN 和 KK，以一个空格分隔。</p>
-<p>以下 KK 行每行是三个正整数 D，X，YD，X，Y，两数之间用一个空格隔开，其中 DD 表示说法的种类。</p>
-<p>若 D=1，则表示 X 和 Y 是同类。</p>
-<p>若 D=2，则表示 X 吃 Y。</p>
-<h4 id="输出格式-2"><a href="#输出格式-2" class="headerlink" title="输出格式"></a>输出格式</h4><p>只有一个整数，表示假话的数目。</p>
-<h4 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤50000<br>0≤K≤100000</p>
-<h4 id="输入样例：-2"><a href="#输入样例：-2" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>100 7
-1 101 1 
-2 1 2
-2 2 3 
-2 3 3 
-1 1 3 
-2 3 1 
-1 5 5
-</code></pre>
-<h4 id="输出样例：-2"><a href="#输出样例：-2" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3
-</code></pre>
+<hr>
+<p>其实从大体上来看，背包问题其实只有01，完全两大问题。对于混合背包，分组背包，多重背包其实就是通过某种优化手段，将其映射到01和完全两大背包类型中。</p>
+<p>例如，此题的混合背包问题，昨天我们做了多重背包问题，不同体积与价值的物品可以有不同的数量。我们采用了一种二进制优化的方法，将多重背包映射成为01背包，然后套用01的模板即可。</p>
+<p>好的 ，那么我们开始举一反三，混合背包可以简化成什么问题。</p>
+<p>我们从数量开始入手，对于有固定容积的背包来说，其实是不存在无穷这一概念的，也就是说物品的无穷相对于优先的背包容积来说，是不存在的。本质上，全是多重背包问题。</p>
+<p>ok，明确了这一点后，我们就可以把此题当做多重背包来做，然后可以用二进制优化的方法进行转化成01背包。</p>
+<p>代码如下：</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
 
 using namespace std ;
 
-const int N = 100010 ;
+const int N = 10010 ; 
 
-int n , m ;
-
-int p[N] ; int dis[N] ;
-
-int find(int num)
-&#123; 
-    if(p[num] != num)
-    &#123; 
-        int t = find(p[num]) ;
-       dis[num]  += dis[p[num]] ;
-       p[num] = t;
-    &#125;
-    return p[num] ;
-&#125;
-
+int f[N] ; 
+int w[N] , v[N] ;
 
 int main()
-&#123; 
-    cin >> n >> m ;
+&#123;
+    int n , m ;  
     
-    int res = 0 ;
-
-    for(int i = 1 ;i <= n ;++i)
-       p[i] = i  ;
-   
-    while(m--)
-    &#123; 
-        int op , a ,b ;
+    cin >> n >> m ; 
+    
+    int cnt = 0 ; 
+    
+    for(int i = 1 ; i <= n ; ++i)
+    &#123;
+        int a , b , c ; 
         
-        cin>> op >>a >>b ;
-    
-        if(a > n || b> n ) res++ ;
-        else
-        &#123; 
-            int pa = find(a) ; int pb = find(b) ;
-            if(op == 1)
-            &#123; 
-                if(pa == pb && (dis[a] - dis[b]) %3 ) 
-                &#123; 
-                    res++ ;
-                &#125;
-
-                else if(pa != pb)
-                &#123; 
-                    p[pa] = pb ;  
-                    dis[pa] = dis[b] - dis[a] ;
-                &#125;
+        cin >> a >> b >> c ; 
+        if(c == -1)
+        &#123;
+            cnt ++ ;
+            v[cnt] = a  ; 
+            w[cnt] = b ; 
+        &#125;
+        else if(c == 0)
+        &#123;
+            c = m / a ;
+            int k = 1 ;
+            while(c >= k )
+            &#123;
+                cnt ++ ;
+                v[cnt] = a * k ; 
+                w[cnt] = b * k ;
+                c -= k ; 
+                k *= 2  ;
             &#125;
-
-            else
-            &#123; 
-                if(pa == pb && (dis[a] - dis[b] -1) %3 )
-                   res++ ;
-                else if(pa != pb)
-                &#123; 
-                    p[pa] = pb ;
-                    dis[pa] = dis[b]+1-dis[a] ; 
-                
-                &#125; 
+            if (c)
+            &#123;
+                cnt ++ ;
+                v[cnt] = a * c; 
+                w[cnt] = b * c  ;
             &#125;
-        &#125; 
+        &#125;
+        else 
+        &#123;
+            int k = 1 ; 
+            while(c >= k)
+            &#123;
+                cnt ++ ;
+                v[cnt] = a * k ; 
+                w[cnt] = b * k ;
+                c -= k ; 
+                k *= 2  ;
+            &#125;
+            if(c)
+            &#123;
+                cnt ++ ; 
+                v[cnt] = a * c ; 
+                w[cnt] = b * c ; 
+            &#125;
+        &#125;
     &#125;
-
-    cout<<res<<endl ;
-    return 0  ;
- &#125;
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    n = cnt ; 
+    for(int i = 1 ; i <= n ; ++i)
+    &#123;
+        for(int j = m ; j >= v[i] ; --j)
+        &#123;
+            f[j] = max(f[j] , f[j-v[i]] + w[i]) ;
+        &#125;
+    &#125;
+    cout << f[m] << endl ;
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -765,7 +617,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/15/bing-cha-ji/">https://luolin03.github.io/2021/09/15/bing-cha-ji/</a>
+                    <a href="https://luolin03.github.io/2021/10/08/dong-tai-gui-hua-yi-ri-yi-ti-10-8-hun-he-bei-bao-wen-ti/">https://luolin03.github.io/2021/10/08/dong-tai-gui-hua-yi-ri-yi-ti-10-8-hun-he-bei-bao-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -803,8 +655,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/acwing/">
-                                    <span class="chip bg-color">acwing</span>
+                                <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
+                                    <span class="chip bg-color">一日一题 背包dp</span>
                                 </a>
                             
                         </div>
@@ -850,17 +702,18 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/18/xian-xing-dp-zhuan-ti/">
+                <a href="/2021/10/08/dong-tai-gui-hua-yi-ri-yi-ti-10-8-hun-he-bei-bao-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="线性DP专题">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="动态规划一日一题-10-8-混合背包问题">
                         
-                        <span class="card-title">线性DP专题</span>
+                        <span class="card-title">动态规划一日一题-10-8-混合背包问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -870,9 +723,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -881,11 +734,12 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
+                        <span class="chip bg-color">一日一题 背包dp</span>
                     </a>
                     
                 </div>
@@ -899,13 +753,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/15/zi-fu-chuan-ha-xi-de-li-jie/">
+                <a href="/2021/10/07/ssh-xiang-guan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="字符串哈希的理解">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="ssh相关">
                         
-                        <span class="card-title">字符串哈希的理解</span>
+                        <span class="card-title">ssh相关</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -916,7 +770,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-07
                             </span>
                         <span class="publish-author">
                             
@@ -929,8 +783,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/linux%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">linux基础</span>
                     </a>
                     
                 </div>
