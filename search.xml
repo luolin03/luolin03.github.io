@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>蛇形矩阵</title>
+      <link href="/2021/10/09/she-xing-ju-zhen/"/>
+      <url>/2021/10/09/she-xing-ju-zhen/</url>
+      
+        <content type="html"><![CDATA[<h1 id="蛇形矩阵"><a href="#蛇形矩阵" class="headerlink" title="蛇形矩阵"></a>蛇形矩阵</h1><hr><p>输入两个整数 n和 m，输出一个 n行 m 列的矩阵，将数字 1 到 n×m 按照回字蛇形填充至矩阵中。</p><p>具体矩阵形式可参考样例。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>输入共一行，包含两个整数 n 和 m。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出满足要求的矩阵。</p><p>矩阵占 n 行，每行包含 m 个空格隔开的整数。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤100</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>3 3</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>1 2 38 9 47 6 5</code></pre><hr><p>好家伙，纯模拟，耐心就可以，纯耗时间，没有技巧…..</p><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 1010 ;int f[N][N] ; int main()&#123;    int n , m  ;    cin >> n >> m  ;     int all = n*m ;     int cnt = 0 ;    int top1 =n , top2 = m  , bottom1 = 1 , bottom2 = 1 ;    while(all > 0 )    &#123;        for(int j = bottom2 ; j <= top2 ;  j++)        &#123;            f[bottom1][j] = ++cnt ;            all -- ;        &#125;        top2 -- ;        for(int i = bottom1 ; i <= top1 ; ++i)        &#123;            f[i][top2+1] = ++cnt ;            all -- ;        &#125;        top1 -- ;                 for(int j = top2 ; j >= bottom2 ; --j)        &#123;            f[top1+1][j] = ++cnt ;            all -- ;        &#125;        bottom2 ++ ;                 for(int i = top1 ; i <= bottom1 ; --i)        &#123;            f[i][bottom2] = ++cnt ;            all -- ;        &#125;        bottom1 ++ ;             &#125;        for(int i  = 1 ; i <= n ; ++i)    &#123;        for(int j = 1 ; j <= m ;++j)        &#123;            cout << f[i][j] << " " ;        &#125;        cout << endl ;    &#125;    return  0 ;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>注意对称美还有一些细节就行了……. 模拟的题目是最无聊的…….</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 模拟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>动态规划一日一题-10-9-最长上升子序列</title>
       <link href="/2021/10/09/dong-tai-gui-hua-yi-ri-yi-ti-10-9-zui-chang-shang-sheng-zi-xu-lie/"/>
       <url>/2021/10/09/dong-tai-gui-hua-yi-ri-yi-ti-10-9-zui-chang-shang-sheng-zi-xu-lie/</url>

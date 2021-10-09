@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="ssh相关, 罗林的博客">
+    <meta name="keywords" content="蛇形矩阵, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ssh相关 | 罗林的博客</title>
+    <title>蛇形矩阵 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ssh相关</h1>
+                    <h1 class="description center-align post-title">蛇形矩阵</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux%E5%9F%BA%E7%A1%80/">
-                                <span class="chip bg-color">linux基础</span>
+                            <a href="/tags/%E6%A8%A1%E6%8B%9F/">
+                                <span class="chip bg-color">模拟</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-07
+                    2021-10-09
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    64
+                    199
                 </div>
                 
 
@@ -479,13 +479,80 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ssh相关知识点"><a href="#ssh相关知识点" class="headerlink" title="ssh相关知识点"></a>ssh相关知识点</h1><p>一、基本概念</p>
-<p>二、两个作用：</p>
-<p>1.远程登陆自己的server</p>
-<p>(1)将user和hostname省略</p>
-<p>(2)免密登录 可以登录多个server</p>
-<p>2.scp本地与server、server与server之间传输文件</p>
-<p>三、密钥公钥的概念</p>
+                <h1 id="蛇形矩阵"><a href="#蛇形矩阵" class="headerlink" title="蛇形矩阵"></a>蛇形矩阵</h1><hr>
+<p>输入两个整数 n和 m，输出一个 n行 m 列的矩阵，将数字 1 到 n×m 按照回字蛇形填充至矩阵中。</p>
+<p>具体矩阵形式可参考样例。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>输入共一行，包含两个整数 n 和 m。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出满足要求的矩阵。</p>
+<p>矩阵占 n 行，每行包含 m 个空格隔开的整数。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤100</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>3 3
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>1 2 3
+8 9 4
+7 6 5
+</code></pre>
+<hr>
+<p>好家伙，纯模拟，耐心就可以，纯耗时间，没有技巧…..</p>
+<p>贴个代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 1010 ;
+
+int f[N][N] ; 
+
+int main()
+&#123;
+    int n , m  ;
+    cin >> n >> m  ; 
+    int all = n*m ; 
+    int cnt = 0 ;
+    int top1 =n , top2 = m  , bottom1 = 1 , bottom2 = 1 ;
+    while(all > 0 )
+    &#123;
+        for(int j = bottom2 ; j <= top2 ;  j++)
+        &#123;
+            f[bottom1][j] = ++cnt ;
+            all -- ;
+        &#125;
+        top2 -- ;
+        for(int i = bottom1 ; i <= top1 ; ++i)
+        &#123;
+            f[i][top2+1] = ++cnt ;
+            all -- ;
+        &#125;
+        top1 -- ; 
+        
+        for(int j = top2 ; j >= bottom2 ; --j)
+        &#123;
+            f[top1+1][j] = ++cnt ;
+            all -- ;
+        &#125;
+        bottom2 ++ ; 
+        
+        for(int i = top1 ; i <= bottom1 ; --i)
+        &#123;
+            f[i][bottom2] = ++cnt ;
+            all -- ;
+        &#125;
+        bottom1 ++ ; 
+        
+    &#125;
+    
+    for(int i  = 1 ; i <= n ; ++i)
+    &#123;
+        for(int j = 1 ; j <= m ;++j)
+        &#123;
+            cout << f[i][j] << " " ;
+        &#125;
+        cout << endl ;
+    &#125;
+    return  0 ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意对称美还有一些细节就行了……. 模拟的题目是最无聊的…….</p>
 
                 
             </div>
@@ -512,7 +579,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/10/07/ssh-xiang-guan/">https://luolin03.github.io/2021/10/07/ssh-xiang-guan/</a>
+                    <a href="https://luolin03.github.io/2021/10/09/she-xing-ju-zhen/">https://luolin03.github.io/2021/10/09/she-xing-ju-zhen/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -550,8 +617,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/linux%E5%9F%BA%E7%A1%80/">
-                                    <span class="chip bg-color">linux基础</span>
+                                <a href="/tags/%E6%A8%A1%E6%8B%9F/">
+                                    <span class="chip bg-color">模拟</span>
                                 </a>
                             
                         </div>
@@ -597,17 +664,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/10/08/dong-tai-gui-hua-yi-ri-yi-ti-10-8-hun-he-bei-bao-wen-ti/">
+                <a href="/2021/10/09/she-xing-ju-zhen/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="动态规划一日一题-10-8-混合背包问题">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="蛇形矩阵">
                         
-                        <span class="card-title">动态规划一日一题-10-8-混合背包问题</span>
+                        <span class="card-title">蛇形矩阵</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -617,9 +685,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -628,11 +696,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
-                        <span class="chip bg-color">一日一题 背包dp</span>
+                    <a href="/tags/%E6%A8%A1%E6%8B%9F/">
+                        <span class="chip bg-color">模拟</span>
                     </a>
                     
                 </div>
@@ -646,13 +715,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/07/dong-tai-gui-hua-yi-ri-yi-ti-10-7-duo-chong-bei-bao-wen-ti/">
+                <a href="/2021/10/09/dong-tai-gui-hua-yi-ri-yi-ti-10-9-zui-chang-shang-sheng-zi-xu-lie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="动态规划一日一题-10.7-多重背包问题">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="动态规划一日一题-10-9-最长上升子序列">
                         
-                        <span class="card-title">动态规划一日一题-10.7-多重背包问题</span>
+                        <span class="card-title">动态规划一日一题-10-9-最长上升子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -663,7 +732,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-09
                             </span>
                         <span class="publish-author">
                             
@@ -676,8 +745,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
-                        <span class="chip bg-color">一日一题 背包dp</span>
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E7%BA%BF%E6%80%A7dp/">
+                        <span class="chip bg-color">一日一题 线性dp</span>
                     </a>
                     
                 </div>
