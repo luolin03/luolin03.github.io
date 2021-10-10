@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>由回文平方讲一种无脑转进制的方法</title>
+      <link href="/2021/10/10/you-hui-wen-ping-fang-jiang-yi-chong-wu-nao-zhuan-jin-zhi-de-fang-fa/"/>
+      <url>/2021/10/10/you-hui-wen-ping-fang-jiang-yi-chong-wu-nao-zhuan-jin-zhi-de-fang-fa/</url>
+      
+        <content type="html"><![CDATA[<h1 id="回文平方"><a href="#回文平方" class="headerlink" title="回文平方"></a>回文平方</h1><hr><p>回文数是指数字从前往后读和从后往前读都相同的数字。</p><p>例如数字 12321 就是典型的回文数字。</p><p>现在给定你一个整数 B，请你判断 1∼300之间的所有整数中，有哪些整数的<strong>平方</strong>转化为 B 进制后，其 B 进制表示是回文数字。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>一个整数 B。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>每行包含两个<strong>在 B 进制下</strong>表示的数字。</p><p>第一个表示满足平方值转化为 B 进制后是回文数字那个数，第二个数表示第一个数的平方。</p><p>所有满足条件的数字按从小到大顺序依次输出。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>2≤B≤20,<br>对于大于 9 的数字，用 A 表示 10，用 B 表示 11，以此类推。</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>10</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>1 12 43 911 12122 48426 676101 10201111 12321121 14641202 40804212 44944264 69696</code></pre><hr><p>思路比较简单，这里主要讲一种无脑转进制的方法。</p><p>先贴代码</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ; int B ; string a = "0123456789ABCDEFGHIJK" ; string tob(int sum)&#123;    string res = "" ;     while(sum)    &#123;        res += a[sum%B] ;         sum /= B ;     &#125;    reverse(res.begin(), res.end()) ;    return res ;&#125;bool check(string a)&#123;    int l = 0 ;     int r = a.size() -1 ;    while(l < r)    &#123;        if(a[l] == a[r])        &#123;            l ++ ; r -- ;        &#125;        else        &#123;            return false ;         &#125;    &#125;    return true ; &#125;int main()&#123;    cin >> B ;         for(int i = 1 ; i <= 300 ; ++i)    &#123;        string x = tob(i*i) ;         if(check(x))        &#123;            string y = tob(i) ;            cout << y << " " << x << endl ;         &#125;    &#125;    return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>这里可以注意到，我在将任意数转换成B进制的时候，直接采用了一种比较万能的方法，直接将备选的string组给展示出来。然后就直接可以套用模板来进行转换了。如果最后是要用int型的，直接调用atoi函数即可。</p><p>例如，leetcode的一道题目：</p><p><a href="https://leetcode-cn.com/problems/convert-a-number-to-hexadecimal/">405. 数字转换为十六进制数 - 力扣（LeetCode） (leetcode-cn.com)</a></p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    string toHex(int num) &#123;        string a = "0123456789ABCDEF" ;                 long long n = num < 0 ? (long long) (num + pow(2,32)) : num ;         string res = "" ;         while(n)        &#123;            res += a[n%16] ;             n /= 16 ;        &#125;        reverse(res.begin() , res.end()) ;        return res ;     &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>特别要注意的是，当负数要进行进制转换的时候，因为要按照补码进行运算，就是再十进制基础上，加上了pow(2,32) 。但是同时也要注意，会不会爆int,因为int的范围是2的-31~2的31，直接加上pow(2，32)就会爆int ，所以我们需要有一个强制转换，ok，除此之外就没有什么了。 </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 总结 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>动态规划一日一题-10-10-最长公共子序列</title>
       <link href="/2021/10/10/dong-tai-gui-hua-yi-ri-yi-ti-10-10-zui-chang-gong-gong-zi-xu-lie/"/>
       <url>/2021/10/10/dong-tai-gui-hua-yi-ri-yi-ti-10-10-zui-chang-gong-gong-zi-xu-lie/</url>
