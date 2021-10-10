@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>动态规划一日一题-10-10-最长公共子序列</title>
+      <link href="/2021/10/10/dong-tai-gui-hua-yi-ri-yi-ti-10-10-zui-chang-gong-gong-zi-xu-lie/"/>
+      <url>/2021/10/10/dong-tai-gui-hua-yi-ri-yi-ti-10-10-zui-chang-gong-gong-zi-xu-lie/</url>
+      
+        <content type="html"><![CDATA[<h1 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h1><hr><p>给定两个长度分别为 N 和 M 的字符串 A 和 B，求既是 A 的子序列又是 B 的子序列的字符串长度最长是多少。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 N 和 M。</p><p>第二行包含一个长度为 N 的字符串，表示字符串 A。</p><p>第三行包含一个长度为 M 的字符串，表示字符串 B。</p><p>字符串均由小写字母构成。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大长度。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N,M≤1000</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4 5acbdabedc</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3</code></pre><hr><p>这题也是经典的双串的线性dp问题，按照模板来进行分析即可。</p><p>状态表示：dp[i] [j] 表示串a的1-i与串b的1-j之间的最长common子序列。所以最终答案的返回值应该是dp[n] [m] ; </p><p>状态属性：max</p><p>base case：dp[i] [0] =  0 ; dp[0] [j] = 0 ;</p><p>状态转移：按照典型的字符相等判断</p><p>​                    如果两者是相等的，dp[i] [j] = dp[i-1] [j-1] + 1 ; </p><p>​                    如果不等 ， dp[i] [ j] = max(dp[i-1] [j] , dp[ i] [j-1]) ; </p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 1010 ; int f[N][N] ; char a[N] , b[N] ; int main()&#123;    int n , m ;         cin >> n >> m ;         scanf("%s%s" , a + 1 , b + 1) ;         for(int i = 1 ;  i <= n ; ++i)        a[i][0] = 0  ;     for(int j = 1 ; j <= m ; ++j)        a[0][j] = 0 ;         for(int i = 1 ;  i <= n ; ++i )    &#123;        for(int j = 1 ; j <= m ; ++j)        &#123;            if(a[i] == b[j])            &#123;                f[i][j] = f[i-1][j-1] + 1 ;             &#125;            else            &#123;                f[i][j] = max(f[i-1][j] , f[i][j-1]) ;            &#125;        &#125;    &#125;    cout << f[n][m] << endl ;     return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>经典的模板题，按照模板走即可，没有什么说的。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 线性dp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>蛇形矩阵</title>
       <link href="/2021/10/09/she-xing-ju-zhen/"/>
       <url>/2021/10/09/she-xing-ju-zhen/</url>
