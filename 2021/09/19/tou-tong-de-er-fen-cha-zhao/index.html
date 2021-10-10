@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.5k
                 </div>
                 
 
@@ -580,6 +580,142 @@ public:
 <p>要不然，血泪教训是</p>
 <p>TLE……….死循环……</p>
 <p>好的，之后如果有更加经典的例子，我再次会更新。</p>
+<p>—————————————-ok 今天是-10-10更新————————————————————————</p>
+<p>又发现了一个比较经典的例子</p>
+<h2 id="数的范围"><a href="#数的范围" class="headerlink" title="数的范围"></a>数的范围</h2><hr>
+<p>给定一个按照升序排列的长度为 n 的整数数组，以及 q 个查询。</p>
+<p>对于每个查询，返回一个元素 k 的起始位置和终止位置（位置从 0 开始计数）。</p>
+<p>如果数组中不存在该元素，则返回 <code> -1</code>。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n 和 q，表示数组长度和询问个数。</p>
+<p>第二行包含 n 个整数（均在 1∼10000 范围内），表示完整数组。</p>
+<p>接下来 q 行，每行包含一个整数 k，表示一个询问元素。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共 q行，每行包含两个整数，表示所求元素的起始位置和终止位置。</p>
+<p>如果数组中不存在该元素，则返回 <code>-1</code>。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100000<br>1≤q≤10000<br>1≤k≤10000</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>6 3
+1 2 2 3 3 4
+3
+4
+5
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3 4
+5 5
+-1 -1
+</code></pre>
+<hr>
+<p>ok，main函数的部分应该是相当简单了，主要的难点就是在于，如何返回两个值，满足起始与终点的要求。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 100010  ; 
+
+int a[N] ; 
+
+int n , m ;
+
+int findlow(int *a , int num)
+&#123;
+    int left = 0 ;
+    int right = n ; 
+    while(left < right)
+    &#123;
+        int mid = left + right >> 1 ; 
+        if(a[mid] >= num)
+        &#123;
+            right = mid ; 
+        &#125;
+        else
+        &#123;
+            left = mid + 1 ; 
+        &#125;
+    &#125;
+    return left ; 
+&#125;
+
+int findhigh(int *a , int num)
+&#123;
+    int left = 0 ;
+    int right = n ; 
+    while(left < right)
+    &#123;
+        int mid = left + right >> 1 ; 
+        if(a[mid] > num)
+        &#123;
+            right = mid ; 
+        &#125;
+        else
+        &#123;
+            left = mid + 1 ; 
+        &#125;
+    &#125;
+    return left - 1; 
+&#125;
+
+
+
+int main()
+&#123;
+    cin >> n >> m ; 
+    
+    for(int i = 0 ; i < n ;++i)
+    &#123;
+        cin >> a[i] ; 
+    &#125;
+
+    for(int i = 0 ; i < m ; ++ i)
+    &#123;
+        int b ; 
+        cin >> b ; 
+        int low = findlow(a , b) ; 
+        int high = findhigh(a , b) ; 
+        if(low > high)
+            low = high = -1 ; 
+        cout << low << " " << high << endl ; 
+    &#125;
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运用之前的二分查找法的模板来说，</p>
+<p>我们已经知道该题的target，就是目标值了。现在关系也明确了，就是查找&gt;=target的第一个数字和&lt;=target的最后一个数字。</p>
+<p>我们知道二分查找模板的宗旨是返回第一个满足的值。那大于等于target的第一个值非常好找，小于等于target的最后一个值应该怎么找呢？</p>
+<p>换个思路，那就是找&gt;target的第一个值的位置再减去一咯！！！！！</p>
+<pre class="line-numbers language-c++"><code class="language-c++">int findlow(int *a , int num)
+&#123;
+    int left = 0 ;  int right = n ; 
+    while(left < right)
+    &#123;
+        int mid = left + right >> 1 ; 
+        if(a[mid] >= num)
+        &#123;
+            right = mid  ;
+        &#125;
+        else
+        &#123;
+            left = mid + 1 ; 
+        &#125;
+    &#125;
+    return left ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c++"><code class="language-c++">int findhigh(int *a , int num)
+&#123;
+    int left = 0 ; int right = n ; 
+    while(left < right)
+    &#123;
+        int mid = left + right >> 1 ; 
+        if(a[mid] > num)
+        &#123;
+            right = mid ; 
+        &#125;
+        else
+        &#123;
+            left = mid + 1  ;
+        &#125;
+    &#125;
+    return left - 1 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -965,7 +1101,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">19.3k</span>
+                        class="white-color">19.7k</span>
             
             
             
