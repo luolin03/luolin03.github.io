@@ -4,6 +4,51 @@
   
     
     <entry>
+      <title>动态规划一日一题-10-11-最长回文子串</title>
+      <link href="/2021/10/11/dong-tai-gui-hua-yi-ri-yi-ti-10-11-zui-chang-hui-wen-zi-chuan/"/>
+      <url>/2021/10/11/dong-tai-gui-hua-yi-ri-yi-ti-10-11-zui-chang-hui-wen-zi-chuan/</url>
+      
+        <content type="html"><![CDATA[<h1 id="最长回文子串与最长回文子序列的爱恨情仇"><a href="#最长回文子串与最长回文子序列的爱恨情仇" class="headerlink" title="最长回文子串与最长回文子序列的爱恨情仇"></a>最长回文子串与最长回文子序列的爱恨情仇</h1><hr><p>给定一个字符串，请你求出其中的最长回文子串的长度。</p><p>例如，给定字符串 <code>Is PAT&amp;TAP symmetric?</code>，最长回文子串为 <code>s PAT&amp;TAP s</code>，其长度是 1111。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>包含一个非空字符串。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示给定字符串的最长回文子串的长度。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>给定字符串的长度不超过 1000。</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>Is PAT&amp;TAP symmetric?</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>11</code></pre><hr><p>好吧，这道题目实属非常经典的一道例题，有很多种做法，下面开始介绍两种方法。</p><p>(小声bb，其实还有一种马拉车算法，之后有时间再讲，其实不是很重点的一种方法，也比较简单)</p><p>在介绍这三种方法之后，我们需要对比一下，leetcode上面的一道题目</p><p><a href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/">516. 最长回文子序列 - 力扣（LeetCode） (leetcode-cn.com)</a></p><p>仔细想一下，子序列与子串的difference在什么地方。在dp做法的时候，在状态表示，状态转移的过程中有什么明显的区别？？？</p><h2 id="一、线性dp"><a href="#一、线性dp" class="headerlink" title="一、线性dp"></a>一、线性dp</h2><p>状态表示：f[i] [j] 表示什么呢？因为其实线性dp不是我第一次做出来这个题目所用的方法。</p><p>我闪过几个角度，like 从i到j这一段中最长的子串的长度？ 其实有点像后面要说的，子序列的表示。</p><p>或者是f[i] [j] 表示i到j是回文子串同时储存着长度？有点脱裤子放… 不对，就像是为了dp而dp的感觉….</p><p>最终选择dp[i] [j] 不仅表示回文子串而且存贮这长度这种表示方式，没什么原因，就是感觉思路简单，便于比较。</p><p>状态属性：max</p><p>base case：每一个字符都可以表示为长度为一的回文子串。</p><p>状态转移：这样想，所有回文子串(注意连续)，都是只可能有一种状态转移来的，dp[i+1] [j-1]  +2 转移来的，so 只需要一种语句即可。</p><p>直接</p><pre class="line-numbers language-c++"><code class="language-c++">if(a[i] == a[j])&#123;    f[i][j] = f[i+1][j-1] + 2 ; &#125;else&#123;    f[i][j] = -1000 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="两个雷区"><a href="#两个雷区" class="headerlink" title="两个雷区"></a>两个雷区</h4><p>一是遍历顺序，这个注意即可，细心就行。</p><p>二是对不满足条件的处理，我之前就是因为，没有上述的else的语句，被卡了大概5分钟…..</p><p>我们这样想，因为f表示的是连续符合要求的子串，如果不满足a[i] == a[j]，其实就是等于把这个i到j给pass了，给他一个大的负数就是等于，不让他影响后续res的max函数的判断，这样会省下很多烦恼。</p><p>代码如下：</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N  = 1010 ; string a ; int f[N][N] ; int main()&#123;    getline(cin , a) ;    int n = a.size() ;     if(n == 1)     &#123;        cout << 1 << endl ;    &#125;    else    &#123;    int res = 1 ;     for(int i = 0 ; i < n ; ++ i)    &#123;        f[i][i] = 1 ;     &#125;        for(int i = n-1 ; i >= 0 ; --i)    &#123;        for(int j = i + 1  ; j < n ; j ++)        &#123;            if(a[i] == a[j])            &#123;                f[i][j] = f[i+1][j-1] + 2 ;             &#125;            else            &#123;                f[i][j] = -10000 ;             &#125;                res = max(res , f[i][j]) ;        &#125;    &#125;    cout << res << endl  ;    &#125;    return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="二、中心扩散法"><a href="#二、中心扩散法" class="headerlink" title="二、中心扩散法"></a>二、中心扩散法</h2><p>这一种方法其实是我第一次做出来的方法，我觉得他比较符合一般思维的特点。具体逻辑是先进行一次循环遍历，将自己所指向的下标作为回文子串的中心。向左右开始扩散，判断方法是字符是否相同，如果字符相同，即为之前的数量加上2即可。再用一个res储存最大值就可以。</p><p>但是，最主要注意的是需要分成奇数回文字符串与偶数回文字符串，分别循环，最后取大值即可。</p><h3 id="OK。Talk-is-cheap-show-me-your-code"><a href="#OK。Talk-is-cheap-show-me-your-code" class="headerlink" title="OK。Talk is cheap, show me your code"></a>OK。Talk is cheap, show me your code</h3><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 1010 ; int f[N][N] ; string a ; int main()&#123;    getline(cin , a) ;        int n = a.size() ;        if(n == 1) cout << 1 << endl ;    else    &#123;    int res = -1000 ;     for(int i = 0 ; i < n ; ++ i)        f[i][i] = 1 ;         for(int i = 0 ; i < n ;++ i)                 //奇数回文    &#123;        int l = i - 1 ; int r  = i + 1 ;                 while(l >= 0 && r < n && a[l] == a[r])        &#123;            f[l][r] = f[l+1][r-1] + 2 ;             l -- ;  r ++ ;        &#125;        res = max(res ,f[l+1][r-1] ) ;    &#125;        for(int i = 0 ; i < n ; ++ i)                 //偶数回文    &#123;        int l  = i  ; int r = i + 1 ;         while(l >= 0 && r < n && a[l] == a[r])        &#123;            f[l][r] = f[l+1][r-1] + 2 ;             l -- ;  r ++ ;        &#125;        res = max(res ,f[l+1][r-1] ) ;    &#125;    cout << res << endl ;     &#125;    return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>ok.以上就是最长回文子串的做法，我们来看最长回文子序列的题目。</p><p><a href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/">516. 最长回文子序列 - 力扣（LeetCode） (leetcode-cn.com)</a></p><p>这就是典型的线性dp可以做出来的题，我们按照经典模板走一下。</p><p>状态表示：dp[i] [j] 表示在下标为i到j的一段字符串中， 最长子序列的长度。</p><p>状态属性：max</p><p>base case：每一个字符都可以看成是一个长度为一的回文字符串。</p><p>状态转移：字符串经典分割，按照遍历时候，字符是否相同进行分割。</p><p>​                    如果相同，f[i] [j] =  f[i+1] [j-1]  + 2  ; </p><p>​                    如果不同 ， f[i] [j] = max(f[i] [j-1] , f[i+1] [j]) ;</p><p>感觉都成了肌肉记忆了…………</p><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    int longestPalindromeSubseq(string s) &#123;        int n = s.size() ;        if(n == 1) return 1 ;         vector<vector<int>> f(n , vector<int> (n,  0)) ;         for(int i = 0 ; i < n  ; ++ i)        &#123;            f[i][i] = 1 ;         &#125;                for(int i = n-1 ; i >= 0 ; --i)        &#123;             for(int j = i + 1 ; j < n ; ++ j)      //一个小细节，注意遍历的顺序，这是根据状态转移的式子来的。             &#123;                 if(s[i] == s[j])                 &#123;                     f[i][j] = f[i+1][j-1] + 2 ;                  &#125;                 else                 &#123;                     f[i][j] = max(f[i][j-1] , f[i+1][j]) ;                 &#125;             &#125;        &#125;        return f[0][n-1] ;    &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>可以明显的感觉到两者之间的方法的差异。</p><p>本质上，其实就是定义的差别，即连续与不连续的区别。这就导致了在dp的时候，状态表示的差异。</p><h3 id="子串"><a href="#子串" class="headerlink" title="子串"></a>子串</h3><p>状态表示：是饱满的，就是相当于中间不能有任何空隙，任何使得中间有空隙的f段都会被直接pass。</p><p>状态属性：max</p><p>base case：不说了</p><p>状态转移：唯一一种形成的方式，就是相等才会前进，如果不等，就直接pass</p><h3 id="子序列"><a href="#子序列" class="headerlink" title="子序列"></a>子序列</h3><p>状态表示：相等于很宽容，里面既可以有合乎要求的，也可以有方案外的。</p><p>状态属性：同子串</p><p>base case：同子串</p><p>状态转移：经典按照字符串==方式进行划分， if 就+2 else 就回退。</p><p>好了，终于写完了！！！ </p><p>之后有时间介绍一下，马拉车算法。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 线性dp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>shell语法学习</title>
+      <link href="/2021/10/10/shell-yu-fa-xue-xi/"/>
+      <url>/2021/10/10/shell-yu-fa-xue-xi/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git基本原理以及常用命令</title>
+      <link href="/2021/10/10/git-ji-ben-yuan-li-yi-ji-chang-yong-ming-ling/"/>
+      <url>/2021/10/10/git-ji-ben-yuan-li-yi-ji-chang-yong-ming-ling/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>由回文平方讲一种无脑转进制的方法</title>
       <link href="/2021/10/10/you-hui-wen-ping-fang-jiang-yi-chong-wu-nao-zhuan-jin-zhi-de-fang-fa/"/>
       <url>/2021/10/10/you-hui-wen-ping-fang-jiang-yi-chong-wu-nao-zhuan-jin-zhi-de-fang-fa/</url>
