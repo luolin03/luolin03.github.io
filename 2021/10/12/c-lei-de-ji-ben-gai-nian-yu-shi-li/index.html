@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="动态规划一日一题-10.3-整数划分, 罗林的博客">
+    <meta name="keywords" content="c++类的基本概念与实例, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>动态规划一日一题-10.3-整数划分 | 罗林的博客</title>
+    <title>c++类的基本概念与实例 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">动态规划一日一题-10.3-整数划分</h1>
+                    <h1 class="description center-align post-title">c++类的基本概念与实例</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%AE%A1%E6%95%B0dp/">
-                                <span class="chip bg-color">一日一题 计数dp</span>
+                            <a href="/tags/c-%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">c++学习</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-03
+                    2021-10-12
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    471
+                    16
                 </div>
                 
 
@@ -479,94 +479,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h1><hr>
-<p>一个正整数 n 可以表示成若干个正整数之和，形如：n=n1+n2+…+nk，其中 n1≥n2≥…≥nk,k≥1。</p>
-<p>我们将这样的一种表示称为正整数 n 的一种划分。</p>
-<p>现在给定一个正整数 n，请你求出 n 共有多少种不同的划分方法。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含一个整数 n。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示总划分数量。</p>
-<p>由于答案可能很大，输出结果请对 109+7取模。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤1000</p>
-<h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例:"></a>输入样例:</h4><pre><code>5
-</code></pre>
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>7
-</code></pre>
-<hr>
-<p>该题是典型的整数划分类问题，也可以将其理解成完全背包问题。所以该题就可以转换为现在有n种物品，第i种背包的容量是i，数量为无穷，请问能装满体积为n的背包的方案数是多少？</p>
-<p>同完全背包问题，我们先想朴素算法。用f[i] [j] 表示用前i个物品来装满体积为j的背包的方案数。</p>
-<p>状态表示：f[i] [j] 表示用前i个物品装满j的背包的方案数，最终的结果就可以标示为f[n] [ n] ; </p>
-<p>状态属性：无</p>
-<p>状态转移：f[i] [j] = f[i-1] [ j] +f[i-1] [j-i] +f[i-1] [j-2*i] + …+ </p>
-<p>​                    f[i] [j-i] =                f[i-1] [j-i] + f[i-1] [j- 2*i] + … + </p>
-<p>故有数学推导可得：</p>
-<p>f[i] [j] = f[i-1] [j] + f[i] [j-i] </p>
-<p>base case ：比较玄学，基于现在的水平，我觉得就是把二维数组涉及下标为0的可以提前知道的给初始化一下，比如这一题：</p>
-<p>f[i] [0] 是可以提前知道的，同时也是转移的起始点。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">//朴素做法
-
-#include <bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 1010  , mod = 1e9+7;
-
-int f[N][N] ;
-int main()
-&#123;
-    int n ; 
-    cin >> n  ;
-    
-    //base case
-    
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        f[i][0] = 1 ;
-    &#125;
-    
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        for(int j = 1 ; j <= n ;++j)
-        &#123;
-            f[i][j] = f[i-1][j] % mod ;
-            if(j >= i) 
-                f[i][j] = (f[i-1][j] + f[i][j-i]) % mod ; 
-        &#125;
-    &#125;
-    cout << f[n][n] << endl ;
-    return  0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">//做了一点优化
-
-#include <bits/stdc++.h>
-
-using namespace std ;
-
-const int  N = 1010 , mod = 1e9+7;
-
-int f[N] ; 
-
-int main()
-&#123;
-    int n ; 
-    cin >> n ; 
- 
-    for(int i = 1 ; i <= n ;++i)
-        f[0] = 1 ;  
-    
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        for(int j = 1 ; j <= n ; ++j)
-        &#123;
-            if(j >= i)
-                f[j] = (f[j] +f[j-i]) % mod ;
-        &#125;
-    &#125;
-    cout << f[n] << endl ;
-    return  0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+                <h1 id="类的基本数据成员与成员函数的总结"><a href="#类的基本数据成员与成员函数的总结" class="headerlink" title="类的基本数据成员与成员函数的总结"></a>类的基本数据成员与成员函数的总结</h1>
                 
             </div>
             <hr/>
@@ -592,7 +505,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/">https://luolin03.github.io/2021/10/03/dong-tai-gui-hua-yi-ri-yi-ti-10-3-zheng-shu-hua-fen/</a>
+                    <a href="https://luolin03.github.io/2021/10/12/c-lei-de-ji-ben-gai-nian-yu-shi-li/">https://luolin03.github.io/2021/10/12/c-lei-de-ji-ben-gai-nian-yu-shi-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -630,8 +543,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%AE%A1%E6%95%B0dp/">
-                                    <span class="chip bg-color">一日一题 计数dp</span>
+                                <a href="/tags/c-%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">c++学习</span>
                                 </a>
                             
                         </div>
@@ -681,13 +594,13 @@ int main()
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/10/04/dong-tai-gui-hua-yi-ri-yi-ti-10-4-bian-ji-ju-chi/">
+                <a href="/2021/10/12/dong-tai-gui-hua-yi-ri-yi-ti-10-12-zui-chang-gong-gong-shang-sheng-zi-xu-lie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="动态规划一日一题-10.4-编辑距离">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="动态规划一日一题-10-12-最长公共上升子序列">
                         
-                        <span class="card-title">动态规划一日一题-10.4-编辑距离</span>
+                        <span class="card-title">动态规划一日一题-10-12-最长公共上升子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -698,7 +611,7 @@ int main()
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
                         </span>
                         <span class="publish-author">
                             
@@ -726,13 +639,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/02/mei-you-wen-ti-de-da-an/">
+                <a href="/2021/10/11/dong-tai-gui-hua-yi-ri-yi-ti-10-11-zui-chang-hui-wen-zi-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="没有问题的答案">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="动态规划一日一题-10-11-最长回文子串">
                         
-                        <span class="card-title">没有问题的答案</span>
+                        <span class="card-title">动态规划一日一题-10-11-最长回文子串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -743,7 +656,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-11
                             </span>
                         <span class="publish-author">
                             
@@ -756,8 +669,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/">
-                        <span class="chip bg-color">生活感悟</span>
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E7%BA%BF%E6%80%A7dp/">
+                        <span class="chip bg-color">一日一题 线性dp</span>
                     </a>
                     
                 </div>
