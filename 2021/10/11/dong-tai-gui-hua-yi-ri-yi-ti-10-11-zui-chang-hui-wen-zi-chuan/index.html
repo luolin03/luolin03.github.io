@@ -614,6 +614,66 @@ int main()
     return  0 ; 
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>———-10-12 添加———————————————————————————————————————————————————</p>
+<p>ok，在看manacher算法的时候，他的预处理也可以用在中心扩散法(暴力)。因为暴力解法需要分两种情况，一种是偶数的，还有一种是奇数的。可以在string a的每一个字符左右两面都添加一个额外符号，相同即可。所以原数据范围由n到2*n+1 ; </p>
+<p>一定可以转化为奇数来做。</p>
+<p>但是注意两个细节：</p>
+<p>一、申请的范围N, 因为数据由1000到了2001，所以申请超过2010就可以了。</p>
+<p>二、最后的输出结果，由于c++除法自动向下取整，所以结果就是res &gt;&gt; 1即可。别的没有什么。</p>
+<p>所以，贴个代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ; 
+
+const int N = 2010 ; 
+
+string a ; 
+
+int f[N][N] ; 
+
+int main()
+&#123;
+    getline(cin , a) ; 
+
+    string b = "" ; 
+    
+    int n = a.size() ; 
+    for(int i = 0 ; i < n  ; ++ i)
+    &#123;
+        b.push_back('#') ;
+        b.push_back(a[i]) ;
+    &#125; 
+    b.push_back('#') ;
+
+
+    n = b.size() ; 
+
+    for(int i = 0 ; i < n  ; ++ i)
+    &#123;
+        f[i][i] = 1 ; 
+    &#125;
+
+    int res = 1 ;
+
+    for(int i = 1;  i < n ; ++  i)
+    &#123;
+        int l = i -1 ; 
+        int r = i + 1 ; 
+        while(l >= 0  && r < n && b[l] == b[r])
+        &#123;
+            f[l][r] = f[l+1][r-1]  + 2 ;
+           l -- ; r++ ;  
+        &#125;
+        
+        res = max(res , f[l+1][r-1])  ; 
+    &#125;
+
+    int ans = res / 2 ; 
+    cout << ans << endl ;
+    return 0 ; 
+
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>ok.以上就是最长回文子串的做法，我们来看最长回文子序列的题目。</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/">516. 最长回文子序列 - 力扣（LeetCode） (leetcode-cn.com)</a></p>
 <p>这就是典型的线性dp可以做出来的题，我们按照经典模板走一下。</p>
