@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    602
+                    600
                 </div>
                 
 
@@ -501,7 +501,7 @@
 <p>好吧，我承认看到题就直接懵逼了…….</p>
 <p>我们之前做过最长上升子序列和最长公共子序列。这里就简单回顾一下一些基本的参数。</p>
 <p>LIS：</p>
-<p>状态表示：dp[i] 表示从1到i的序列中，最长的上升子序列的长度，不一定非要是i结尾。</p>
+<p>状态表示：dp[i] 表示从1到i的序列中，且是以i结尾的，最长的上升子序列的长度。</p>
 <p>状态属性：max</p>
 <p>base case：dp[i] = 1 ; </p>
 <p>状态转移：用i做一次遍历，然后用j往前进行遍历，如果遇到符合要求的，继续找最大值即可。</p>
@@ -601,6 +601,115 @@ int main()
 <p>这段代码是完全根据我们的思路来走的，属于是最朴素的代码，我们可以看到有三层循环。数据范围是在1000左右的，最后应该会TLE。</p>
 <p>所以，我们如何才能有三轮优化成两轮？？？</p>
 <p>明天再更….. 今天累了</p>
+<p>——————-10-13 再更————————————————————————————————————————–</p>
+<p>昨天实在没有领悟到精髓之处，在经历了这一道题对我的知识框架的冲击与重建之后，我开始寻找y总的dp分析法与我自己总结的方法的共同之处，现在还在领悟之中。</p>
+<p>y总的分析法，主要着重于集合分析，主要着重于状态转移的时候，可以将集合分成两个不重不漏的集合，然后对每个集合进行细分，每个集合取自己的状态属性，然后大的方面再取两个集合的总属性。</p>
+<p>今天再次看到这道题感觉又有了新的思路：</p>
+<p>又再次重温了一下LIS与LCS的例题，想要通过这两道题目找到一些新的思路。</p>
+<p>我们可以看出来，LCIS这道题在表示的过程中，确实是借鉴了前两道题，既有LIS的以i结尾的设法，也有LCS的模糊性设法。</p>
+<p>整个dp的状态转移的过程其实就是以LCS作为前提，在进入前提之后，在去用LIS的方法去找到符合要求的状态表示 。 同时注意一下，转移时候的一些细节即可。至于y总说的，将集合凭借用a[i] 与不用来进行划分可以理解，其实就是我说的，思考来源的过程，考虑a[i]其实就是自身较大，不考虑其实就是通过自身之前的状态进行转移，只能说我只能凭借我对这道题目的理解来强行解释这种思路，看起来可以解释的通，但是却没有找到一个可以让自己先手就立即想到的理由。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 3010 ; 
+
+int a[N] , b[N] ; 
+int f[N][N] ;
+int main()
+&#123;
+    int n ; 
+    cin >> n ;
+    int res = 0  ; 
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        cin >> a[i] ; 
+    &#125;
+    
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        cin >> b[i] ; 
+    &#125;
+    
+    for(int i = 1 ; i <= n ; ++i)
+    &#123;
+        for(int j = 1 ; j <= n ; ++j)
+        &#123;
+            f[i][j] = f[i-1][j] ;             //便于迭代，要不然没有东西迭代了
+            if(a[i] == b[j])                    //进入LCS的前提
+            &#123;
+                f[i][j] = max(f[i][j] , 1) ;
+                for(int k = 1 ; k < j ; ++k )     //LIS的模式
+                &#123;
+                    if(b[k] < b[j])
+                    f[i][j] = max(f[i][j] , f[i-1][k]  + 1) ;
+                &#125;
+            &#125;
+            res = max(res , f[i][j]) ;
+        &#125;
+    &#125;
+    
+    cout << res << endl ; 
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>好吧，感觉像是理解了，但是应该是未完全理解。之后等自己再继续刷题，说不定过一段时间之后就成了显然了&gt;_&lt;.</p>
+<p>好的，主要思路就是上述，但是这题的数据是3000，如果暴力的话，没话说，直接超时。我们想着可以进行优化，但是空间上我们不用去管它。</p>
+<p>对于时间上的优化，我们一般采用的是等价转换，单纯从代码上进行修改。</p>
+<p>想要把时间复杂度优化成2，所以就要想办法将最后一个循环灭了。最后一个循环主要是找到j以前的状态找到符合要求的然后进行转移。</p>
+<p>那我们有没有一种可能，提前就可以将这一个最大值就直接储存起来，就直接省去了最后一个步骤。</p>
+<p>Talk is cheap , show me your code .</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 3010 ; 
+
+int a[N] , b[N] ; 
+
+int f[N][N] ; 
+
+int main()
+&#123;
+     int n ; 
+    cin >> n ;
+    for(int i = 1 ; i <= n ; ++i)
+        cin >> a[i] ;
+    
+    for(int j = 1 ; j <= n ; ++j)
+        cin >> b[j] ;
+    
+    for(int i = 1 ; i <= n ; ++i)
+    &#123;
+        int maxv = 1 ; 
+        for(int j = 1 ; j <= n ; ++j )
+        &#123;
+            f[i][j]  = f[i-1][j] ; 
+            if(a[i] == b[j])
+            &#123;
+                f[i][j] = max(f[i][j] , maxv) ; 
+            &#125;
+            if(a[i] > b[j])
+            &#123;
+                maxv = max(maxv , f[i-1][j]  + 1) ; 
+            &#125;
+        &#125;
+    &#125;
+    
+    int res = 0 ; 
+    
+    for(int i =1 ; i <= n ; ++ i)
+    &#123;
+        res = max(res , f[n][i]) ;    
+    &#125;
+    
+    cout << res << endl ;
+    
+    return 0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>好吧，在懂了思路逻辑之后，进行修改就比较好理解了。</p>
+<p>由于遍历顺序是由小到大，所以我们完全可以针对每一个i来优先定义一个maxv，主要是用于储存最大的倒数第二的值，(这样说好像有一点抽象)， 其实就是省略了一部再找最大值的步骤，他是从一个小循环的一开始，就定义了一个基底，用于找最大值，跟这循环一起走的，就完全不需要再开一个循环进行查找了。这样就可以将时间复杂度降低到2了。</p>
 <h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>其实在看y总的讲解之后，我是感觉有点被打破思考模式的感觉，就是感觉就算是做了前置的LIS与LCS，但是遇到这种题，思路还是没有明显。</p>
 <p>甚至有很多问题：</p>
 <p>一、为什么要以j定位？</p>
