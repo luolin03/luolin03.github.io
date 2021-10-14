@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>找硬币</title>
+      <link href="/2021/10/14/zhao-ying-bi/"/>
+      <url>/2021/10/14/zhao-ying-bi/</url>
+      
+        <content type="html"><![CDATA[<h1 id="找硬币"><a href="#找硬币" class="headerlink" title="找硬币"></a>找硬币</h1><hr><p>伊娃喜欢从整个宇宙中收集硬币。</p><p>有一天，她去了一家宇宙购物中心购物，结账时可以使用各种硬币付款。</p><p>但是，有一个特殊的付款要求：每张帐单，她只能使用<strong>恰好</strong>两个硬币来<strong>准确</strong>的支付消费金额。</p><p>给定她拥有的所有硬币的面额，请你帮她确定对于给定的金额，她是否可以找到两个硬币来支付。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 N 和 M，分别表示硬币数量以及需要支付的金额。</p><p>第二行包含 N 个整数，表示每个硬币的面额。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一行，包含两个整数 V1,V2，表示所选的两个硬币的面额，使得 V1≤V2 并且 V1+V2=M。</p><p>如果答案不唯一，则输出 V1最小的解。</p><p>如果无解，则输出 <code>No Solution</code>。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤105,<br>1≤M≤1000</p><h4 id="输入样例1："><a href="#输入样例1：" class="headerlink" title="输入样例1："></a>输入样例1：</h4><pre><code>8 151 2 8 7 2 4 11 15</code></pre><h4 id="输出样例1："><a href="#输出样例1：" class="headerlink" title="输出样例1："></a>输出样例1：</h4><pre><code>4 11</code></pre><h4 id="输入样例2："><a href="#输入样例2：" class="headerlink" title="输入样例2："></a>输入样例2：</h4><pre><code>7 141 8 7 2 4 11 15</code></pre><h4 id="输出样例2："><a href="#输出样例2：" class="headerlink" title="输出样例2："></a>输出样例2：</h4><pre><code>No Solution</code></pre><hr><h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>因为，本想着要一直坚持每日更新dp的题目的，但是一是因为dp的题目难度不小，二是还有很多其他值得记录的题目，所以，dp就随缘更新吧，但是每日刷题是必须的，等下次找到很妙，或者是有共性的dp问题，我再打卡吧。</p><p>本题还是比较水的一道题目，其实有点像leetcode的第一题，两数之和的题目。但是leetcode的那一题给的数据范围比较宽泛，本题是105，所以时间复杂度为2的算法就过不了。</p><p>好吧，这时候hash表就要派上用场了。</p><p>我们可以将值作为key存入hash表，然后value就是他的下标。我们可以进行依次遍历，然后用hash的find函数，找到hash表中是否有与他进行配对的值。若有直接返回下标。若没有，就直接cout <code>No Solution</code> .</p><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 100010 ; unordered_map<int , int> ha ; int a[N] ; int main()&#123;    int n , target ;     cin >> n >> target ;         for(int i = 1 ; i <= n ; ++ i)    &#123;        cin >> a[i] ;     &#125;        sort(a , a+n+1) ;         for(int i = 1 ; i <= n ; ++ i)    &#123;        ha[a[i]] = i  ;     &#125;         int id1  , id2 ;         for(int i = 1 ; i <= n ; ++ i)    &#123;        auto pos = ha.find(target-a[i]) ;                if(pos != ha.end() && pos->second != i)        &#123;            id1 = i ;             id2 = pos->second ;             cout << a[id1] << " " << a[id2]  ;             return 0 ;        &#125;    &#125;        cout << "No Solution" << endl ;     return  0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>好吧，今天发的确实好水……</p><p>贴个leetcode第一题的代码</p><p><a href="https://leetcode-cn.com/problems/two-sum/">1. 两数之和 - 力扣（LeetCode） (leetcode-cn.com)</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 哈希 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>manacher算法</title>
+      <link href="/2021/10/13/manacher-suan-fa/"/>
+      <url>/2021/10/13/manacher-suan-fa/</url>
+      
+        <content type="html"><![CDATA[<h1 id="manacher算法"><a href="#manacher算法" class="headerlink" title="manacher算法"></a>manacher算法</h1><p>书接上回，最长回文字符串的长度那一道题，挖了一个坑，今天来介绍一下manacher算法(马拉车)。</p><p>是一种比较高效的处理寻找最长回文字符串的方法，时间复杂度可以达到O(n) . </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>动态规划一日一题-10-12-最长公共上升子序列</title>
       <link href="/2021/10/12/dong-tai-gui-hua-yi-ri-yi-ti-10-12-zui-chang-gong-gong-shang-sheng-zi-xu-lie/"/>
       <url>/2021/10/12/dong-tai-gui-hua-yi-ri-yi-ti-10-12-zui-chang-gong-gong-shang-sheng-zi-xu-lie/</url>
