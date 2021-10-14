@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>动态规划一日一题-10-14-货币系统</title>
+      <link href="/2021/10/14/dong-tai-gui-hua-yi-ri-yi-ti-10-14-huo-bi-xi-tong/"/>
+      <url>/2021/10/14/dong-tai-gui-hua-yi-ri-yi-ti-10-14-huo-bi-xi-tong/</url>
+      
+        <content type="html"><![CDATA[<h1 id="货币系统"><a href="#货币系统" class="headerlink" title="货币系统"></a>货币系统</h1><hr><p>给定 V种货币（单位：元），每种货币使用的次数不限。</p><p>不同种类的货币，面值可能是相同的。</p><p>现在，要你用这 V 种货币凑出 N 元钱，请问共有多少种不同的凑法。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 V 和 N。</p><p>接下来的若干行，将一共输出 V 个整数，每个整数表示一种货币的面值。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示所求总方案数。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤V≤25<br>1≤N≤10000<br>答案保证在<code>long long</code>范围内。</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>3 101 2 5</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>10</code></pre><hr><p>好的，这一题是明显的dp问题，特征非常明显，以至于让我第一次看到，就想到了完全背包和整数划分两道题目，应该就是需要稍微数学归纳一下就可以找出来状态转移方程了。</p><p>还是老样子的思维模式：</p><p>状态表示：f[i] [j] 表示用前i个物品，正好凑出target的方案数</p><p>状态属性：种类</p><p>base case：f[i] [0] = 1 ; </p><p>状态转移：</p><p>f[i] [j] = f[i-1] [j] + f[i-1] [j-v[i]] + f[i-1] [j-2*v[i]] + ……..</p><p>f[i] [j-v[i]] =            f[i-1] [j-v[i]] + f[i-1] [j-2*v[i]] + ……..</p><p>好的，合并一下，f[i] [j] = f[i-1] [j] + f[i] [j-v[i]] ;</p><p>好的，直接上代码，但是有一个关键点，此题是让你正好凑成target，所以要保证所有的状态都是由f[0] 转移过来的。</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ; const int N = 10010 ; long long f[N][N] ;int a[N] ; int main()&#123;    int n , target ;     cin >> n >> target ;        for(int i = 1 ; i <= n ; ++ i)    &#123;        cin >> a[i] ;     &#125;        for(int i = 1 ; i <= n ; ++ i)        f[i][0] = 1 ;         for(int i = 1 ; i <= n ; ++ i)    &#123;        for(int j = 1 ; j <= target ; ++ j)        &#123;            f[i][j] = f[i-1][j] ;             if(j >= a[i])            &#123;                f[i][j] += f[i][j-a[i]] ;            &#125;        &#125;    &#125;        cout << f[n][target] << endl ;         return 0  ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>好，同样的道理，可以同完全背包一样进行一维优化。</p><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;const int N = 100010 ; int a[N] ; long long f[N] ; int main()&#123;    int n , m ;         cin >> n >> m ;         f[0] = 1 ;     for(int i = 1 ; i <= n ; ++ i)    &#123;        cin >> a[i] ;      &#125;        for(int i = 1 ; i <= n ; ++ i)    &#123;        for(int j = 1 ; j <= m ; ++ j)        &#123;            if(j >= a[i])            &#123;                f[j] += f[j-a[i]];            &#125;        &#125;    &#125;        cout << f[m] << endl ;         return  0 ;  &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 一日一题 背包dp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>找硬币</title>
       <link href="/2021/10/14/zhao-ying-bi/"/>
       <url>/2021/10/14/zhao-ying-bi/</url>
