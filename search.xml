@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>求gcd</title>
+      <link href="/2021/10/16/qiu-gcd/"/>
+      <url>/2021/10/16/qiu-gcd/</url>
+      
+        <content type="html"><![CDATA[<h1 id="求最大公约数"><a href="#求最大公约数" class="headerlink" title="求最大公约数"></a>求最大公约数</h1><p>小tips，就是简单mark一下欧几里得算法。</p><pre class="line-numbers language-c++"><code class="language-c++">int gcd(int a , int b)&#123;    return b ? (gcd(b , a%b)) : a ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>算了，还是贴一题吧….</p><h1 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h1><hr><p>给定 n 对正整数 ai,bi，请你求出每对数的最大公约数。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p><p>接下来 n 行，每行包含一个整数对 ai,bi。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出共 n 行，每行输出一个整数对的最大公约数。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤105,<br>1≤ai,bi≤2×109</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>23 64 6</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>32</code></pre><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>using namespace std ;int gcd(int a , int b)&#123;    return b ? gcd(b,a%b) : a ; &#125;int main()&#123;    int n ;     cin >> n ;    while(n--)    &#123;        int a , b ;         cin >> a >> b ;                 int res = gcd(a , b) ;                cout << res << endl ;     &#125;        return 0 ; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 小tips </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>动态规划一日一题-10-14-货币系统</title>
       <link href="/2021/10/14/dong-tai-gui-hua-yi-ri-yi-ti-10-14-huo-bi-xi-tong/"/>
       <url>/2021/10/14/dong-tai-gui-hua-yi-ri-yi-ti-10-14-huo-bi-xi-tong/</url>

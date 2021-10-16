@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="线性DP专题, 罗林的博客">
+    <meta name="keywords" content="求gcd, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>线性DP专题 | 罗林的博客</title>
+    <title>求gcd | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">线性DP专题</h1>
+                    <h1 class="description center-align post-title">求gcd</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/acwing/">
-                                <span class="chip bg-color">acwing</span>
+                            <a href="/tags/%E5%B0%8Ftips/">
+                                <span class="chip bg-color">小tips</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-18
+                    2021-10-16
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    334
+                    197
                 </div>
                 
 
@@ -479,163 +479,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-最长公共子序列"><a href="#1-最长公共子序列" class="headerlink" title="1.最长公共子序列"></a>1.最长公共子序列</h1><hr>
-<p>给定两个长度分别为 N和M 的字符串 A 和 B，求既是 A 的子序列又是 B 的子序列的字符串长度最长是多少。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 N 和 M。</p>
-<p>第二行包含一个长度为 N 的字符串，表示字符串 A。</p>
-<p>第三行包含一个长度为 M 的字符串，表示字符串 B。</p>
-<p>字符串均由小写字母构成。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大长度。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N,M≤1000</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4 5
-acbd
-abedc
+                <h1 id="求最大公约数"><a href="#求最大公约数" class="headerlink" title="求最大公约数"></a>求最大公约数</h1><p>小tips，就是简单mark一下欧几里得算法。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">int gcd(int a , int b)
+&#123;
+    return b ? (gcd(b , a%b)) : a ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>算了，还是贴一题吧….</p>
+<h1 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h1><hr>
+<p>给定 n 对正整数 ai,bi，请你求出每对数的最大公约数。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含一个整数对 ai,bi。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出共 n 行，每行输出一个整数对的最大公约数。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤105,<br>1≤ai,bi≤2×109</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>2
+3 6
+4 6
 </code></pre>
 <h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3
+2
 </code></pre>
-<hr>
-<p>一、可以用二维dp，dp[i] [j] 表示在第一个序列的第i位到第二个序列的j位的最长公共子串的长度。</p>
-<p>二、二维数组要想给每一个赋值，即需要从底往上遍历。</p>
-<p>三、讲遇到的情况分成两大类，一类是相等，一类是不等。</p>
-<p>即状态转移方程我为</p>
-<pre><code>if(a[i] == b[j])
-dp[i][j] = dp[i-1][j-1] + 1 ;
-else if(a[i] != b[j])
-dp[i][j] = max(dp[i-1][j] , dp[i][j-1]) ;
-</code></pre>
-<p>具体代码如下:</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
 using namespace std ;
 
-const int N = 1010 ;
-
-int f[N][N] ;
-
-char a[N], b[N] ;
-int main()
+int gcd(int a , int b)
 &#123;
-    int n , m ; 
-    cin >>n >> m  ;
-    for(int i = 1 ; i <= n ;++i)
-        cin >> a[i] ; 
-    for(int j = 1 ; j <= m ;++j)
-        cin >> b[j] ;
-        
-    for(int i = 1 ; i <= n ; ++i)
-    &#123;
-        for(int j = 1 ; j <= m ; ++j)
-        &#123;
-            if(a[i] == b[j])
-            &#123;
-                f[i][j] = f[i-1][j-1] +1 ;
-            &#125;
-            else
-            &#123;
-                f[i][j] = max(f[i-1][j] , f[i][j-1]) ;
-            &#125;
-        &#125;
-        
-    &#125;
-            cout << f[n][m] <<endl ;
-            return  0  ;  
+    return b ? gcd(b,a%b) : a ; 
 &#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="二、最长上升子序列"><a href="#二、最长上升子序列" class="headerlink" title="二、最长上升子序列"></a>二、最长上升子序列</h1><p>给定一个长度为 N 的数列，求数值严格单调递增的子序列的长度最长是多少。</p>
-<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 N。</p>
-<p>第二行包含 N 个整数，表示完整序列。</p>
-<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大长度。</p>
-<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤1000<br>−109≤数列中的数≤109</p>
-<h4 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>7
-3 1 2 1 8 5 6
-</code></pre>
-<h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>4
-</code></pre>
-<p>数据范围给的比较大，所以直接暴力dp就可以了。</p>
-<p>一、创建一个一维的dp数组，dp[i]表示的是从1到i的字串中， 以q[i]所结尾的子序列的最长子序列的长度.</p>
-<p>二、dp思路，搜索数组中目标值前面的值，找到严格比target小的index， 将本target接在后面即可。然后一直比较，将最大的值赋给dp即可。</p>
-<p>三、最终的结果不一定是最后的dp结果，而是过程中出现最大的值，因此需要在每一个小循环结束的时候，设置一个res，专门用来记录出现的最大的dp值。</p>
-<p>代码如下：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
-using namespace std ;
 
-const int N = 1010 ;
-
-int w[N] ;
-int f[N] ; 
-int main()
-&#123;
-    int n ; 
-    cin >>n ;
-    
-    
-    int res =0  ;
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        cin >> w[i] ;
-    &#125;
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        f[i] = 1 ;
-        for(int j = 1 ; j <= i ;++j)
-        &#123;
-            if(w[i] > w[j]) f[i] = max(f[i] , f[j] +1) ;
-        &#125;
-        res = max(res , f[i]) ;
-    &#125;
-    
-    cout << res <<endl ;
-    return  0  ;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="三、最长上升子序列II"><a href="#三、最长上升子序列II" class="headerlink" title="三、最长上升子序列II"></a>三、最长上升子序列II</h1><p>题目同二，但是数据范围从1000改到了1e5。</p>
-<p>所以，直接把暴力给毙了.</p>
-<p>我们想到最多可以用nlogn来优化，于是可以用二分来优化.</p>
-<p>dp是用不了了，可以用贪心加二分。</p>
-<p>具体思路：</p>
-<p>一、对于原数组中的值，依次在二分数组中找到小于他的最大值，二分数组的作用是一边存储，一边用于搜索。</p>
-<p>二、最后返回q数组的长度即可。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 100010 ;
-
-int w[N] ;
-int q[N] ;
 int main()
 &#123;
     int n ; 
     cin >> n ;
-    q[0] = -2e9 ; 
-    
-    for(int i = 1 ; i <=  n ;++i)
+    while(n--)
     &#123;
-        cin >> w[i] ;
+        int a , b ; 
+        cin >> a >> b ; 
+        
+        int res = gcd(a , b) ;
+        
+        cout << res << endl ; 
     &#125;
     
-    int len = 0  ;
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        int left = 0 ; int right = len ;
-        while(left < right)
-        &#123;
-            int mid = (left + right +1) >> 1 ;
-            if(q[mid] < w[i])
-            &#123;
-                left = mid  ; 
-            &#125;
-            else 
-            &#123;
-                right = mid - 1  ; 
-            &#125;
-        &#125;
-        q[right+1] = w[i] ;
-        len = max(len , right+1) ;
-    &#125;
-    cout << len <<endl ;
-    return  0  ;
+    return 0 ; 
 &#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -662,7 +551,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/18/xian-xing-dp-zhuan-ti/">https://luolin03.github.io/2021/09/18/xian-xing-dp-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/10/16/qiu-gcd/">https://luolin03.github.io/2021/10/16/qiu-gcd/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -700,8 +589,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/acwing/">
-                                    <span class="chip bg-color">acwing</span>
+                                <a href="/tags/%E5%B0%8Ftips/">
+                                    <span class="chip bg-color">小tips</span>
                                 </a>
                             
                         </div>
@@ -747,17 +636,18 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/19/tou-tong-de-er-fen-cha-zhao/">
+                <a href="/2021/10/16/qiu-gcd/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="头痛的二分查找">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="求gcd">
                         
-                        <span class="card-title">头痛的二分查找</span>
+                        <span class="card-title">求gcd</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,9 +657,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -778,11 +668,12 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">总结</span>
+                    <a href="/tags/%E5%B0%8Ftips/">
+                        <span class="chip bg-color">小tips</span>
                     </a>
                     
                 </div>
@@ -796,13 +687,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/15/bing-cha-ji/">
+                <a href="/2021/10/14/dong-tai-gui-hua-yi-ri-yi-ti-10-14-huo-bi-xi-tong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="并查集">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="动态规划一日一题-10-14-货币系统">
                         
-                        <span class="card-title">并查集</span>
+                        <span class="card-title">动态规划一日一题-10-14-货币系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -813,7 +704,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-14
                             </span>
                         <span class="publish-author">
                             
@@ -826,8 +717,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
+                        <span class="chip bg-color">一日一题 背包dp</span>
                     </a>
                     
                 </div>
