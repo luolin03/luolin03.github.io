@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="找硬币, 罗林的博客">
+    <meta name="keywords" content="滑雪场设计, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>找硬币 | 罗林的博客</title>
+    <title>滑雪场设计 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">找硬币</h1>
+                    <h1 class="description center-align post-title">滑雪场设计</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%93%88%E5%B8%8C/">
-                                <span class="chip bg-color">哈希</span>
+                            <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                                <span class="chip bg-color">贪心</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-14
+                    2021-10-17
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    592
+                    614
                 </div>
                 
 
@@ -479,81 +479,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="找硬币"><a href="#找硬币" class="headerlink" title="找硬币"></a>找硬币</h1><hr>
-<p>伊娃喜欢从整个宇宙中收集硬币。</p>
-<p>有一天，她去了一家宇宙购物中心购物，结账时可以使用各种硬币付款。</p>
-<p>但是，有一个特殊的付款要求：每张帐单，她只能使用<strong>恰好</strong>两个硬币来<strong>准确</strong>的支付消费金额。</p>
-<p>给定她拥有的所有硬币的面额，请你帮她确定对于给定的金额，她是否可以找到两个硬币来支付。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含两个整数 N 和 M，分别表示硬币数量以及需要支付的金额。</p>
-<p>第二行包含 N 个整数，表示每个硬币的面额。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一行，包含两个整数 V1,V2，表示所选的两个硬币的面额，使得 V1≤V2 并且 V1+V2=M。</p>
-<p>如果答案不唯一，则输出 V1最小的解。</p>
-<p>如果无解，则输出 <code>No Solution</code>。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤105,<br>1≤M≤1000</p>
-<h4 id="输入样例1："><a href="#输入样例1：" class="headerlink" title="输入样例1："></a>输入样例1：</h4><pre><code>8 15
-1 2 8 7 2 4 11 15
+                <h1 id="滑雪场设计"><a href="#滑雪场设计" class="headerlink" title="滑雪场设计"></a>滑雪场设计</h1><hr>
+<p>农夫约翰的农场上有 N个山峰，每座山的高度都是整数。</p>
+<p>在冬天，约翰经常在这些山上举办滑雪训练营。</p>
+<p>不幸的是，从明年开始，国家将实行一个关于滑雪场的新税法。</p>
+<p>如果滑雪场的最高峰与最低峰的高度差大于17，国家就要收税。</p>
+<p>为了避免纳税，约翰决定对这些山峰的高度进行修整。</p>
+<p>已知，增加或减少一座山峰 x 单位的高度，需要花费 x2 的金钱。</p>
+<p>约翰<strong>只愿意改变整数单位</strong>的高度，且每座山峰<strong>只能修改一次</strong>。</p>
+<p>请问，约翰最少需要花费多少钱，才能够使得最高峰与最低峰的高度差不大于17。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 N。</p>
+<p>接下来 N 行，每行包含一个整数，表示一座山的高度。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最少花费的金钱。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤1000,<br>数据保证，每座山的初始高度都在 0∼100 之间。</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>5
+20
+4
+1
+24
+21
 </code></pre>
-<h4 id="输出样例1："><a href="#输出样例1：" class="headerlink" title="输出样例1："></a>输出样例1：</h4><pre><code>4 11
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>18
 </code></pre>
-<h4 id="输入样例2："><a href="#输入样例2：" class="headerlink" title="输入样例2："></a>输入样例2：</h4><pre><code>7 14
-1 8 7 2 4 11 15
-</code></pre>
-<h4 id="输出样例2："><a href="#输出样例2：" class="headerlink" title="输出样例2："></a>输出样例2：</h4><pre><code>No Solution
-</code></pre>
+<h4 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h4><p>最佳方案为，将高度为 1 的山峰，增加 3 个单位高度，将高度为 24 的山峰，减少 3 个单位高度。</p>
 <hr>
-<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>因为，本想着要一直坚持每日更新dp的题目的，但是一是因为dp的题目难度不小，二是还有很多其他值得记录的题目，所以，dp就随缘更新吧，但是每日刷题是必须的，等下次找到很妙，或者是有共性的dp问题，我再打卡吧。</p>
-<p>本题还是比较水的一道题目，其实有点像leetcode的第一题，两数之和的题目。但是leetcode的那一题给的数据范围比较宽泛，本题是105，所以时间复杂度为2的算法就过不了。</p>
-<p>好吧，这时候hash表就要派上用场了。</p>
-<p>我们可以将值作为key存入hash表，然后value就是他的下标。我们可以进行依次遍历，然后用hash的find函数，找到hash表中是否有与他进行配对的值。若有直接返回下标。若没有，就直接cout <code>No Solution</code> .</p>
-<p>贴个代码：</p>
+<p>其实这一题的话，如果你想不到用枚举来做的话，是很难想的。因为这一题，你进行将最小的加上去之后，可能他就不是最小的了，最大的减去之后，他有可能就不是最大的了。可能会有新的两座山峰不满足情况，也就是说，这一题中的两座山峰是动态变化的，所以想要通过找最大和最小来做的方法基本就GG了。</p>
+<p>那我们怎么做呢？我们要学着在动中找变，正好我们观察一下数据，<code>每座山峰的高度在1~100之间</code>。</p>
+<p>我们可以进行枚举修剪后最矮山峰的高度low , low显然是在1-83以内，然后让超过的山峰满足在17以内，低于low的山峰，修改到low，依次来计算一下费用。然后比较一下，输出最小费就行了。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
 
 using namespace std ;
 
-const int N = 100010 ; 
-
-unordered_map<int , int> ha ; 
+const int N = 1010 ; 
 
 int a[N] ; 
+
 int main()
 &#123;
-    int n , target ; 
-    cin >> n >> target ; 
+    int n ; 
+    cin >> n ; 
     
-    for(int i = 1 ; i <= n ; ++ i)
+    for(int i = 1 ; i <= n  ; ++ i)
     &#123;
         cin >> a[i] ; 
     &#125;
     
-    sort(a , a+n+1) ; 
-    
-    for(int i = 1 ; i <= n ; ++ i)
+    //枚举一下 low
+    int res = 1e9 ; 
+    for(int low = 1 ; low <= 83 ; ++ low)
     &#123;
-        ha[a[i]] = i  ; 
-    &#125; 
-    
-    int id1  , id2 ; 
-    
-    for(int i = 1 ; i <= n ; ++ i)
-    &#123;
-        auto pos = ha.find(target-a[i]) ;
-        
-        if(pos != ha.end() && pos->second != i)
-        &#123;
-            id1 = i ; 
-            id2 = pos->second ; 
-            cout << a[id1] << " " << a[id2]  ; 
-            return 0 ;
+        int fee = 0  ;
+        for(int i = 1 ; i <= n ; ++ i)
+        &#123; 
+            if(a[i] < low)
+            &#123;
+                fee += pow(low - a[i] , 2) ; 
+            &#125;
+            if(a[i] > low + 17)
+            &#123;
+                fee  += pow(a[i] - low - 17 , 2) ;  
+            &#125;
         &#125;
+        res = min (fee , res) ; 
     &#125;
-    
-    cout << "No Solution" << endl ; 
+    cout << res << endl ; 
     return  0 ; 
 &#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>好吧，今天发的确实好水……</p>
-<p>贴个leetcode第一题的代码</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">1. 两数之和 - 力扣（LeetCode） (leetcode-cn.com)</a></p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>有时候当一个思路受阻的时候，要学着换一种思路，不要一条根本不通的路想要走到黑，只是浪费时间而已。</p>
 
                 
             </div>
@@ -580,7 +573,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/10/14/zhao-ying-bi/">https://luolin03.github.io/2021/10/14/zhao-ying-bi/</a>
+                    <a href="https://luolin03.github.io/2021/10/17/hua-xue-chang-she-ji/">https://luolin03.github.io/2021/10/17/hua-xue-chang-she-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -618,8 +611,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%93%88%E5%B8%8C/">
-                                    <span class="chip bg-color">哈希</span>
+                                <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                                    <span class="chip bg-color">贪心</span>
                                 </a>
                             
                         </div>
@@ -665,17 +658,18 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/10/14/dong-tai-gui-hua-yi-ri-yi-ti-10-14-huo-bi-xi-tong/">
+                <a href="/2021/10/17/hua-xue-chang-she-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="动态规划一日一题-10-14-货币系统">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="滑雪场设计">
                         
-                        <span class="card-title">动态规划一日一题-10-14-货币系统</span>
+                        <span class="card-title">滑雪场设计</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -685,9 +679,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -696,11 +690,12 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85dp/">
-                        <span class="chip bg-color">一日一题 背包dp</span>
+                    <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                        <span class="chip bg-color">贪心</span>
                     </a>
                     
                 </div>
@@ -714,13 +709,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/13/manacher-suan-fa/">
+                <a href="/2021/10/17/fen-qiao-ke-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="manacher算法">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="分巧克力">
                         
-                        <span class="card-title">manacher算法</span>
+                        <span class="card-title">分巧克力</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -731,7 +726,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-17
                             </span>
                         <span class="publish-author">
                             
@@ -744,8 +739,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/acwing/">
+                        <span class="chip bg-color">acwing</span>
                     </a>
                     
                 </div>
