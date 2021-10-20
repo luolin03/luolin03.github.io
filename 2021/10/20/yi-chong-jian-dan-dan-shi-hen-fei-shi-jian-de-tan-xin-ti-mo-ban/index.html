@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="双指针算法专题, 罗林的博客">
+    <meta name="keywords" content="一种简单但是很费时间的贪心题模板, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>双指针算法专题 | 罗林的博客</title>
+    <title>一种简单但是很费时间的贪心题模板 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">双指针算法专题</h1>
+                    <h1 class="description center-align post-title">一种简单但是很费时间的贪心题模板</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/acwing/">
-                                <span class="chip bg-color">acwing</span>
+                            <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                                <span class="chip bg-color">贪心</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-09
+                    2021-10-20
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    497
+                    560
                 </div>
                 
 
@@ -479,86 +479,168 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、不修改数组找出重复的数字"><a href="#一、不修改数组找出重复的数字" class="headerlink" title="一、不修改数组找出重复的数字"></a>一、不修改数组找出重复的数字</h1><p>给定一个长度为n+1 的数组<code>nums</code>，数组中所有的数均在 1∼n 的范围内，其中 n≥1。</p>
-<p>请找出数组中任意一个重复的数，但不能修改输入的数组。</p>
-<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><pre><code>给定 nums = [2, 3, 5, 4, 3, 2, 6, 7]。
-
-返回 2 或 3。
+                <h1 id="区间合并"><a href="#区间合并" class="headerlink" title="区间合并"></a>区间合并</h1><hr>
+<p>给定 n 个区间 [li,ri]，要求合并所有有交集的区间。</p>
+<p>注意如果在端点处相交，也算有交集。</p>
+<p>输出合并完成后的区间个数。</p>
+<p>例如：[1,3] 和 [2,6] 可以合并为一个区间[1,6]。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n。</p>
+<p>接下来 n 行，每行包含两个整数 l 和 r。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>共一行，包含一个整数，表示合并区间完成后的区间个数。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤100000,<br>−109≤li≤ri≤109</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>5
+1 2
+2 4
+5 6
+7 8
+7 9
 </code></pre>
-<p><strong>思考题</strong>：如果只能使用 O(1) 的额外空间，该怎么做呢？</p>
-<pre class="line-numbers language-c++"><code class="language-c++">//我的第一反应是一般看到重复什么的，我就会下意识的想到hash，于是我就写了一种数组hash的方法
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>3
+</code></pre>
+<hr>
+<p>题目的意思比较简单，就是有一些区间，给你他的起始点和终止点，让你将遇到的小区间合并成一个大区间，并最终返回大区间的个数。</p>
+<p>思路一般是先将这些起始点和终点按照起始点有小到大排序，如果遇到起始点相同的，就排序他的终点，终点也是有小到大进行排序，这样可以省去一些麻烦。</p>
+<p>思路比较简单，但是实现起来有一些细节要注意一下：</p>
+<p>算了，先上代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
 
-class Solution &#123;
-public:
-    int duplicateInArray(vector<int>& nums) &#123;
-        int vim[1000010] = &#123;0&#125; ;
-        int n = nums.size() ;
-        for(int i =  0 ; i < n ;++i)
-        &#123;
-            vim[nums[i]] ++ ;
-            if(vim[nums[i]] > 1 )
-                return nums[i] ;
-        &#125;
-        return 0 ;
-    &#125;
-&#125;;
-//这样时间复杂度是o(n) ,空间复杂度是o(n)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后我又看到了有大佬用模拟链表来做，觉得是很有意思的思路。于是学习了.</p>
-<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
-public:
-    int duplicateInArray(vector<int>& nums) &#123;
-        int slow = 0 , fast = 0 ;
-        
-        do
-        &#123;
-            fast = nums[nums[fast]] ;
-            slow = nums[slow] ;
-        &#125;while(slow != fast) ;
+using namespace std ;
+
+const int N = 100010 ; 
+
+struct region
+&#123;
+    int start ; 
+    int end ; 
+&#125; re[N]; 
+
+int main()
+&#123;
+    int n ; 
+    cin >> n  ; 
     
-        fast = 0 ;
-        
-        do
-        &#123;
-            fast = nums[fast] ; 
-            slow = nums[slow] ;
-        &#125;while(fast != slow) ;
-   return slow ;
+    for(int i = 1 ; i <= n ; ++ i )
+    &#123;
+        cin >> re[i].start >> re[i].end ;
     &#125;
-&#125;;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>时间复杂度是o(n) ,空间复杂度是o(1) 。</p>
-<p>妙在用数组模拟链表的思路：</p>
-<p>基于是链表找环的问题，题目是这样的</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022. 链表中环的入口节点 - 力扣（LeetCode） (leetcode-cn.com)</a></p>
-<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
-public:
-    ListNode *detectCycle(ListNode *head) &#123;
-        if(head == NULL || head->next == NULL) return NULL ;
-        ListNode* fast = head->next->next ;
-        ListNode* slow = head->next ;
-        while(fast && fast->next )
+    
+    sort(re + 1  , re + n + 1 , [] (region x , region y)
+         &#123;
+             if(x.start == y.start)
+             &#123;
+                 return x.end < y.end ; 
+             &#125;
+             return x.start < y.start ; 
+         &#125;) ; 
+    
+    re[n+1].start = re[n].end + 1  ;  //个人觉得比较妙的一步，他直接限制了下面的for循环必须是if结尾的，就省去了一些麻烦
+    
+    int start = re[1].start  ; 
+    int end = re[1].end ; 
+    int num =  1  ; 
+    
+    for(int i = 2 ; i <= n + 1 ; ++ i)
+    &#123;
+         if(re[i].start > end)
         &#123;
-            fast = fast->next->next ;
-            slow = slow->next ;
-            if(slow == fast) 
-            break ;
+            num ++ ; 
+            start = re[i].start ; 
+            end = re[i].end ; 
         &#125;
-        if(slow != fast) return NULL ;
-        else fast  = head ;
+        else
+        &#123;
+            end = max(end , re[i].end) ; 
+        &#125;
+    &#125;
+    
+    cout << num << endl ; 
+    
+    return  0;  
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>同理，我们再来看与她极其相似的一道题</p>
+<h1 id="校门外的树"><a href="#校门外的树" class="headerlink" title="校门外的树"></a>校门外的树</h1><hr>
+<p>某校大门外长度为 L 的马路上有一排树，每两棵相邻的树之间的间隔都是 1 米。</p>
+<p>我们可以把马路看成一个数轴，马路的一端在数轴 0 的位置，另一端在 L 的位置；数轴上的每个整数点，即0，1，2，……，L，都种有一棵树。</p>
+<p>由于马路上有一些区域要用来建地铁。</p>
+<p>这些区域用它们在数轴上的起始点和终止点表示。</p>
+<p>已知任一区域的起始点和终止点的坐标都是整数，区域之间可能有重合的部分。</p>
+<p>现在要把这些区域中的树（包括区域端点处的两棵树）移走。</p>
+<p>你的任务是计算将这些树都移走后，马路上还有多少棵树。</p>
+<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>输入文件的第一行有两个整数 L和 M，L 代表马路的长度，M 代表区域的数目，L 和 M 之间用一个空格隔开。</p>
+<p>接下来的 M 行每行包含两个不同的整数，用一个空格隔开，表示一个区域的起始点和终止点的坐标。</p>
+<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出文件包括一行，这一行只包含一个整数，表示马路上剩余的树的数目。</p>
+<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤L≤10000,<br>1≤M≤100</p>
+<h4 id="输入样例：-1"><a href="#输入样例：-1" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>500 3
+150 300
+100 200
+470 471
+</code></pre>
+<h4 id="输出样例：-1"><a href="#输出样例：-1" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>298
+</code></pre>
+<hr>
+<p>这一题我一开始没仔细看题目，就直接盯着样例看了老半天。</p>
+<p>我一开始想的是，<code>这一共500棵树</code>，我怎么算都是297呀，为什么是298呢？？？</p>
+<p>原来是，0-500…….哈哈，那没事了。</p>
+<p>所以一共是501棵树。</p>
+<p>思路与上题几乎一样</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
 
-        while(slow != fast)
-        &#123;
-            slow = slow->next ;
-            fast = fast->next ;
-        &#125;
-        return fast ;
+using namespace std ;
+
+const int N = 110 ; 
+
+struct region
+&#123;
+    int start  ; 
+    int end ; 
+&#125; re[N]; 
+
+
+int main()
+&#123;
+    int n , m  ; 
+    cin >> n >> m ; 
+    n ++ ;
+    
+    for(int i = 1 ; i <= m ; ++ i)
+    &#123;
+          cin >> re[i].start >> re[i].end ;   
     &#125;
-&#125;;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>大佬采用的是用数组下标映射值的方法，因为本题正好下标的范围其实在0-n，值的范围在1-n，也就是说存在可以相互映射的可能。</p>
-<p>把数组全部转换成链表之后是</p>
-<p>2-&gt;5-&gt;2 然后就是死循环了。</p>
+    
+    sort(re + 1 , re + 1 + m , [] (region x , region y)
+         &#123;
+             if(x.start == y.start)
+             &#123;
+                 return x.end < y.end ; 
+             &#125;
+             return x.start < y.start ; 
+         &#125;) ; 
+    
+    re[m+1].start = 10001 ; //将x
+    
+    int start  = re[1].start ; 
+    int end = re[1].end ; 
+    
+    int res = 0 ; 
+    
+    for(int i = 2 ; i <= m + 1 ; ++ i)
+    &#123;
+        if(re[i].start > end)
+        &#123;
+            res += (end - start + 1) ; 
+            start = re[i].start ; 
+            end = re[i].end ; 
+        &#125;
+        else
+        &#123;
+            end = max(end , re[i].end) ; 
+        &#125;
+    &#125;
+    cout << n - res << endl ; 
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -585,7 +667,7 @@ public:
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/">https://luolin03.github.io/2021/09/09/shuang-zhi-zhen-suan-fa-zhuan-ti/</a>
+                    <a href="https://luolin03.github.io/2021/10/20/yi-chong-jian-dan-dan-shi-hen-fei-shi-jian-de-tan-xin-ti-mo-ban/">https://luolin03.github.io/2021/10/20/yi-chong-jian-dan-dan-shi-hen-fei-shi-jian-de-tan-xin-ti-mo-ban/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -623,8 +705,8 @@ public:
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/acwing/">
-                                    <span class="chip bg-color">acwing</span>
+                                <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                                    <span class="chip bg-color">贪心</span>
                                 </a>
                             
                         </div>
@@ -670,17 +752,18 @@ public:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/09/miao/">
+                <a href="/2021/10/20/yi-chong-jian-dan-dan-shi-hen-fei-shi-jian-de-tan-xin-ti-mo-ban/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="妙">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="一种简单但是很费时间的贪心题模板">
                         
-                        <span class="card-title">妙</span>
+                        <span class="card-title">一种简单但是很费时间的贪心题模板</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -690,9 +773,9 @@ public:
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -701,11 +784,12 @@ public:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                        <span class="chip bg-color">贪心</span>
                     </a>
                     
                 </div>
@@ -719,13 +803,13 @@ public:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/08/zi-fu-chuan-suan-fa-zhuan-ti/">
+                <a href="/2021/10/17/hua-xue-chang-she-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="字符串算法专题">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="滑雪场设计">
                         
-                        <span class="card-title">字符串算法专题</span>
+                        <span class="card-title">滑雪场设计</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -736,7 +820,7 @@ public:
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-17
                             </span>
                         <span class="publish-author">
                             
@@ -749,8 +833,8 @@ public:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetcode/">
-                        <span class="chip bg-color">leetcode</span>
+                    <a href="/tags/%E8%B4%AA%E5%BF%83/">
+                        <span class="chip bg-color">贪心</span>
                     </a>
                     
                 </div>
