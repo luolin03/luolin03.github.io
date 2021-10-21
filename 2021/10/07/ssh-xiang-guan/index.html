@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    64
+                    820
                 </div>
                 
 
@@ -479,13 +479,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ssh相关知识点"><a href="#ssh相关知识点" class="headerlink" title="ssh相关知识点"></a>ssh相关知识点</h1><p>一、基本概念</p>
-<p>二、两个作用：</p>
-<p>1.远程登陆自己的server</p>
+                <h1 id="ssh相关知识点"><a href="#ssh相关知识点" class="headerlink" title="ssh相关知识点"></a>ssh相关知识点</h1><h2 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h2><h3 id="ssh的全称："><a href="#ssh的全称：" class="headerlink" title="ssh的全称："></a>ssh的全称：</h3><p>secure shell ，翻译为中文即为安全外壳协议。是一种加密的数据传输协议，用于在不安全的网络环境中进行安全的网络通信。</p>
+<p>我们在以后开发web，或者是自己运营博客的时候，需要用到自己的服务器。但是往往自带的远程连接的工具不是很好用，于是我们有了想要ssh连接服务器的需要。</p>
+<p>SSH协议主要是实现三个功能：</p>
+<p>一、用户与服务器的验证，确保数据可以正确的发送到客户机或者是服务器上</p>
+<p>二、加密数据，确保数据的安全性与私密性</p>
+<p>三、确保数据的完整性</p>
+<p>那么SSH协议是如何实现的呢？</p>
+<p>这里，我们先介绍两个概念</p>
+<p><code>对称加密算法</code> 与 <code>非对称加密算法</code></p>
+<p>对称加密算法：用同一把钥匙进行加密和解密运算。于是对于发送方与接收方来说，任意一方得到钥匙都可以进行解密。</p>
+<p>优点是，计算量小，速度快，而且方便。但是有一个极大的漏洞就是这也导致了他的安全性往往不是很高。因为，万一这把钥匙落到了第三方的手中，那么对于client端与server端的信息就直接暴露了。</p>
+<p>非对称加密算法：这里就多了一个公钥的概念。</p>
+<p>发送的一端自己生成了一个公钥与一个私钥，他想要与接收端进行通信的时候，就把公钥扔给他，向他发送用私钥加密过的数据，接收方用私钥进行解密即可。</p>
+<p>有两个需要注意的地方：</p>
+<p>公钥与私钥其实并没有说谁必须是公钥或者是私钥，他们只是满足</p>
+<p><code>公钥加密后的数据只有私钥可以解开，同时私钥加密后的数据也只有公钥可以解开</code></p>
+<p><code>公钥不可以解开自己加密后的数据，私钥不可以解开自己加密后的数据</code></p>
+<p>SSH实现过程：</p>
+<h3 id="每次登陆的过程"><a href="#每次登陆的过程" class="headerlink" title="每次登陆的过程"></a>每次登陆的过程</h3><p>1.client端发送login request进行唤醒server。</p>
+<p>2.server发送公钥给client ，client端用公钥对自己的密码进行加密后,再次发送给server端</p>
+<p>3.server端接收session-key，用自己的私钥进行解密，然后判断client的身份信息，进行登陆时的身份验证。</p>
+<p>可以看出每次登陆时一种极其浪费时间的一种做法。</p>
+<p>我们再来看一下</p>
+<h3 id="ssh免密登陆的过程："><a href="#ssh免密登陆的过程：" class="headerlink" title="ssh免密登陆的过程："></a>ssh免密登陆的过程：</h3><p>1.client在本地生成公钥和私钥，然后将公钥手动复制给server</p>
+<p>2.client同样发送login request 唤醒server</p>
+<p>3.server端于是随机生成一个数R，用公钥进行加密后发送给client(pubkey)</p>
+<p>4.client端用私钥进行解密得到R，同时用MD5对R和session-key进行生成Digest1</p>
+<p>5.server端同样也对R与session-key生成Digest2，同时判断两者是否相同。</p>
+<h2 id="二、两个作用："><a href="#二、两个作用：" class="headerlink" title="二、两个作用："></a>二、两个作用：</h2><p>1.远程登陆自己的server</p>
 <p>(1)将user和hostname省略</p>
 <p>(2)免密登录 可以登录多个server</p>
 <p>2.scp本地与server、server与server之间传输文件</p>
-<p>三、密钥公钥的概念</p>
 
                 
             </div>
@@ -871,7 +896,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">26k</span>
+                        class="white-color">26.8k</span>
             
             
             
