@@ -430,9 +430,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/dfs/">
+                                <span class="chip bg-color">dfs</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -453,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    381
                 </div>
                 
 
@@ -475,7 +479,85 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="n-皇后问题"><a href="#n-皇后问题" class="headerlink" title="n-皇后问题"></a>n-皇后问题</h1><hr>
+<p>n−皇后问题是指将 n 个皇后放在 n×n 的国际象棋棋盘上，使得皇后不能相互攻击到，即任意两个皇后都不能处于同一行、同一列或同一斜线上。</p>
+<p><img src="https://cdn.acwing.com/media/article/image/2019/06/08/19_860e00c489-1_597ec77c49-8-queens.png" alt="1_597ec77c49-8-queens.png"></p>
+<p>现在给定整数 n，请你输出所有的满足条件的棋子摆法。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含整数 n。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>每个解决方案占 n 行，每行输出一个长度为 n 的字符串，用来表示完整的棋盘状态。</p>
+<p>其中 <code>.</code> 表示某一个位置的方格状态为空，<code>Q</code> 表示某一个位置的方格上摆着皇后。</p>
+<p>每个方案输出完成后，输出一个空行。</p>
+<p><strong>注意：行末不能有多余空格。</strong></p>
+<p>输出方案的顺序任意，只要不重复且没有遗漏即可。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤9</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>4
+</code></pre>
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>.Q..
+...Q
+Q...
+..Q.
+
+..Q.
+Q...
+...Q
+.Q..
+</code></pre>
+<hr>
+<p>dfs的经典题目。</p>
+<p>直接贴一个代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 20  ;
+
+char a[N][N] ; 
+
+int n ; 
+
+bool col[N] , dg[N] , udg[N] ; 
+
+void dfs(int u)
+&#123;
+    if(u == n)
+    &#123;
+        for(int i = 0 ; i < n ;++ i)
+        &#123;
+            puts(a[i]) ; 
+        &#125;
+        puts("") ; 
+    &#125;
+    for(int i = 0 ; i < n ; ++ i)
+    &#123;
+        if(!col[i] && !dg[u + i ] && !udg[u - i + n])
+        &#123;
+            a[u][i] = 'Q' ; 
+            col[i] = dg[u+i] = udg[u-i+n] = true  ; 
+            dfs(u+1) ; 
+            col[i] = dg[u+i] = udg[u-i+n] = false  ;
+            a[u][i] = '.' ; 
+        &#125;
+    &#125;
+    return  ; 
+&#125;
+
+int main()
+&#123;
+    cin >> n ; 
+    
+    for(int i = 0 ; i < n ; ++ i)
+    &#123;
+        for(int j = 0 ; j < n ; ++ j)
+        &#123;
+            a[i][j] = '.' ; 
+        &#125;
+    &#125;
+    dfs(0) ;
+    
+    return  0 ; 
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
                 
             </div>
             <hr/>
@@ -538,7 +620,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/dfs/">
+                                    <span class="chip bg-color">dfs</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -856,7 +942,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">27.6k</span>
+                        class="white-color">28k</span>
             
             
             
