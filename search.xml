@@ -4,6 +4,57 @@
   
     
     <entry>
+      <title>tmux</title>
+      <link href="/2021/10/22/tmux/"/>
+      <url>/2021/10/22/tmux/</url>
+      
+        <content type="html"><![CDATA[<h1 id="tmux-终端复用工具"><a href="#tmux-终端复用工具" class="headerlink" title="tmux-终端复用工具"></a>tmux-终端复用工具</h1><h2 id="一、tmux介绍"><a href="#一、tmux介绍" class="headerlink" title="一、tmux介绍"></a>一、tmux介绍</h2><p>tmux是一款终端复用工具。我们在做项目或者在维护服务器的时候，如果用自身所带的工具，终端关闭直接就结束进程，这是很不安全的做法。因为一旦你在工作的时候，发生了一些小事故，如停电，或者是电脑发生了故障，那么你没有保存的工作可能会发生丢失。</p><p>同时，正常来说，一个终端只可以连接一个server，只会有一个session，一个window，一个pane。</p><p>但是tmux可以同时连接多个服务器，可以开若干个session，若干个window，若干个pane。大大增加了工作的效率与便捷性。</p><p>同时，tmux可以将当前的行为挂在后台，即使关闭了当前的terminal，进程依然会在后台进行，使得工作的进度得以保留下来，之后如果想要查找的时候，直接<code>tmux a</code> 即可找回。</p><h2 id="二、优点"><a href="#二、优点" class="headerlink" title="二、优点"></a>二、优点</h2><p>（1）它允许在单个窗口中，同时访问多个会话。这对于同时运行多个命令行程序很有用。</p><p>（2） 它可以让新窗口”接入”已经存在的会话。</p><p>（3）它允许每个会话有多个连接窗口，因此可以多人实时共享会话。</p><p>（4）它还支持窗口任意的垂直和水平拆分。</p><h2 id="三、常用命令"><a href="#三、常用命令" class="headerlink" title="三、常用命令"></a>三、常用命令</h2><p><code>tmux</code> 新建一个session，这个session里面有一个window，window里面有一个pane，pane里面有shell语句。</p><p>申明一下，tmux的前缀建是<code>ctrl + b</code> ，以下命令未进行申明前缀建的用法都是按下后松开。有少数是需要前缀键和命令键需要同时按下的。</p><h3 id="pane"><a href="#pane" class="headerlink" title="pane"></a>pane</h3><p><code>ctrl + b + %</code>  将当前选中的pane平分成左右两个pane</p><p><code>ctrl + b + &quot;</code> 将当前选中的pane平分成上下两个pane</p><p><code>ctrl + d </code> 关闭当前选中的pane，如果当前的pane是window仅有的一个pane，那么直接会关闭window。同理，关闭session</p><p><code>ctrl + b + 方向键</code> 切换选中的pane</p><p><code>ctrl + b + 方向键(同时)</code> 移动pane之间的分割线，按一次动一下</p><p><code>ctrl + b + z</code> 将当前选中的pane变成全屏,再按一下即可恢复。</p><p><code>ctrl + b + pageup</code> tmux阅读的时候比较麻烦。可以用鼠标或者是方向键进行翻阅内容，按ESC进行退出</p><h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><p><code>ctrl + b + c</code> 在当前的session中再创建一个window。</p><p><code>ctrl + b + w</code> 选择当前session的window</p><h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p><code>ctrl + b + d</code> 将当前的session放在后台</p><p><code>ctrl + b + s</code> 选择其他session</p><p><code>tmux a</code> 挂起之前的session</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> linux基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>n-皇后问题</title>
+      <link href="/2021/10/21/n-huang-hou-wen-ti/"/>
+      <url>/2021/10/21/n-huang-hou-wen-ti/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>全排列</title>
+      <link href="/2021/10/21/quan-pai-lie/"/>
+      <url>/2021/10/21/quan-pai-lie/</url>
+      
+        <content type="html"><![CDATA[<h1 id="排列数字"><a href="#排列数字" class="headerlink" title="排列数字"></a>排列数字</h1><hr><p>给定一个整数 n，将数字 1∼n 排成一排，将会有很多种排列方法。</p><p>现在，请你按照字典序将所有的排列方法输出。</p><h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>共一行，包含一个整数 n。</p><h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>按字典序输出所有排列方案，每个方案占一行。</p><h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n≤7</p><h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>3</code></pre><h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>1 2 31 3 22 1 32 3 13 1 23 2 1</code></pre><hr><p>dfs的分析方法</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> dfs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>leetcode 66</title>
       <link href="/2021/10/21/leetcode-66/"/>
       <url>/2021/10/21/leetcode-66/</url>
