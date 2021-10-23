@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    744
+                    2.3k
                 </div>
                 
 
@@ -515,6 +515,52 @@
 <p><code>git push -d origin branchname</code> 在远程仓库删除分支</p>
 <p><code>git pull</code> 从云端仓库的当前分支拉取下来并合并到本地的当前分支</p>
 <p><code>git pull origin branchname</code> 从远端仓库的拉取branchname这条分支并与本地的当前分支进行合并 </p>
+<h1 id="—————————-10-23晚更新————————————"><a href="#—————————-10-23晚更新————————————" class="headerlink" title="—————————-10.23晚更新————————————-"></a>—————————-10.23晚更新————————————-</h1><p>发现了一个极其有趣的了解git实战的网站</p>
+<p><a target="_blank" rel="noopener" href="https://learngitbranching.js.org/?locale=zh_CN">https://learngitbranching.js.org/?locale=zh_CN</a> 可能需要魔法上网(hhh)</p>
+<p>花了大概两个小时，通关了。对git多了很多认知，但是有很多不太容易文字记录下来，算了，防止自己忘了在这里就随便记录一些，然后有时间在玩一玩那个网站吧。</p>
+<p><code>git commit </code> 我之前一直以为他是将自己修改后的文件，直接复制粘贴而已，但是其实不是，他储存的其实是上一个版本与这一次commit版本的差异，这是因为git考虑到他的轻量级。</p>
+<p><code>git checkout</code> 与<code>git branch</code> 这个就得好好唠唠。</p>
+<p>其实本质上，git checkout操控的是HEAD指针。例如，在游戏中就有一个部分叫做分离HEAD指针，有时候为了更加便捷的操作版本树，我们可以使用<code>git checkout c1</code> c1指的是某一个提交记录的hash值，可以用<code>git log</code> 来进行查看。此时HEAD与该分支的指针(例如main)分离，因为在一般情况下，HEAD指针往往是指向分支的指针的。</p>
+<p>我们再来看看<code>git branch -f main HEAD</code> 这个命令，这是什么意思呢？</p>
+<p>翻译过来其实就是，强制将main指针移动到HEAD指针所在的位置，这个不一定是指针，也可以是任意一个提交版本的位置，这个命令就是操控分支指针的命令，当然，也可以用来进行版本的回滚操作。</p>
+<p>我们再来看看合并分支操作：</p>
+<p><code>git merge</code> </p>
+<p>就是字面意义上的进行合并</p>
+<p>例如：当前的分支是main，我想要把bugFix分支合过来，那我的命令就是<code>git merge bugFix</code> </p>
+<p><code>git rebase</code> </p>
+<p>举个例子：<code>git rebase main</code> 假定当前的分支是bugFix，我想要将bugFix合并到main。</p>
+<p>本质上他是将原bugFix当前所指的版本库copy一份，将其复制到main的下一位，同时main指针往下指，原来的版本依旧保留,但是这样的话会使得代码树更加清爽。(maybe)，在保留历史痕迹方面就没有merge保留的清晰。</p>
+<p>接下来说一个比较重要的概念</p>
+<h4 id="相对引用"><a href="#相对引用" class="headerlink" title="相对引用"></a>相对引用</h4><p><code>git checkout HEAD^</code> HEAD指针跳转到上一级，之所以叫相对引用，是相对于<code>git checkout c1</code> 这种简单粗暴的移动HEAD指针的方式。</p>
+<p><code>git branch -f main HEAD^</code> 也是可以的，就是把一个特定版本的hash值换成了一个相对位置而已。</p>
+<h4 id="回退版本"><a href="#回退版本" class="headerlink" title="回退版本"></a>回退版本</h4><p><code>git reset</code>  </p>
+<p>比如说，我想要删除本地的最新版本</p>
+<p><code>git reset HEAD^</code> 他是相当于把最新的版本隐藏了，就像是没有提交过一样，但是你push到remote的时候，他是不会有变化的</p>
+<p><code>git revert HEAD</code> 他是相当于隐藏了c1，提交了一次c1’，里面存的是c1的修改记录，内容与c0一致。push到remote的时候，remote是有变化的。</p>
+<h4 id="整理提交记录"><a href="#整理提交记录" class="headerlink" title="整理提交记录"></a>整理提交记录</h4><p>把多人凌乱的提交记录进行整理，可以使得代码树干净整洁一些。</p>
+<p>ok，介绍一个我最喜欢也是非常方便的一个指令。</p>
+<p>  <code>git cherry-pick c1 c2 c3</code> 假定当前的分支是main，就是把全局的c1 c2 c3节点，复制一个副本，然后依次粘贴到main指针下面。同时，main指针进行移动。</p>
+<p>与cherry有着差不多功能的一条指令是</p>
+<h4 id="可交互的rebase"><a href="#可交互的rebase" class="headerlink" title="可交互的rebase"></a>可交互的rebase</h4><p><code>git rebase -i HEAD~3</code> 这条指令是从你现在的HEAD指针的位置开始，向上移动三个位置，在起始点到倒数第二个点的这些节点中，会出现一个ui，你可以选择其中的一些点，可以进行忽略，排序什么的，然后粘贴到最后一个指向的节点的下面。但是不移动父节点的指针。</p>
+<h4 id="git-tag-与-git-discribe"><a href="#git-tag-与-git-discribe" class="headerlink" title="git tag 与 git discribe"></a>git tag 与 git discribe</h4><p>个人觉得没有什么用</p>
+<p>在merge之后，我们知道,假定一种情况</p>
+<p>当时的HEAD指针指向main ， 同时你想要merge一条bugFix分支，于是你</p>
+<p><code>git merge bugFix</code> ，我们知道这条指令的意思是将bugFix分支merge到main分支。</p>
+<p>那么你就会想到如果此时我<code>git checkout HEAD^</code>指向的是哪条分支呢？</p>
+<p>实践之后可以知道，就是之前的main分支，因为是将bugFixmerge到main，所以main占主导。</p>
+<p>那有些朋友就会问了，如果我想checkout到bugFix怎么办呢？</p>
+<p>很简单，<code>git checkout HEDA^2</code> 即可。</p>
+<p>下面是local与remote的一些交互操作，有些确实有些蛋疼，没有合作代码的项目经历还真是比较吃亏。</p>
+<p>同时还有一点，单纯的列举操作自然没有自己动手实践的理解深，所以看到这的朋友，不妨自己到那个小游戏里面去玩一玩。</p>
+<p>不管了，先列举一些我的一些总结，等之后有了git的工作经历在进一步更新吧</p>
+<p>其实命令无非就是</p>
+<p><code>git fetch</code> 有两个作用，一是将local与remote相比缺失的记录下载下来，同时改变o/main，也就是origin指针。注意！！！这里是不改变local的main指针的，只是一个下载而已，不改变本地的任何指针。</p>
+<p><code>git pull</code> 可以看做是<code>git fetch</code> 与<code>git merge</code> 的结合版，就是在下载之后，将remote分支与local的当前分支合并。</p>
+<p>正常我们为了美观一般都<code>git pull --rebase</code> 会使得代码更加简洁一些。</p>
+<p><code>git push</code> pull的反义词，就是将local与remote对比，将local的改进与更新同步到remote，注意！！！当前的分支是什么就push哪一条分支，只push当前的分支。</p>
+<p><code>git clone</code> 将remote仓库，如<code>github</code> 、<code>gitee</code>、<code>git lab</code> 的所有文件克隆到本地的仓库，就像是在本地创建了remote的一个副本。</p>
+<p>以及一些基于上述命令的一些改变。</p>
+<p>至于一些追踪，还有一些<code>git push origin foo^:main</code> 什么的，今天太晚了，之后在来更新。</p>
 
                 
             </div>
@@ -892,7 +938,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">28k</span>
+                        class="white-color">29.5k</span>
             
             
             
