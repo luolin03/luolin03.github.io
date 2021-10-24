@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    2.5k
                 </div>
                 
 
@@ -559,8 +559,13 @@
 <p>正常我们为了美观一般都<code>git pull --rebase</code> 会使得代码更加简洁一些。</p>
 <p><code>git push</code> pull的反义词，就是将local与remote对比，将local的改进与更新同步到remote，注意！！！当前的分支是什么就push哪一条分支，只push当前的分支。</p>
 <p><code>git clone</code> 将remote仓库，如<code>github</code> 、<code>gitee</code>、<code>git lab</code> 的所有文件克隆到本地的仓库，就像是在本地创建了remote的一个副本。</p>
-<p>以及一些基于上述命令的一些改变。</p>
-<p>至于一些追踪，还有一些<code>git push origin foo^:main</code> 什么的，今天太晚了，之后在来更新。</p>
+<h4 id="本地分支对远程分支指针的追踪"><a href="#本地分支对远程分支指针的追踪" class="headerlink" title="本地分支对远程分支指针的追踪"></a>本地分支对远程分支指针的追踪</h4><p><code>git checkout -b foo o/main</code> 这句话的意思是在本地创建并切换到foo分支，该分支对origin/main指针进行追踪。</p>
+<p>那么什么叫进行追踪呢？就是相当于foo取代了本地的main分支，本地的main分支已经没有用了，他不在可以与远程的main分支进行对应，foo承担了main分支应有的工作。</p>
+<p><code>git push origin main</code>这句话把它进行慢动作的话其实有两个指令：1.找到本地的main分支 2. 将本地的main分支进行push，同时移动o/main指针</p>
+<p><code>git push origin main:foo</code> 冒号前面的是一个位置，表示的是本地的main分支指针所指向的一个位置，后面的是要移动的远程的foo指针，就是将远程的仓库添加从foo到main指针缺少的一段版本，同时将foo指针移动到main的位置</p>
+<p><code>git fetch origin main:foo </code> 原理同上</p>
+<p><code>git pull origin main:foo</code> 原理同上</p>
+<p>好，终于更新完了，差不多学会上述的操作就应该差不多了。以后有时间的话，我就再来整理一下。</p>
 
                 
             </div>
@@ -938,7 +943,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">29.5k</span>
+                        class="white-color">29.7k</span>
             
             
             
