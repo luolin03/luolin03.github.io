@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="动态规划一日一题-10.5-01背包问题, 罗林的博客">
+    <meta name="keywords" content="leetcode 240, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>动态规划一日一题-10.5-01背包问题 | 罗林的博客</title>
+    <title>leetcode 240 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">动态规划一日一题-10.5-01背包问题</h1>
+                    <h1 class="description center-align post-title">leetcode 240</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
-                                <span class="chip bg-color">一日一题 背包问题</span>
+                            <a href="/tags/leetcode/">
+                                <span class="chip bg-color">leetcode</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-05
+                    2021-10-25
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    425
+                    483
                 </div>
                 
 
@@ -479,107 +479,100 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<h1 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h1><p>有 N 件物品和一个容量是 V的背包。每件物品只能使用一次。</p>
-<p>第 i件物品的体积是 vi，价值是 wi。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p>
-<p>接下来有 N 行，每行两个整数 vi,wi，用空格隔开，分别表示第 i 件物品的体积和价值。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最大价值。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>0&lt;N,V≤1000<br>0&lt;vi,wi≤1000</p>
-<h4 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h4><pre><code>4 5
-1 2
-2 4
-3 4
-4 5
-</code></pre>
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>8
-</code></pre>
-<hr>
-<p>还是用之前的分析方法来分析：</p>
-<p>状态表示：f[i] [j] 表示使用前i个物品，且总体积不大于j的时候，所实现的最大价值</p>
-<p>状态属性：max</p>
-<p>base case：f[i] [0] = 0 ; f[0]  [i] = 0 (因为此题的base case来说，我们申请dp数组的时候就是申请的全局变量，默认值直接是0，所以这一题的base case没有显性的展现出来)。</p>
-<p>状态转移：分成两块，任何状态都可以分成两个状态，一是不使用第i个物品，二是使用第i件物品。分隔条件是v[i] 与j的大小关系。</p>
-<p>代码如下：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>
+                <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/search-a-2d-matrix-ii/">240. 搜索二维矩阵 II - 力扣（LeetCode） (leetcode-cn.com)</a></p>
+<p>题目意思比较明确，在一个行升序且列升序的二维矩阵中，查找一个数。</p>
+<p>由于leetcode的很多题目，范围给的不是很明确。</p>
+<p>但是很显然，这既然是一个中等难度的题目，暴力肯定是过不去的，虽然有时候leetcode的难度的标注是比较玄学的。</p>
+<p>那我们想到了一个可以稍微简化一点的操作，那就是二分。</p>
+<p>我想到的是，先对行考虑，二分每行的末尾元素，找到第一个大于等于target的行数。</p>
+<p>在此行往下，对每一行进行二分操作，查找是否有与target相等的元素。</p>
+<p>贴个代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
 
-using namespace std ;
-
-const int N = 1010 ; 
-
-int f[N][N] ;
-
-int w[N] , v[N] ;
-int main()
-&#123;
-    int n , m ; 
-    
-    cin >> n >> m ; 
-    
-    for(int i = 1 ; i <= n ; ++i)
+    bool binary(int m , vector<int> a , int target)
     &#123;
-        cin >> v[i] >> w[i] ;
-    &#125;
-    
-    
-    for(int i = 1 ; i <= n ; ++i)
-    &#123;
-        for(int j = 1 ; j <= m ;++j)
+        int l = 0 ; int r = m  ; 
+        while(l < r)
         &#123;
-            f[i][j] = f[i-1][j] ;
-            if(v[i] <= j)
+            int mid = l + r >> 1 ;
+            if(a[mid] == target)
             &#123;
-                f[i][j] = max(f[i][j] , f[i-1][j-v[i]]  + w[i]) ;
+                return true ; 
+            &#125;
+            else if(a[mid] > target)
+            &#123;
+                r = mid ; 
+            &#125;
+            else
+            &#123;
+                l = mid + 1 ; 
             &#125;
         &#125;
+        return false ; 
     &#125;
-    cout << f[n][m] << endl ;
-    return  0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>仔细阅读上述代码之后，我们发现可以采用一维数组进行优化。因为i在这题来说，可以根据循环的由小到大的次序进行省略。</p>
-<p>其中有一个比较难理解的点就是，对于二层循环的j来说，不应该是有小到大进行穷举，而是应该是由大到小进行穷举，因为对于二维代码来说，有一个i用来指向此时的j是上一次的循环的还是下一次循环的，状态转移是由上一次循环转移来的，所以不管j是大还是小，都是上一次循环来赋值的。但是对于一维的dp数组来说，没有i作为指向，必须通过j的列举顺序来体现是上一轮循环的状态转移。</p>
-<p>当然，最简单的理解就是一维的dp方法必须要满足二维的dp方法的逻辑思路。所以对于j的列举顺序必须满足，f[j]的状态必须是上次循环中j的值比现在小的dp值转移过来的。</p>
-<p>所以，根据这一条原则，j如果不变化，仍然是由小到大进行列举的话，虽然是由比自己小的j的dp值转移过来的，但是这些值都是由本轮循环进行迭代之后得到的值，并不是上一轮循环所遗留下来的，这就导致了逻辑出现了错误。</p>
-<p>优化空间后的代码如下：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include<bits/stdc++.h>
 
-using namespace std ;
 
-const int N = 1010 ; 
 
-int f[N] ;
-
-int w[N] , v[N] ;
-int main()
-&#123;
-    int n , m ; 
-    
-    cin >> n >> m ; 
-    
-    for(int i = 1 ; i <= n ; ++i)
-    &#123;
-        cin >> v[i] >> w[i] ;
-    &#125;
-    
-    
-    for(int i = 1 ; i <= n ; ++i)
-    &#123;
-        for(int j = m ; j >= 0 ; --j)
+    bool searchMatrix(vector<vector<int>>& matrix, int target) &#123;
+        int n = matrix.size() ; 
+        int m = matrix[0].size() ; 
+        int l = 0 ;  int r = n -1 ; 
+        while(l < r)
         &#123;
-            if(v[i] <= j)
+            int mid = l + r >> 1 ; 
+            if(matrix[mid][m-1] >= target)
             &#123;
-                f[j] = max(f[j] , f[j-v[i]]  + w[i]) ;
+                r = mid ; 
+            &#125;
+            else
+            &#123;
+                l = mid + 1 ; 
             &#125;
         &#125;
+
+        for(int i = l ; i < n  ; ++ i)
+        &#123;
+            if(binary(m , matrix[i] , target))
+            &#123;
+                return true ; 
+            &#125;
+        &#125;
+        return false ; 
     &#125;
-    
-    cout << f[m] << endl ;
-    
-    return  0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;;
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是情况不是很乐观，时间只打败了5%……</p>
+<p>最后翻阅题解，找到了一种很容易理解，而且时间更短的做法。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution&#123;
+    public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target)&#123;
+        int n = matrix.size() ;
+        int m = matrix[0].size() ; 
+        int i = n - 1 ; 
+        int j = 0  ; 
+        while(i >= 0 && j < m)
+        &#123;
+            if(matrix[i][j] == target)
+            &#123;
+                return true ; 
+            &#125;
+            else if(matrix[i][j] > target)
+            &#123;
+                j ++  ; 
+            &#125;
+            else
+            &#123;
+                i -- ;
+            &#125;
+        &#125;
+           return false ; 
+    &#125;
+&#125; ; 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实就是有点像z字抖动。起点是从左下角开始，如果遇到的值比target小 ， 就往右走，反之，就往上走。</p>
+<p>是好方法，mark一下，等之后，遇到了扩展问题希望可以想起来。</p>
 
                 
             </div>
@@ -606,7 +599,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/10/05/dong-tai-gui-hua-yi-ri-yi-ti-10-5-01-bei-bao-wen-ti/">https://luolin03.github.io/2021/10/05/dong-tai-gui-hua-yi-ri-yi-ti-10-5-01-bei-bao-wen-ti/</a>
+                    <a href="https://luolin03.github.io/2021/10/25/leetcode-240/">https://luolin03.github.io/2021/10/25/leetcode-240/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -644,8 +637,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
-                                    <span class="chip bg-color">一日一题 背包问题</span>
+                                <a href="/tags/leetcode/">
+                                    <span class="chip bg-color">leetcode</span>
                                 </a>
                             
                         </div>
@@ -691,17 +684,18 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/10/05/stl-suan-fa-xiang-jie/">
+                <a href="/2021/10/25/leetcode-240/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="STL算法详解">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="leetcode 240">
                         
-                        <span class="card-title">STL算法详解</span>
+                        <span class="card-title">leetcode 240</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -711,9 +705,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -722,11 +716,12 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A5%BD%E8%B5%84%E6%BA%90/">
-                        <span class="chip bg-color">好资源</span>
+                    <a href="/tags/leetcode/">
+                        <span class="chip bg-color">leetcode</span>
                     </a>
                     
                 </div>
@@ -740,13 +735,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/04/die-dai-qi-shan-chu-de-da-keng/">
+                <a href="/2021/10/24/thrift-learning/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="迭代器删除的大坑">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="thrift-learning">
                         
-                        <span class="card-title">迭代器删除的大坑</span>
+                        <span class="card-title">thrift-learning</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -757,7 +752,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-24
                             </span>
                         <span class="publish-author">
                             
@@ -770,8 +765,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9D%91/">
-                        <span class="chip bg-color">坑</span>
+                    <a href="/tags/linux%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">linux基础</span>
                     </a>
                     
                 </div>

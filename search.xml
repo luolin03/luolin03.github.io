@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>leetcode 240</title>
+      <link href="/2021/10/25/leetcode-240/"/>
+      <url>/2021/10/25/leetcode-240/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://leetcode-cn.com/problems/search-a-2d-matrix-ii/">240. 搜索二维矩阵 II - 力扣（LeetCode） (leetcode-cn.com)</a></p><p>题目意思比较明确，在一个行升序且列升序的二维矩阵中，查找一个数。</p><p>由于leetcode的很多题目，范围给的不是很明确。</p><p>但是很显然，这既然是一个中等难度的题目，暴力肯定是过不去的，虽然有时候leetcode的难度的标注是比较玄学的。</p><p>那我们想到了一个可以稍微简化一点的操作，那就是二分。</p><p>我想到的是，先对行考虑，二分每行的末尾元素，找到第一个大于等于target的行数。</p><p>在此行往下，对每一行进行二分操作，查找是否有与target相等的元素。</p><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    bool binary(int m , vector<int> a , int target)    &#123;        int l = 0 ; int r = m  ;         while(l < r)        &#123;            int mid = l + r >> 1 ;            if(a[mid] == target)            &#123;                return true ;             &#125;            else if(a[mid] > target)            &#123;                r = mid ;             &#125;            else            &#123;                l = mid + 1 ;             &#125;        &#125;        return false ;     &#125;    bool searchMatrix(vector<vector<int>>& matrix, int target) &#123;        int n = matrix.size() ;         int m = matrix[0].size() ;         int l = 0 ;  int r = n -1 ;         while(l < r)        &#123;            int mid = l + r >> 1 ;             if(matrix[mid][m-1] >= target)            &#123;                r = mid ;             &#125;            else            &#123;                l = mid + 1 ;             &#125;        &#125;        for(int i = l ; i < n  ; ++ i)        &#123;            if(binary(m , matrix[i] , target))            &#123;                return true ;             &#125;        &#125;        return false ;     &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>但是情况不是很乐观，时间只打败了5%……</p><p>最后翻阅题解，找到了一种很容易理解，而且时间更短的做法。</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution&#123;    public:    bool searchMatrix(vector<vector<int>>& matrix, int target)&#123;        int n = matrix.size() ;        int m = matrix[0].size() ;         int i = n - 1 ;         int j = 0  ;         while(i >= 0 && j < m)        &#123;            if(matrix[i][j] == target)            &#123;                return true ;             &#125;            else if(matrix[i][j] > target)            &#123;                j ++  ;             &#125;            else            &#123;                i -- ;            &#125;        &#125;           return false ;     &#125;&#125; ; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>其实就是有点像z字抖动。起点是从左下角开始，如果遇到的值比target小 ， 就往右走，反之，就往上走。</p><p>是好方法，mark一下，等之后，遇到了扩展问题希望可以想起来。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>thrift-learning</title>
       <link href="/2021/10/24/thrift-learning/"/>
       <url>/2021/10/24/thrift-learning/</url>
