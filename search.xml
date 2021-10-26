@@ -4,6 +4,51 @@
   
     
     <entry>
+      <title>dfs地图题型</title>
+      <link href="/2021/10/26/dfs-di-tu-ti-xing/"/>
+      <url>/2021/10/26/dfs-di-tu-ti-xing/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>dfs求组合数题型</title>
+      <link href="/2021/10/26/dfs-qiu-zu-he-shu-ti-xing/"/>
+      <url>/2021/10/26/dfs-qiu-zu-he-shu-ti-xing/</url>
+      
+        <content type="html"><![CDATA[<h1 id="dfs求组合数"><a href="#dfs求组合数" class="headerlink" title="dfs求组合数"></a>dfs求组合数</h1><p>这种题型应该是比较好总结的，但是我自从昨天刚刚接触，我人已经麻了。</p><p>感觉对dfs的机理，以及何时开始调用，内部的执行顺序不会知道的非常透彻。</p><p>误打误撞了ac了leetcode的几道题，今天先mark一下。之后写的题目多了之后，我继续再总结。</p><h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p><a href="https://leetcode-cn.com/problems/combinations/">77. 组合 - 力扣（LeetCode） (leetcode-cn.com)</a></p><p>题目非常简洁，只有两个参数，n与k。给一个1到n的范围，每一个组合有k个数，列举出所有的可能。</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    vector<int> path ;     vector<vector<int>> res ;         vector<vector<int>> combine(int n, int k) &#123;        dfs(1 , 0 , n , k) ;         return res ;     &#125;            void dfs(int start , int u , int n , int k)    &#123;        if(u == k)        &#123;            res.push_back(path) ;             return  ;         &#125;                for(int i = start ; i <= n  ; ++ i)        &#123;            path.push_back(i) ;             dfs(i+1 , u +1 , n , k) ;            path.pop_back() ;         &#125;    &#125;    return  ; &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="组合总和"><a href="#组合总和" class="headerlink" title="组合总和"></a>组合总和</h2><p><a href="https://leetcode-cn.com/problems/combination-sum/">39. 组合总和 - 力扣（LeetCode） (leetcode-cn.com)</a></p><p>y总的思路，u的含义是遍历candidate数组的每一个下标。对每一个下标而言，用一个循环判断需要使用多少个该元素,对于每一轮改变target的值，恢复现场即可。</p><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    vector<int> ans ;     vector<vector<int>> res ;             vector<vector<int>> combinationSum(vector<int>& candidates, int target) &#123;        dfs(0 , candidates , target) ;         return res ;     &#125;        void dfs(int u , vector<int> candidates , int target)    &#123;        if(target == 0)        &#123;            res.push_back(ans) ;             return  ;        &#125;                if(u == candidates.size())        &#123;            return  ;         &#125;                for(int i = 0 ; i * candidates[u] <= target ; ++ i)        &#123;            dfs(u + 1 , candidates , target - i * candidates[u]) ;             ans.push_back(candidates[u]) ;         &#125;                for(int i = 0 ; i * candidates[u] <= target ; ++ i)        &#123;            ans.pop_back() ;         &#125;     return ;        &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="组合总和II"><a href="#组合总和II" class="headerlink" title="组合总和II"></a>组合总和II</h2><p><a href="https://leetcode-cn.com/problems/combination-sum-ii/">40. 组合总和 II - 力扣（LeetCode） (leetcode-cn.com)</a></p><p>与上面一题的区别是，数组中有了重复元素，但是只能用已有的元素，就是将个数限定死了，不是想上面一题类似于完全背包问题。</p><p>我们只需要在找数量的时候，加一条限制，不超过所给的数量即可。但是有一点要注意，要进行去重，否则答案会出现很多重复答案。</p><p>贴个代码：</p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    vector<int> ans ;    vector<vector<int>> res ;    unordered_map<int,int> ha ;         vector<vector<int>> combinationSum2(vector<int>& candidates, int target) &#123;        sort(candidates.begin() , candidates.end()) ;         for(int num : candidates)        &#123;            ha[num] ++ ;         &#125;        candidates.erase(unique(candidates.begin() , candidates.end()) , candidates.end()) ;         dfs(0 , candidates , target) ;        return res ;     &#125;        void dfs(int u , vector<int> candidates ,int target)    &#123;        if(target == 0)        &#123;            res.push_back(ans) ;             return  ;         &#125;                if(u == candidates.size())        &#123;            return ;         &#125;                for(int i = 0 ; i * candidates[u] <= target && i <= ha[candidates[u]] ; ++ i)        &#123;            dfs(u+1 , candidates , target - i * candidates[u]) ;             ans.push_back(candidates[u]) ;                 &#125;        for(int i = 0 ; i * candidates[u] <= target && i <= ha[candidates[u]] ; ++ i)                &#123;            ans.pop_back() ;         &#125;        return ;     &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="组合总和III"><a href="#组合总和III" class="headerlink" title="组合总和III"></a>组合总和III</h2><p><a href="https://leetcode-cn.com/problems/combination-sum-iii/">216. 组合总和 III - 力扣（LeetCode） (leetcode-cn.com)</a></p><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;public:    vector<int> ans ;    vector<vector<int>> res ;             vector<vector<int>> combinationSum3(int k, int n) &#123;        dfs(1 , 0 , k , n) ;        return res ;     &#125;        void dfs(int start , int u , int k , int n)    &#123;        if(u == k)        &#123;            int num = accumulate(ans.begin() , ans.end() , 0) ;             if(num == n)            &#123;                res.push_back(ans) ;                 return  ;             &#125;        &#125;           for(int i = start ; i <= 9; ++ i)        &#123;            if(i > n)                return  ;             ans.push_back(i) ;             dfs(i + 1 , u + 1 , k , n ) ;             ans.pop_back() ;         &#125;        return ;     &#125;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>ok,今天就mark到这，我人已经麻了………</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 总结 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>二维vector使用的注意点</title>
+      <link href="/2021/10/26/er-wei-vector-shi-yong-de-zhu-yi-dian/"/>
+      <url>/2021/10/26/er-wei-vector-shi-yong-de-zhu-yi-dian/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>leetcode 240</title>
       <link href="/2021/10/25/leetcode-240/"/>
       <url>/2021/10/25/leetcode-240/</url>

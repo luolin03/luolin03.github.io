@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="动态规划一日一题-10-1-最小编辑距离, 罗林的博客">
+    <meta name="keywords" content="二维vector使用的注意点, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>动态规划一日一题-10-1-最小编辑距离 | 罗林的博客</title>
+    <title>二维vector使用的注意点 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">动态规划一日一题-10-1-最小编辑距离</h1>
+                    <h1 class="description center-align post-title">二维vector使用的注意点</h1>
                 </div>
             </div>
         </div>
@@ -430,13 +430,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E7%BA%BF%E6%80%A7dp/">
-                                <span class="chip bg-color">一日一题 线性dp</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -448,7 +444,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-01
+                    2021-10-26
                 </div>
                 
 
@@ -457,7 +453,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    498
+                    0
                 </div>
                 
 
@@ -479,84 +475,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="最小编辑距离"><a href="#最小编辑距离" class="headerlink" title="最小编辑距离"></a>最小编辑距离</h1><hr>
-<p>给定两个字符串 A 和 B，现在要将 A 经过若干操作变为 B，可进行的操作有：</p>
-<ol>
-<li>删除–将字符串 A 中的某个字符删除。</li>
-<li>插入–在字符串 A 的某个位置插入某个字符。</li>
-<li>替换–将字符串 A 中的某个字符替换为另一个字符。</li>
-</ol>
-<p>现在请你求出，将 A 变为 B 至少需要进行多少次操作。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 n，表示字符串 A 的长度。</p>
-<p>第二行包含一个长度为 n 的字符串 A。</p>
-<p>第三行包含整数 m，表示字符串 B 的长度。</p>
-<p>第四行包含一个长度为 m 的字符串 B。</p>
-<p>字符串中均只包含大写字母。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最少操作次数。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤n,m≤1000</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>10 
-AGTCTGACGC
-11 
-AGTAAGTAGGC
-</code></pre>
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>4
-</code></pre>
-<hr>
-<p>由dp的思想，显然需要创建一个二维的数组。</p>
-<h3 id="定义明确"><a href="#定义明确" class="headerlink" title="定义明确"></a>定义明确</h3><p>首先明确dp数组的定义，dp[i] [j] 表示的是第一个数组的1-i转变成1-j需要的最小的操作次数(即最小的编辑距离)。</p>
-<h3 id="base-case"><a href="#base-case" class="headerlink" title="base case"></a>base case</h3><p>该题的启动点是0-i和0-j对于第一个数组转换成第二个数组的次数是明确的。</p>
-<h3 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h3><p>1.注意是从已有值转移过来的，所以设计状态方程时候需要考虑base case。</p>
-<p>2.一般涉及字符串转换的题都有一个思路是根据双指针指到的字符相等与否来进行状态转移考虑，再结合dp数组的含义即可。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 10010 ;
-
-int f[N][N] ;
-
-char p[N] ,q[N] ;
-int main()
-&#123;
-    
-    int n , m  ; 
-    scanf("%d%s",&n , p+1) ;    //这有一个小技巧，当涉及字符串的读入的时候，尽量使用%s，防止空格的读入
-    scanf("%d%s",&m , q+1) ;
-    
-    //base case
-    
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        f[i][0] = i ; 
-    &#125;
-    for(int j = 1 ; j <= m ;++j)
-    &#123;
-        f[0][j] = j ;
-    &#125;
-    
-    //状态转移
-    
-    for(int i = 1 ; i <= n ;++i)
-    &#123;
-        for(int j = 1 ; j <= m ;++j)
-        &#123;
-            f[i][j] = min(f[i-1][j] , f[i][j-1]) ; //之前我一直在想这一步的必要性，后来其实是如果不写的话，后面的转移就直接没有值
-            if(p[i] == q[j])
-            &#123;
-                f[i][j] = min(f[i][j] , f[i-1][j-1]) ;
-            &#125;
-            else
-            &#123;
-                f[i][j] = min(f[i][j] , f[i-1][j-1] + 1) ;
-            &#125;
-        &#125;
-    &#125;
-    
-    cout << f[n][m] << endl ;
-       return 0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+                
                 
             </div>
             <hr/>
@@ -582,7 +501,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/10/01/dong-tai-gui-hua-yi-ri-yi-ti-10.1-zui-xiao-bian-ji-ju-chi/">https://luolin03.github.io/2021/10/01/dong-tai-gui-hua-yi-ri-yi-ti-10.1-zui-xiao-bian-ji-ju-chi/</a>
+                    <a href="https://luolin03.github.io/2021/10/26/er-wei-vector-shi-yong-de-zhu-yi-dian/">https://luolin03.github.io/2021/10/26/er-wei-vector-shi-yong-de-zhu-yi-dian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -619,11 +538,7 @@ int main()
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E7%BA%BF%E6%80%A7dp/">
-                                    <span class="chip bg-color">一日一题 线性dp</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -671,13 +586,13 @@ int main()
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/10/02/dong-tai-gui-hua-yi-ri-yi-ti-10-2-shi-zi-he-bing/">
+                <a href="/2021/10/26/dfs-qiu-zu-he-shu-ti-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="动态规划一日一题-10.2-石子合并">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="dfs求组合数题型">
                         
-                        <span class="card-title">动态规划一日一题-10.2-石子合并</span>
+                        <span class="card-title">dfs求组合数题型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -688,7 +603,7 @@ int main()
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-26
                         </span>
                         <span class="publish-author">
                             
@@ -701,8 +616,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%B8%80%E6%97%A5%E4%B8%80%E9%A2%98-%E5%8C%BA%E9%97%B4dp/">
-                        <span class="chip bg-color">一日一题 区间dp</span>
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
                     </a>
                     
                 </div>
@@ -716,13 +631,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/27/wei-yun-suan/">
+                <a href="/2021/10/25/leetcode-240/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="位运算">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="leetcode 240">
                         
-                        <span class="card-title">位运算</span>
+                        <span class="card-title">leetcode 240</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -733,7 +648,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-25
                             </span>
                         <span class="publish-author">
                             
@@ -746,8 +661,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/leetcode/">
+                        <span class="chip bg-color">leetcode</span>
                     </a>
                     
                 </div>
