@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 
@@ -813,7 +813,7 @@ int main()
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最后解决一下为什么spfa和bellman_ford算法可以解决负权边的问题。</p>
 <p>因为对于dijkstra算法，他是一锤子买卖，之所以不可以解决负的问题我们用图来进行解释。</p>
-<p><img src="C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20211101000518487.png" alt="image-20211101000518487"></p>
+<p><img src="D:\luolin03\source\images\image-20211101000518487.png" alt="image-20211101000518487"></p>
 <p>是因为如图所示，如果按照dijkstra算法的尿性，入集合的顺序是1，2,4,6 ， 但是其实是应该是1,3,5,6.是因为在2与3进行纠结的时候，把2push到了集合里面，之后就不会放出来了。而后续的所有直到所有的节点的距离之和都不会大于1到3的距离，所以说他是一锤子买卖，一旦选定了当时距离起点最近的点之后，就push进集合，不出来了，然后就用这个点来进行更新，所以一旦有负全边，他根本看不见，可以理解为是1到3的距离，直接蒙蔽了dijkstra的眼睛，让他看不见之后的-100的权值。</p>
 <p>那我们再来看，bellman_ford，spfa和bellman_ford原理相同，我们就拿bellman_ford做例子。</p>
 <p>他是完全暴力，按照边来更新的，不像dijkstra是按点来更新的，所以他每一次迭代，都会重新刷新一遍所有点，取其中最小的边，来进行后继的更新，所以被更新后的点，可以再次被更新，所以他完全可以看见负权边的存在。</p>

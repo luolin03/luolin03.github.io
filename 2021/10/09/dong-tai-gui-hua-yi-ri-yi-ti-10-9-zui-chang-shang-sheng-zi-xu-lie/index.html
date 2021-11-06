@@ -29,8 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 
@@ -615,6 +615,282 @@ int main()
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>ok,以上是解决了长度的问题，那我们开始举一反三，是否可以在举一个同类的问题</p>
 <h2 id="能否返回所有长度为最长的上升子序列的个数？"><a href="#能否返回所有长度为最长的上升子序列的个数？" class="headerlink" title="能否返回所有长度为最长的上升子序列的个数？"></a>能否返回所有长度为最长的上升子序列的个数？</h2><p>好吧，今天时间有限，等下次在更…….</p>
+<p>—————————————————————————–2021.11.6更新————————————————————————————-</p>
+<p>如何才能返回所有长度为最长的上升子序列长度的个数呢，我们先来看一下leetcode里面的一道题</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/">673. 最长递增子序列的个数 - 力扣（LeetCode） (leetcode-cn.com)</a></p>
+<p>可以看出来，与单纯的求最长递增子序列相比，该题多了一维信息，那就是收集f[i] == ans的f[i]的个数。可以看成是二维的LIS问题。</p>
+<p>那么我们怎么进行g[i] (以nums[i] 为结尾的最长子序列的个数)的更新呢？</p>
+<h3 id="逻辑分析"><a href="#逻辑分析" class="headerlink" title="逻辑分析"></a>逻辑分析</h3><p>状态表示：<code>g[i]</code> 表示以nums[i] 结尾的同时是最长递增子序列的个数</p>
+<p>状态属性：max</p>
+<p>base case：g[i] = 1 ;</p>
+<p>状态转移：在对f数组进行更新的时候，我们考虑到<code>f[i] = max(f[i] , f[j] + 1)</code> ，这表示着f的状态的两个来源，</p>
+<p>我们分成三个情况来讨论：</p>
+<p>一：<code>f[i] &gt; f[j] + 1</code> 表示不需要用这个j来进行更新，也就是说，不会发生任何事情，所以我们在代码中可以直接省略</p>
+<p>二：<code>f[i] == f[j] + 1</code> 表示在i之前还存在一种情况可以在i的序号下得到最长子序列，例如：<code>1223</code> ，以3为结尾就会有两个。我们可以直接<code>g[i] += g[j] </code> 即可。</p>
+<p>三：<code>f[i] &lt; f[j] + 1</code> 表示可以用j来进行更新当前的数组，那就是<code>g[i] = g[j]</code> 即可。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">//用代码表示转移方程就是这样的
+
+for(int i = 0 ; i < n ; ++ i)
+&#123;
+    f[i] = g[i] = 1 ; 
+    for(int j = 0 ; j < i; ++ j)
+    &#123;
+        if(nums[i] > nums[j])
+        &#123;
+            if(f[i] == f[j] + 1)
+            &#123;
+                g[i] += g[j] ; 
+            &#125;
+            else if(f[i] < f[j] + 1)
+            &#123;
+                g[i] = g[j] ; 
+                f[i] = f[j] + 1 ; 
+            &#125;
+        &#125;
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Talk is cheap ,Show me your code!!!</p>
+<h4 id="同时更新版本"><a href="#同时更新版本" class="headerlink" title="同时更新版本"></a>同时更新版本</h4><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    int findNumberOfLIS(vector<int>& nums) &#123;
+        int res = 0  ,ans = 0  ; 
+        int n = nums.size() ; 
+        vector<int> f(n) , g(n) ;
+        for(int i =  0;  i < n ; ++ i)
+        &#123;
+            f[i] = g[i] = 1 ; 
+            for(int j = 0 ; j < i  ; ++ j)
+            &#123;
+                if(nums[i] > nums[j])
+                &#123;
+                    if(f[i] == f[j] + 1)
+                    &#123;
+                        g[i] += g[j] ; 
+                    &#125;
+                    else if(f[i] < f[j] + 1)
+                    &#123;
+                        g[i] = g[j] ; 
+                        f[i] = f[j] + 1  ;
+                    &#125;
+                &#125;
+            &#125;
+            ans = max(ans , f[i]) ; 
+        &#125;
+        
+        for(int i = 0 ; i < n ; ++ i)
+        &#123;
+                if(f[i] == ans)
+                &#123;
+                    res += g[i] ; 
+                &#125;
+        &#125;
+        return res ; 
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ok,这是同时更新f,g的版本。我们还可以将f与g独立处理.</p>
+<h4 id="独立处理版本"><a href="#独立处理版本" class="headerlink" title="独立处理版本"></a>独立处理版本</h4><pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    int ans = 0  ,res = 0 ; 
+    int findNumberOfLIS(vector<int>& nums) &#123;
+        int n = nums.size() ;
+        vector<int> f(n) , g(n) ;          
+        for(int i = 0 ; i < n ; ++ i)
+        &#123;
+            f[i] = 1 ;
+            for(int j = 0 ; j < i  ; ++ j)
+            &#123;
+                if(nums[i] > nums[j])
+                f[i] = max(f[i] , f[j] + 1) ; 
+            &#125;
+            ans = max(ans , f[i]) ; 
+        &#125; 
+        for(int i = 0 ; i < n ; ++ i)
+        &#123;
+            if(f[i] == 1) g[i] = 1 ; 
+            for(int j = 0 ; j < i ; ++ j)
+            &#123;
+                if(f[i] == f[j] + 1 && nums[i] > nums[j])
+                    g[i] += g[j] ; 
+            &#125;
+        &#125;
+        
+        for(int i = 0 ;  i < n ; ++ i)
+        &#123;
+            if(f[i] == ans)
+                res += g[i] ; 
+        &#125;
+        return res  ;
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>意思要比同时更新要更加好理解，先按部就班的将f数组完成，对于g数组来说，只要f[i] 是由可以有f[j] 来更新到的，他就会把所有的可能都加进去，前提是g[i] 一开始是空的，如果初始化为1的话，结果会有错。最后，只要查找哪些f是最大的，然后res一直加上g就可以了。</p>
+<p>所以为什么要说这个呢?</p>
+<p>是为了引出下面这一道题，他是上面的题目的变种，需要稍加考虑一下细节。</p>
+<p>ok，我们再来看看这一道题。</p>
+<h2 id="低买"><a href="#低买" class="headerlink" title="低买"></a>低买</h2><hr>
+<p>给定一段时间内股票的每日售价（正 16 位整数）。</p>
+<p>你可以选择在任何一天购买股票。</p>
+<p>每次你选择购买时，当前的股票价格必须严格低于你之前购买股票时的价格。</p>
+<p>编写一个程序，确定你应该在哪些天购进股票，可以使得你能够购买股票的次数最大化。</p>
+<p>例如，下面是一个股票价格时间表：</p>
+<pre><code> Day   1  2  3  4  5  6  7  8  9 10 11 12
+
+Price 68 69 54 64 68 64 70 67 78 62 98 87
+</code></pre>
+<p>如果每次购买都必须遵循当前股票价格严格低于之前购买股票时的价格，那么投资者最多可以购买四次该股票。</p>
+<p>买进方案之一为：</p>
+<pre><code>Day    2  5  6 10
+
+Price 69 68 64 62
+</code></pre>
+<h4 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h4><p>第 1 行包含整数 N，表示给出的股票价格的天数。</p>
+<p>第 2 至最后一行，共包含 N 个整数，每行 10 个，最后一行可能不够 10 个，表示 N 天的股票价格。</p>
+<p>同一行数之间用空格隔开。</p>
+<h4 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出占一行，包含两个整数，分别表示最大买进股票次数以及可以达到最大买进次数的方案数。</p>
+<p>如果两种方案的买入日序列不同，但是价格序列相同，则认为这是相同的方案（只计算一次）。</p>
+<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤5000</p>
+<h4 id="输入样例1："><a href="#输入样例1：" class="headerlink" title="输入样例1："></a>输入样例1：</h4><pre><code>12
+68 69 54 64 68 64 70 67 78 62
+98 87
+</code></pre>
+<h4 id="输出样例1："><a href="#输出样例1：" class="headerlink" title="输出样例1："></a>输出样例1：</h4><pre><code>4 2
+</code></pre>
+<h4 id="输入样例2："><a href="#输入样例2：" class="headerlink" title="输入样例2："></a>输入样例2：</h4><pre><code>5
+4 3 2 1 1
+</code></pre>
+<h4 id="输出样例2："><a href="#输出样例2：" class="headerlink" title="输出样例2："></a>输出样例2：</h4><pre><code>4 1
+</code></pre>
+<hr>
+<h4 id="逻辑思路"><a href="#逻辑思路" class="headerlink" title="逻辑思路"></a>逻辑思路</h4><p>题目意思比较直白，就是LDS(最长下降子序列) ,但是要注意点是，位置不同但是数字相同的只能算一种。</p>
+<p>例如<code>1223</code> res == 1,而不是res==2 。 </p>
+<p>那我们如何来考虑呢？</p>
+<p>我们先用独立处理的方式来进行分析，f的算法是不会变得。那么对于，g数组其实就是在从左往右的顺序的时候，当f[i] == f[j] &amp;&amp; nums[i] == nums[j] ，的时候需要特判一下，这就相当于是到第三位的时候是2，此时<code>f[3] == 2</code> <code>f[2] == 2</code> ，并且<code>nums[2] == nums[3] == 2</code> ，所以我们需要将此时的g，变成0，反正就是只要加上一个就行了，随便你是g[i] =0 , 还是g[j] = 0 这样，我们在最后一次循环得出res的时候，只会加一次。</p>
+<p>ok，这就是大致思路，下面贴个代码。</p>
+<h4 id="独立处理做法"><a href="#独立处理做法" class="headerlink" title="独立处理做法"></a>独立处理做法</h4><pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 5010 ; 
+
+int nums[N] , f[N] , g[N] ; 
+
+int n ;
+ 
+int res = 0  ,ans = 0  ;
+
+int main()
+&#123;
+    cin >> n ;
+    
+    for(int i = 1; i <= n ; ++ i)
+    &#123;
+        cin >> nums[i] ; 
+    &#125;
+    
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        f[i] = 1; 
+         for(int j = 1 ; j < i ; ++ j)
+         &#123;
+             if(nums[i] < nums[j])
+             f[i] = max(f[i] , f[j] + 1) ; 
+         &#125;
+         ans = max(ans , f[i]) ;
+    &#125;
+    
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        if(f[i] == 1) g[i] = 1; 
+        for(int j = 1 ;  j < i ; ++ j)
+        &#123;
+            if(f[i] == f[j] + 1 && nums[i] < nums[j])
+                g[i] += g[j] ; 
+            else if(f[i] == f[j] && nums[i] == nums[j])
+                g[j] = 0 ; 
+        &#125;
+    &#125;
+    
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        if(f[i] == ans)
+            res += g[i] ; 
+    &#125;
+    
+    cout << ans  << " "<< res << endl ; 
+    
+    return  0 ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>那我们用同步更新的思路来再想一遍</p>
+<p>对于f来说，依然是没有什么影响。此时，对于g来说，一种从源头根治的方法是，每次j来进行搜索的时候，都将在确立了f之后，将之前的相同元素的f变为另一个很小的数。</p>
+<h4 id="同步更新思路："><a href="#同步更新思路：" class="headerlink" title="同步更新思路："></a>同步更新思路：</h4><p>贴个代码：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
+
+using namespace std ;
+
+const int N = 5010 ; 
+
+int nums[N] , f[N] , g[N] ; 
+
+int n ;
+ 
+int res = 0  ,ans = 0  ;
+
+int main()
+&#123;
+    cin >> n ;
+    
+    for(int i = 1; i <= n ; ++ i)
+    &#123;
+        cin >> nums[i] ; 
+    &#125;
+
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        f[i]  = 1 ;  
+        for(int j = 1 ; j < i ; ++ j)
+        &#123;
+            if(nums[j] > nums[i])
+                f[i] = max(f[i] , f[j] + 1) ; 
+        &#125;
+        
+        if(f[i] == 1) g[i] = 1 ;
+        ans = max(ans , f[i]) ; 
+        
+        for(int j = 1 ; j < i ; ++ j)
+        &#123;
+            if(nums[j] == nums[i])
+                f[j] = -1 ;
+        &#125;
+        
+        
+        
+        for(int j = 1 ; j < i ; ++ j)
+        &#123;
+            if(nums[j] > nums[i] && f[i] == f[j] + 1)
+                g[i] += g[j] ; 
+        &#125;
+        
+    &#125;
+
+    for(int i = 1 ; i <= n ; ++ i)
+    &#123;
+        if(f[i] == ans)
+        &#123;
+            res += g[i] ; 
+        &#125;
+    &#125;
+
+    cout << ans  << " "<< res << endl ; 
+    
+    return  0 ;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实还有一个有意思的地方是在于，不同方法的时候，g的预处理的值也是比较有意思的。</p>
+<p>总结一下，独立处理意思容易理解，但是代码相对来说比较冗余。同时更新理解起来稍微难一些，但是代码要简洁。</p>
+<p>好了，说完了，拜拜 &gt;_&lt; .</p>
 
                 
             </div>
