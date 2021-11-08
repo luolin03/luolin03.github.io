@@ -502,6 +502,54 @@ int main()
 <p>小细节：</p>
 <p>好吧，这样是不行的，将<code>a.push_back(res)</code> ，应该将<code>a += res ; </code> </p>
 <p>算了，写都写了，贴个代码吧：</p>
+<p>我一开始是用hash table来进行find的，最后只击败5%的人，原始代码如下：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
+public:
+    string getHint(string secret, string guess) &#123;
+        int n = secret.size() ; 
+        string ans = "" ; 
+        multiset<char> ha1 , ha2 ;   
+        int res = 0 ; 
+        for(int i = 0; i < n ; ++ i)
+        &#123;
+            if(secret[i] == guess[i])
+            &#123;
+                res ++ ;
+                secret[i] = guess[i] = -1 ; 
+            &#125;
+        &#125;
+        string num = to_string(res) ;  
+        ans+=num ; 
+        ans.push_back('A') ;
+
+        for(int i = 0 ; i < n ; ++ i)
+        &#123;
+            if(secret[i] != -1 && guess[i] != -1)
+            &#123;
+                ha1.insert(secret[i]) ;
+                ha2.insert(guess[i]) ;  
+            &#125;
+        &#125; 
+        int cnt = 0  ;
+        for(char c : ha1)
+        &#123;
+            auto it = ha2.find(c) ; 
+            if(it != ha2.end())
+            &#123;
+                cnt ++ ; 
+                ha2.erase(it)  ;     
+            &#125;
+        &#125;
+ 
+        string cn = to_string(cnt) ; 
+        ans+=cn ;
+        ans.push_back('B') ;
+
+        return ans ; 
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>后来看到大佬是可以直接用数组来优化的，学习了.</p>
 <pre class="line-numbers language-c++"><code class="language-c++">class Solution &#123;
 public:
     string getHint(string secret, string guess) &#123;
