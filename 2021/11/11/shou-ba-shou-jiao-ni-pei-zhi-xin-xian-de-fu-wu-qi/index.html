@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="滑雪场设计, 罗林的博客">
+    <meta name="keywords" content="手把手教你配置新鲜的服务器, 罗林的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>滑雪场设计 | 罗林的博客</title>
+    <title>手把手教你配置新鲜的服务器 | 罗林的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">滑雪场设计</h1>
+                    <h1 class="description center-align post-title">手把手教你配置新鲜的服务器</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%B4%AA%E5%BF%83/">
-                                <span class="chip bg-color">贪心</span>
+                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                                <span class="chip bg-color">服务器</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-17
+                    2021-11-11
                 </div>
                 
 
@@ -457,7 +457,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    614
+                    13
                 </div>
                 
 
@@ -479,75 +479,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="滑雪场设计"><a href="#滑雪场设计" class="headerlink" title="滑雪场设计"></a>滑雪场设计</h1><hr>
-<p>农夫约翰的农场上有 N个山峰，每座山的高度都是整数。</p>
-<p>在冬天，约翰经常在这些山上举办滑雪训练营。</p>
-<p>不幸的是，从明年开始，国家将实行一个关于滑雪场的新税法。</p>
-<p>如果滑雪场的最高峰与最低峰的高度差大于17，国家就要收税。</p>
-<p>为了避免纳税，约翰决定对这些山峰的高度进行修整。</p>
-<p>已知，增加或减少一座山峰 x 单位的高度，需要花费 x2 的金钱。</p>
-<p>约翰<strong>只愿意改变整数单位</strong>的高度，且每座山峰<strong>只能修改一次</strong>。</p>
-<p>请问，约翰最少需要花费多少钱，才能够使得最高峰与最低峰的高度差不大于17。</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行包含整数 N。</p>
-<p>接下来 N 行，每行包含一个整数，表示一座山的高度。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个整数，表示最少花费的金钱。</p>
-<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1≤N≤1000,<br>数据保证，每座山的初始高度都在 0∼100 之间。</p>
-<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><pre><code>5
-20
-4
-1
-24
-21
-</code></pre>
-<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><pre><code>18
-</code></pre>
-<h4 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h4><p>最佳方案为，将高度为 1 的山峰，增加 3 个单位高度，将高度为 24 的山峰，减少 3 个单位高度。</p>
-<hr>
-<p>其实这一题的话，如果你想不到用枚举来做的话，是很难想的。因为这一题，你进行将最小的加上去之后，可能他就不是最小的了，最大的减去之后，他有可能就不是最大的了。可能会有新的两座山峰不满足情况，也就是说，这一题中的两座山峰是动态变化的，所以想要通过找最大和最小来做的方法基本就GG了。</p>
-<p>那我们怎么做呢？我们要学着在动中找变，正好我们观察一下数据，<code>每座山峰的高度在1~100之间</code>。</p>
-<p>我们可以进行枚举修剪后最矮山峰的高度low , low显然是在1-83以内，然后让超过的山峰满足在17以内，低于low的山峰，修改到low，依次来计算一下费用。然后比较一下，输出最小费就行了。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include <bits/stdc++.h>
-
-using namespace std ;
-
-const int N = 1010 ; 
-
-int a[N] ; 
-
-int main()
-&#123;
-    int n ; 
-    cin >> n ; 
-    
-    for(int i = 1 ; i <= n  ; ++ i)
-    &#123;
-        cin >> a[i] ; 
-    &#125;
-    
-    //枚举一下 low
-    int res = 1e9 ; 
-    for(int low = 1 ; low <= 83 ; ++ low)
-    &#123;
-        int fee = 0  ;
-        for(int i = 1 ; i <= n ; ++ i)
-        &#123; 
-            if(a[i] < low)
-            &#123;
-                fee += pow(low - a[i] , 2) ; 
-            &#125;
-            if(a[i] > low + 17)
-            &#123;
-                fee  += pow(a[i] - low - 17 , 2) ;  
-            &#125;
-        &#125;
-        res = min (fee , res) ; 
-    &#125;
-    cout << res << endl ; 
-    return  0 ; 
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>有时候当一个思路受阻的时候，要学着换一种思路，不要一条根本不通的路想要走到黑，只是浪费时间而已。</p>
-
+                <h1 id="配置毛坯服务器的傻瓜式教程"><a href="#配置毛坯服务器的傻瓜式教程" class="headerlink" title="配置毛坯服务器的傻瓜式教程"></a>配置毛坯服务器的傻瓜式教程</h1>
                 
             </div>
             <hr/>
@@ -573,7 +505,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://luolin03.github.io/2021/10/17/hua-xue-chang-she-ji/">https://luolin03.github.io/2021/10/17/hua-xue-chang-she-ji/</a>
+                    <a href="https://luolin03.github.io/2021/11/11/shou-ba-shou-jiao-ni-pei-zhi-xin-xian-de-fu-wu-qi/">https://luolin03.github.io/2021/11/11/shou-ba-shou-jiao-ni-pei-zhi-xin-xian-de-fu-wu-qi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -611,8 +543,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%B4%AA%E5%BF%83/">
-                                    <span class="chip bg-color">贪心</span>
+                                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                                    <span class="chip bg-color">服务器</span>
                                 </a>
                             
                         </div>
@@ -662,13 +594,13 @@ int main()
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/10/20/yi-chong-jian-dan-dan-shi-hen-fei-shi-jian-de-tan-xin-ti-mo-ban/">
+                <a href="/2021/11/19/ubuntu-fu-wu-qi-shang-pei-zhi-docker-jiao-cheng-yi-ji-docker-de-yi-xie-chang-yong-ming-ling/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="一种简单但是很费时间的贪心题模板">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="在ubuntu服务器上搭建docker以及docker的一些常用命令">
                         
-                        <span class="card-title">一种简单但是很费时间的贪心题模板</span>
+                        <span class="card-title">在ubuntu服务器上搭建docker以及docker的一些常用命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -679,7 +611,7 @@ int main()
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-20
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
                         </span>
                         <span class="publish-author">
                             
@@ -692,8 +624,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%B4%AA%E5%BF%83/">
-                        <span class="chip bg-color">贪心</span>
+                    <a href="/tags/linux%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">linux基础</span>
                     </a>
                     
                 </div>
@@ -707,13 +639,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/17/fen-qiao-ke-li/">
+                <a href="/2021/11/08/string-de-yi-ge-xiao-te-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="分巧克力">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="string的一个小特性">
                         
-                        <span class="card-title">分巧克力</span>
+                        <span class="card-title">string的一个小特性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -724,7 +656,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-08
                             </span>
                         <span class="publish-author">
                             
@@ -737,8 +669,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/acwing/">
-                        <span class="chip bg-color">acwing</span>
+                    <a href="/tags/%E5%B0%8F%E7%BB%86%E8%8A%82/">
+                        <span class="chip bg-color">小细节</span>
                     </a>
                     
                 </div>
