@@ -498,7 +498,7 @@
 <p>就是首先在本地删除这个a文件，然后将这个删除操作添加到staged里面。</p>
 <p><code>git restore</code> 将工作区的文件变成与暂存区相同</p>
 <p><code>git restore --staged a.txt</code> 从暂存区中撤销对a文件的操作</p>
-<h3 id="暂存区-gt-版本库"><a href="#暂存区-gt-版本库" class="headerlink" title="暂存区-&gt;版本库"></a>暂存区-&gt;版本库</h3><p><code>git commit --m&quot;备注信息&quot; </code>将暂存区的文件传入版本库</p>
+<h3 id="暂存区-gt-版本库"><a href="#暂存区-gt-版本库" class="headerlink" title="暂存区-&gt;版本库"></a>暂存区-&gt;版本库</h3><p><code>git commit -m&quot;备注信息&quot; </code>将暂存区的文件传入版本库</p>
 <h3 id="代码回滚"><a href="#代码回滚" class="headerlink" title="代码回滚"></a>代码回滚</h3><p><code>git reset --hard HEAD^^</code> 回退两个版本</p>
 <p><code>git reset --hard HEAD ~100</code>  回退100个版本</p>
 <p>如果想要直接跳转到那个版本的话</p>
